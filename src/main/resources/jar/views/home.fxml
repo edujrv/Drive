@@ -44,7 +44,7 @@
                   <Separator opacity="0.0" orientation="VERTICAL" prefHeight="73.0" prefWidth="58.0" />
                   <ImageView fitHeight="60.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@Downloads/drive.png" />
+                        <Image url="@../images/drive.png" />
                      </image></ImageView>
                   <Separator opacity="0.0" orientation="VERTICAL" prefHeight="73.0" prefWidth="75.0" />
                   <TextField prefHeight="37.0" prefWidth="461.0" />
@@ -52,7 +52,7 @@
                      <graphic>
                         <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@Downloads/lupa.png" />
+                              <Image url="@../images/lupa.png" />
                            </image>
                         </ImageView>
                      </graphic>
