@@ -2,10 +2,10 @@ package jar.model;
 
 import java.util.Date;
 
-public class ElementDataCreate extends Element {
+public class ElementDataCreate {
 
-    public Date startDate;
-    public User creatorUser;
+    private Date startDate;
+    private User creatorUser;
 
     /*
      * Construct.

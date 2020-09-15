@@ -1,21 +1,23 @@
 package jar.model;
 
-import java.util.Date;
+public abstract class Element {
 
-public class Element {
+    private String name;
+    private String path;
+    private Content content;
+    private boolean isFeatured = false;
+    private boolean isErased = false;
+    private Folder parentFolder;
+    private int idElement;
 
-    public String name = "";
-    public String path = "";
-    public Date updatedDate;
-    public boolean featured = false;
-    public boolean erased = false;
-    public Folder containerFolder;
-    public int idElement = 0;
-
-    /*
-     * Construct.
-     */
     public Element() {
+    }
+
+    public Element(String name, String path, Content content, Folder parentFolder) {
+        setName(name);
+        setPath(path);
+        setContent(content);
+        setParentFolder(parentFolder);
     }
 
     /*
@@ -30,24 +32,24 @@ public class Element {
         return path;
     }
 
-    public Date getUpdatedDate() {
-        return updatedDate;
-    }
-
     public boolean isFeatured() {
-        return featured;
+        return isFeatured;
     }
 
     public boolean isErased() {
-        return erased;
+        return isErased;
     }
 
-    public Folder getContainerFolder() {
-        return containerFolder;
+    public Folder getParentFolder() {
+        return parentFolder;
     }
 
     public int getIdElement() {
         return idElement;
+    }
+
+    public Content getContent() {
+        return content;
     }
 
     /*
@@ -62,23 +64,23 @@ public class Element {
         this.path = path;
     }
 
-    public void setUpdatedDate(Date updatedDate) {
-        this.updatedDate = updatedDate;
+    public void setIsFeatured(boolean isFeatured) {
+        this.isFeatured = isFeatured;
     }
 
-    public void setFeatured(boolean featured) {
-        this.featured = featured;
+    public void setIsErased(boolean isErased) {
+        this.isErased = isErased;
     }
 
-    public void setErased(boolean erased) {
-        this.erased = erased;
-    }
-
-    public void setContainerFolder(Folder containerFolder) {
-        this.containerFolder = containerFolder;
+    public void setParentFolder(Folder parentFolder) {
+        this.parentFolder = parentFolder;
     }
 
     public void setIdElement(int idElement) {
         this.idElement = idElement;
+    }
+
+    public void setContent(Content content) {
+        this.content = content;
     }
 }
