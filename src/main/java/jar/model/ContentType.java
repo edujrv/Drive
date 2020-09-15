@@ -1,8 +1,13 @@
 package jar.model;
 
-public class ContentType extends Content {
+public class ContentType {
 
-    public String type = "";
+    // TODO: Completar
+    public static enum TYPE {
+        IMAGE, PDF, VIDEO
+    }
+
+    private TYPE type;
 
     /*
      * Construct.
@@ -15,7 +20,7 @@ public class ContentType extends Content {
      * Getters.
      */
 
-    public String getType() {
+    public TYPE getType() {
         return type;
     }
 
@@ -23,7 +28,7 @@ public class ContentType extends Content {
      * Setters.
      */
 
-    public void setType(String type) {
+    public void setType(TYPE type) {
         this.type = type;
     }
 }

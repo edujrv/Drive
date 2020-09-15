@@ -2,11 +2,13 @@ package jar.model;
 
 //import com.sun.prism.Texture;
 
-public class Content extends Element {
+public class Content {
 
     // public Texture textureContent;
-    public ContentType contentType;
-    public ElementDataCreate DataCreate;
+    private ContentType contentType;
+    private ElementDataCreate dataCreate;
+    private ElementLastUpdate lastUpdate;
+    private ElementLastOpened lastOpened;
 
     /*
      * Construct.
@@ -15,37 +17,60 @@ public class Content extends Element {
     public Content() {
     }
 
-    /*
-     * Getters.
+    /**
+     * @return ContentType return the contentType
      */
-
-    /*
-     * public Texture getTextureContent() { return textureContent; }
-     */
-
     public ContentType getContentType() {
         return contentType;
     }
 
-    public ElementDataCreate getDataCreate() {
-        return DataCreate;
-    }
-
-    /*
-     * Setters.
+    /**
+     * @param contentType the contentType to set
      */
-
-    /*
-     * public void setTextureContent(Texture textureContent) { this.textureContent =
-     * textureContent; }
-     */
-
     public void setContentType(ContentType contentType) {
         this.contentType = contentType;
     }
 
+    /**
+     * @return ElementDataCreate return the dataCreate
+     */
+    public ElementDataCreate getDataCreate() {
+        return dataCreate;
+    }
+
+    /**
+     * @param dataCreate the dataCreate to set
+     */
     public void setDataCreate(ElementDataCreate dataCreate) {
-        DataCreate = dataCreate;
+        this.dataCreate = dataCreate;
+    }
+
+    /**
+     * @return ElementLastUpdate return the lastUpdate
+     */
+    public ElementLastUpdate getLastUpdate() {
+        return lastUpdate;
+    }
+
+    /**
+     * @param lastUpdate the lastUpdate to set
+     */
+    public void setLastUpdate(ElementLastUpdate lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+    /**
+     * @return ElementLastOpened return the lastOpened
+     */
+    public ElementLastOpened getLastOpened() {
+        return lastOpened;
+    }
+
+    /**
+     * @param lastOpened the lastOpened to set
+     */
+    public void setLastOpened(ElementLastOpened lastOpened) {
+        this.lastOpened = lastOpened;
     }
 
 }
