@@ -3,18 +3,20 @@ package jar.dao;
 import java.util.List;
 import java.util.Optional;
 
-public class UserDAO implements IDAO {
+import jar.model.User;
+
+public class UserDAO implements IDAO<User> {
 
     // ! Aca deberiamos hacer las llamadas a la api
 
     @Override
-    public List getAll() {
+    public List<User> getAll() {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public Optional get(int id) {
+    public Optional<User> get(int id) {
         // TODO Auto-generated method stub
         return null;
     }
