@@ -9,13 +9,20 @@ public class User implements Comparable<User> {
     private String name;
     private String lastName;
     private String mail;
-    private String password; // ? Deberia ir??
 
     /*
      * Construct.
      */
 
     public User() {
+    }
+
+    public User(int id, String userName, String name, String lastName, String mail) {
+        setId(id);
+        setUserName(userName);
+        setName(name);
+        setLastName(lastName);
+        setMail(mail);
     }
 
     /*
@@ -42,10 +49,6 @@ public class User implements Comparable<User> {
         return mail;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     /*
      * Setters.
      */
@@ -70,22 +73,21 @@ public class User implements Comparable<User> {
         this.mail = mail;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    // TODO: Implementar estos metodos
-
+    /**
+     * A user is equals to other user if their IDs match
+     */
     @Override
     public boolean equals(Object obj) {
         return getId() == ((User) obj).getId();
     }
 
-    // ? Bajo que condicion un "User" es menor o mayor a otro??
+    /**
+     * A user is bigger or lesser than other user if their "userName" are
+     * respectively so
+     */
     @Override
     public int compareTo(User arg0) {
-        // TODO Auto-generated method stub
-        return 0;
+        return this.userName.compareTo(arg0.getUserName());
     }
 
 }

@@ -2,7 +2,7 @@ package jar.model;
 
 import java.time.LocalDateTime;
 
-public class Event<E> {
+public class Event<E> implements Comparable<Event<E>> {
     public static enum TypeEvent {
         ADD, REMOVE, UPDATE
     }
@@ -73,6 +73,24 @@ public class Event<E> {
      */
     public void setObjEventOn(E objEventOn) {
         this.objEventOn = objEventOn;
+    }
+
+    /**
+     * An event is equals to other event if all their attributes are the same
+     */
+    @Override
+    public boolean equals(Object obj) {
+        Event<E> e = (Event<E>) obj;
+        return getType().equals(e.getType()) && getUser().equals(e.getUser()) && getEventTime().equals(e.getEventTime())
+                && getObjEventOn().equals(e.getObjEventOn());
+    }
+
+    /**
+     * An event is comparable to other event based on their eventTime
+     */
+    @Override
+    public int compareTo(Event<E> arg0) {
+        return getEventTime().compareTo(arg0.getEventTime());
     }
 
 }

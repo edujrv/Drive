@@ -1,22 +1,31 @@
 package jar.model;
 
-public class File extends Element {
-    private double size;
+public class File extends Element implements Comparable<File> {
+    // fileSize is in bytes
+    private long fileSize;
 
     public File() {
     }
 
-    public File(String name, String path, Content content, Folder parentFolder, double size) {
+    public File(String name, String path, Content content, Folder parentFolder, long fileSize) {
         super(name, path, content, parentFolder);
-        setSize(size);
+        setFileSize(fileSize);
     }
 
-    public double getSize() {
-        return size;
+    public long getFileSize() {
+        return fileSize;
     }
 
-    public void setSize(double size) {
-        this.size = size;
+    public void setFileSize(long fileSize) {
+        this.fileSize = fileSize;
+    }
+
+    /**
+     * A file is comparable to other file based on their fileSize
+     */
+    @Override
+    public int compareTo(File arg0) {
+        return (int) (getFileSize() - arg0.getFileSize());
     }
 
 }

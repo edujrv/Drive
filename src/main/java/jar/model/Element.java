@@ -83,4 +83,13 @@ public abstract class Element {
     public void setContent(Content content) {
         this.content = content;
     }
+
+    /**
+     * An element is equals to other element if their IdElement match
+     */
+    @Override
+    public boolean equals(Object obj) {
+        return getIdElement() == ((Element) obj).getIdElement();
+    }
+
 }
