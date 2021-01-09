@@ -1,5 +1,7 @@
 package jar.model;
 
+import java.util.List;
+
 //import com.sun.prism.Texture;
 
 public class Content {
@@ -9,12 +11,31 @@ public class Content {
     private ElementDataCreate dataCreate;
     private ElementLastUpdate lastUpdate;
     private ElementLastOpened lastOpened;
+    private User owner;
+    private boolean isShared;
+    private List<User> sharedWith;
 
     /*
      * Construct.
      */
 
     public Content() {
+    }
+
+    public Content(ContentType contentType, ElementDataCreate dataCreate, ElementLastOpened lastOpened,
+            ElementLastUpdate lastUpdate, User owner) {
+        setContentType(contentType);
+        setDataCreate(dataCreate);
+        setLastOpened(lastOpened);
+        setLastUpdate(lastUpdate);
+        setOwner(owner);
+    }
+
+    public Content(ContentType contentType, ElementDataCreate dataCreate, ElementLastOpened lastOpened,
+            ElementLastUpdate lastUpdate, User owner, boolean isShared, List<User> sharedWith) {
+        this(contentType, dataCreate, lastOpened, lastUpdate, owner);
+        setIsShared(isShared);
+        setSharedWith(sharedWith);
     }
 
     /**
@@ -71,6 +92,48 @@ public class Content {
      */
     public void setLastOpened(ElementLastOpened lastOpened) {
         this.lastOpened = lastOpened;
+    }
+
+    /**
+     * @return User return the owner
+     */
+    public User getOwner() {
+        return owner;
+    }
+
+    /**
+     * @param owner the owner to set
+     */
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    /**
+     * @return boolean return the isShared
+     */
+    public boolean isIsShared() {
+        return isShared;
+    }
+
+    /**
+     * @param isShared the isShared to set
+     */
+    public void setIsShared(boolean isShared) {
+        this.isShared = isShared;
+    }
+
+    /**
+     * @return List<User> return the sharedWith
+     */
+    public List<User> getSharedWith() {
+        return sharedWith;
+    }
+
+    /**
+     * @param sharedWith the sharedWith to set
+     */
+    public void setSharedWith(List<User> sharedWith) {
+        this.sharedWith = sharedWith;
     }
 
 }

@@ -11,6 +11,11 @@ public class Folder extends Element {
     public Folder() {
     }
 
+    public Folder(String name, String path, Content content, Folder parentFolder, int accumulated) {
+        super(name, path, content, parentFolder);
+        setAccumulated(accumulated);
+    }
+
     /*
      * Getters.
      */

@@ -9,7 +9,7 @@ public class User implements Comparable<User> {
     private String name;
     private String lastName;
     private String mail;
-    private String password;
+    private String password; // ? Deberia ir??
 
     /*
      * Construct.

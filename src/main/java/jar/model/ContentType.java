@@ -4,7 +4,7 @@ public class ContentType {
 
     // TODO: Completar
     public static enum TYPE {
-        IMAGE, PDF, VIDEO
+        FOLDER, IMAGE, PDF, VIDEO
     }
 
     private TYPE type;
