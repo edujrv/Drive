@@ -4,4 +4,6 @@ target/*
 .project
 .vscode/*
 credentials.json
+.idea/*
+drive.iml
 tokens/*
