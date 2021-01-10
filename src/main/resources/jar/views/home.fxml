@@ -16,7 +16,7 @@
    <left>
       <VBox prefHeight="958.0" prefWidth="305.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="158.0" text="Nuevo">
+            <Button fx:id="newElementBtn" mnemonicParsing="false" prefHeight="60.0" prefWidth="158.0" text="Nuevo">
                <VBox.margin>
                   <Insets left="20.0" top="40.0" />
                </VBox.margin>
@@ -24,24 +24,24 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <TreeView prefHeight="60.0" prefWidth="90.0">
+            <TreeView fx:id="miUnidadBtn" prefHeight="60.0" prefWidth="90.0">
                <VBox.margin>
                   <Insets top="40.0" />
                </VBox.margin>
             </TreeView>
-            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="306.0" text="Compartido">
+            <Button fx:id="shareBtn" mnemonicParsing="false" prefHeight="60.0" prefWidth="306.0" text="Compartido">
                <font>
                   <Font size="24.0" />
                </font></Button>
-            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="306.0" text="Reciente">
+            <Button fx:id="recientBtn" mnemonicParsing="false" prefHeight="60.0" prefWidth="306.0" text="Reciente">
                <font>
                   <Font size="24.0" />
                </font></Button>
-            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="306.0" text="Destacados">
+            <Button fx:id="starredBtn" mnemonicParsing="false" prefHeight="60.0" prefWidth="306.0" text="Destacados">
                <font>
                   <Font size="24.0" />
                </font></Button>
-            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="306.0" text="Papelera">
+            <Button fx:id="trashBtn" mnemonicParsing="false" prefHeight="60.0" prefWidth="306.0" text="Papelera">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -49,7 +49,7 @@
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="306.0" text="Almacenamiento">
+            <Button fx:id="storageBtn" mnemonicParsing="false" prefHeight="60.0" prefWidth="306.0" text="Almacenamiento">
                <VBox.margin>
                   <Insets top="60.0" />
                </VBox.margin>
@@ -106,7 +106,7 @@
    <top>
       <HBox alignment="CENTER_LEFT" prefHeight="167.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="158.0" text="DRIVE">
+            <Button fx:id="homeBtn" mnemonicParsing="false" prefHeight="60.0" prefWidth="158.0" text="DRIVE">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>
@@ -114,7 +114,7 @@
                   <Font size="21.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" text="B">
+            <Button fx:id="searchBtn" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" text="B">
                <HBox.margin>
                   <Insets left="150.0" />
                </HBox.margin>
@@ -122,7 +122,7 @@
                   <Font size="25.0" />
                </font>
             </Button>
-            <TextField prefHeight="60.0" prefWidth="822.0" promptText="Buscar en Drive" style="-fx-background-color: #e0e0e0;">
+            <TextField fx:id="searchBarTxtf" prefHeight="60.0" prefWidth="822.0" promptText="Buscar en Drive" style="-fx-background-color: #e0e0e0;">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -130,12 +130,12 @@
                   <Font size="24.0" />
                </font>
             </TextField>
-            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" text="▼">
+            <Button fx:id="filterBtn" mnemonicParsing="false" onMouseClicked="#filterScene" prefHeight="60.0" prefWidth="60.0" text="▼">
                <font>
                   <Font size="17.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="?">
+            <Button fx:id="helpBtn" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="?">
                <HBox.margin>
                   <Insets left="290.0" />
                </HBox.margin>
@@ -143,7 +143,7 @@
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="C">
+            <Button fx:id="configBtn" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="C">
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>
@@ -151,7 +151,7 @@
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="136.0" text="Usuario">
+            <Button fx:id="userBtn" mnemonicParsing="false" prefHeight="50.0" prefWidth="136.0" text="Usuario">
                <HBox.margin>
                   <Insets left="90.0" />
                </HBox.margin>
@@ -167,7 +167,7 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="88.0" prefWidth="1614.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="V">
+                  <Button fx:id="viewBtn" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="V">
                      <HBox.margin>
                         <Insets left="1400.0" />
                      </HBox.margin>
@@ -175,7 +175,7 @@
                         <Font size="24.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="I">
+                  <Button fx:id="infoBtn" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="I">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>

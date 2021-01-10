@@ -23,7 +23,7 @@
                   <Pane prefHeight="41.0" prefWidth="227.0" />
                   <TextField prefHeight="39.0" prefWidth="248.0" promptText="E-mail..." />
                   <Pane prefHeight="32.0" prefWidth="248.0" />
-                  <PasswordField prefHeight="44.0" prefWidth="248.0" promptText="Password..." />
+                  <PasswordField fx:id="passwordTxtf" onKeyPressed="#pressEnter" prefHeight="44.0" prefWidth="248.0" promptText="Password..." />
                   <Pane prefHeight="28.0" prefWidth="248.0" />
                   <HBox prefHeight="41.0" prefWidth="227.0">
                      <children>
