@@ -4,10 +4,7 @@ package jar.model;
 
 public class User implements Comparable<User> {
 
-    private int id;
-    private String userName;
     private String name;
-    private String lastName;
     private String mail;
 
     /*
@@ -17,11 +14,8 @@ public class User implements Comparable<User> {
     public User() {
     }
 
-    public User(int id, String userName, String name, String lastName, String mail) {
-        setId(id);
-        setUserName(userName);
+    public User(String name, String mail) {
         setName(name);
-        setLastName(lastName);
         setMail(mail);
     }
 
@@ -29,20 +23,8 @@ public class User implements Comparable<User> {
      * Getters.
      */
 
-    public int getId() {
-        return id;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public String getLastName() {
-        return lastName;
     }
 
     public String getMail() {
@@ -53,20 +35,8 @@ public class User implements Comparable<User> {
      * Setters.
      */
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public void setMail(String mail) {
@@ -74,20 +44,19 @@ public class User implements Comparable<User> {
     }
 
     /**
-     * A user is equals to other user if their IDs match
+     * A user is equal to other user if their mails match
      */
     @Override
     public boolean equals(Object obj) {
-        return getId() == ((User) obj).getId();
+        return getMail().equals(((User) obj).getMail());
     }
 
     /**
-     * A user is bigger or lesser than other user if their "userName" are
-     * respectively so
+     * A user is bigger or lesser than other user if their name are respectively so
      */
     @Override
     public int compareTo(User arg0) {
-        return this.userName.compareTo(arg0.getUserName());
+        return getName().compareTo(arg0.getName());
     }
 
 }

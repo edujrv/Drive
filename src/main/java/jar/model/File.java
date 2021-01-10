@@ -7,8 +7,8 @@ public class File extends Element implements Comparable<File> {
     public File() {
     }
 
-    public File(String name, String path, Content content, Folder parentFolder, long fileSize) {
-        super(name, path, content, parentFolder);
+    public File(String name, String path, Content content, long fileSize) {
+        super(name, path, content);
         setFileSize(fileSize);
     }
 

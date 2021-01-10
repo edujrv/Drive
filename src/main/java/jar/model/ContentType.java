@@ -16,6 +16,10 @@ public class ContentType {
     public ContentType() {
     }
 
+    public ContentType(TYPE type) {
+        setType(type);
+    }
+
     /*
      * Getters.
      */

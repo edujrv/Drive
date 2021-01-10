@@ -8,7 +8,13 @@ import java.util.Optional;
 
 // Un DAO es un patron que se usa para asilar la capa de negocio de la capa de persistencia.
 public interface IDAO<E> {
-    public List<E> getAll();
+    public List<E> getAll(int page);
 
     public Optional<E> get(int id);
+
+    void save(E e);
+
+    void update(int id, E e);
+
+    void delete(E e);
 }

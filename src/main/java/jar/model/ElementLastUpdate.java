@@ -1,10 +1,10 @@
 package jar.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class ElementLastUpdate {
 
-    private Date updateDate;
+    private LocalDateTime updateDate;
     private User user;
 
     /*
@@ -14,11 +14,16 @@ public class ElementLastUpdate {
     public ElementLastUpdate() {
     }
 
+    public ElementLastUpdate(LocalDateTime updateDate, User user) {
+        setUpdateDate(updateDate);
+        setUser(user);
+    }
+
     /*
      * Getters.
      */
 
-    public Date getUpdateDate() {
+    public LocalDateTime getUpdateDate() {
         return updateDate;
     }
 
@@ -30,7 +35,7 @@ public class ElementLastUpdate {
      * Setters.
      */
 
-    public void setUpdateDate(Date updateDate) {
+    public void setUpdateDate(LocalDateTime updateDate) {
         this.updateDate = updateDate;
     }
 

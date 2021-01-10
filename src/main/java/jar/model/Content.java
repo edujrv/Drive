@@ -1,7 +1,5 @@
 package jar.model;
 
-import java.util.List;
-
 //import com.sun.prism.Texture;
 
 public class Content {
@@ -13,7 +11,7 @@ public class Content {
     private ElementLastOpened lastOpened;
     private User owner;
     private boolean isShared;
-    private List<User> sharedWith;
+    // private List<User> sharedWith;
 
     /*
      * Construct.
@@ -32,10 +30,9 @@ public class Content {
     }
 
     public Content(ContentType contentType, ElementDataCreate dataCreate, ElementLastOpened lastOpened,
-            ElementLastUpdate lastUpdate, User owner, boolean isShared, List<User> sharedWith) {
+            ElementLastUpdate lastUpdate, User owner, boolean isShared) {
         this(contentType, dataCreate, lastOpened, lastUpdate, owner);
         setIsShared(isShared);
-        setSharedWith(sharedWith);
     }
 
     /**
@@ -120,20 +117,6 @@ public class Content {
      */
     public void setIsShared(boolean isShared) {
         this.isShared = isShared;
-    }
-
-    /**
-     * @return List<User> return the sharedWith
-     */
-    public List<User> getSharedWith() {
-        return sharedWith;
-    }
-
-    /**
-     * @param sharedWith the sharedWith to set
-     */
-    public void setSharedWith(List<User> sharedWith) {
-        this.sharedWith = sharedWith;
     }
 
 }

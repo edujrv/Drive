@@ -8,7 +8,8 @@ public class LoginController {
     private Label lblCrack;
 
     @FXML
-    private void cambiarLabel(){
+    private void cambiarLabel() {
         lblCrack.setText("Sandia");
     }
+
 }

@@ -7,17 +7,15 @@ public abstract class Element {
     private Content content;
     private boolean isFeatured = false;
     private boolean isErased = false;
-    private Folder parentFolder;
-    private int idElement;
+    private String idElement;
 
     public Element() {
     }
 
-    public Element(String name, String path, Content content, Folder parentFolder) {
+    public Element(String name, String path, Content content) {
         setName(name);
         setPath(path);
         setContent(content);
-        setParentFolder(parentFolder);
     }
 
     /*
@@ -40,11 +38,7 @@ public abstract class Element {
         return isErased;
     }
 
-    public Folder getParentFolder() {
-        return parentFolder;
-    }
-
-    public int getIdElement() {
+    public String getIdElement() {
         return idElement;
     }
 
@@ -72,11 +66,7 @@ public abstract class Element {
         this.isErased = isErased;
     }
 
-    public void setParentFolder(Folder parentFolder) {
-        this.parentFolder = parentFolder;
-    }
-
-    public void setIdElement(int idElement) {
+    public void setIdElement(String idElement) {
         this.idElement = idElement;
     }
 
@@ -89,7 +79,7 @@ public abstract class Element {
      */
     @Override
     public boolean equals(Object obj) {
-        return getIdElement() == ((Element) obj).getIdElement();
+        return getIdElement().equals(((Element) obj).getIdElement());
     }
 
 }

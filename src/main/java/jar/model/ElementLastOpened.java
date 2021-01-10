@@ -1,11 +1,11 @@
 package jar.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class ElementLastOpened {
 
-    private Date openDate;
-    private User user;
+    private LocalDateTime openDate;
+    private boolean isMe;
 
     /*
      * Construct.
@@ -14,27 +14,32 @@ public class ElementLastOpened {
     public ElementLastOpened() {
     }
 
+    public ElementLastOpened(LocalDateTime openDate, boolean isMe) {
+        setOpenDate(openDate);
+        setIsMe(isMe);
+    }
+
     /*
      * Getters.
      */
 
-    public Date getOpenDate() {
+    public LocalDateTime getOpenDate() {
         return openDate;
     }
 
-    public User getUser() {
-        return user;
+    public boolean getIsMe() {
+        return isMe;
     }
 
     /*
      * Setters.
      */
 
-    public void setOpenDate(Date openDate) {
+    public void setOpenDate(LocalDateTime openDate) {
         this.openDate = openDate;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setIsMe(boolean isMe) {
+        this.isMe = isMe;
     }
 }

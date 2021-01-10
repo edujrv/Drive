@@ -4,3 +4,4 @@ target/*
 .project
 .vscode/*
 credentials.json
+tokens/*

@@ -1,10 +1,10 @@
 package jar.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class ElementDataCreate {
 
-    private Date startDate;
+    private LocalDateTime startDate;
     private User creatorUser;
 
     /*
@@ -14,11 +14,16 @@ public class ElementDataCreate {
     public ElementDataCreate() {
     }
 
+    public ElementDataCreate(LocalDateTime startDate, User creatorUser) {
+        setStartDate(startDate);
+        setCreatorUser(creatorUser);
+    }
+
     /*
      * Getters.
      */
 
-    public Date getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
@@ -30,7 +35,7 @@ public class ElementDataCreate {
      * Setters.
      */
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 

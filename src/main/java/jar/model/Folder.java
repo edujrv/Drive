@@ -12,7 +12,7 @@ public class Folder extends Element {
     }
 
     public Folder(String name, String path, Content content, Folder parentFolder, int accumulated) {
-        super(name, path, content, parentFolder);
+        super(name, path, content);
         setAccumulated(accumulated);
     }
 
