@@ -2,10 +2,7 @@ package jar;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.util.List;
 
-import jar.dao.FileDAO;
-import jar.model.File;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -33,11 +30,11 @@ public class App extends Application {
         // System.out.printf("%s (%s)\n", file.getName(), file.getId());
         // }
         // }
-        FileDAO fdao = new FileDAO();
-        List<File> lf = fdao.getAll(0);
-        for (File file : lf) {
-            System.out.println(file.getName() + " - " + file.getIdElement());
-        }
+        // FileDAO fdao = new FileDAO();
+        // List<File> lf = fdao.getAll(0);
+        // for (File file : lf) {
+        // System.out.println(file.getName() + " - " + file.getIdElement());
+        // }
 
         // At this point the user has already logged in
         launch();
