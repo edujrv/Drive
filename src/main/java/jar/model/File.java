@@ -1,5 +1,7 @@
 package jar.model;
 
+import java.util.List;
+
 public class File extends Element implements Comparable<File> {
     // fileSize is in bytes
     private long fileSize;
@@ -7,7 +9,7 @@ public class File extends Element implements Comparable<File> {
     public File() {
     }
 
-    public File(String name, String path, Content content, long fileSize) {
+    public File(String name, List<String> path, Content content, long fileSize) {
         super(name, path, content);
         setFileSize(fileSize);
     }

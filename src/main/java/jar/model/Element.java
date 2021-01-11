@@ -1,9 +1,11 @@
 package jar.model;
 
+import java.util.List;
+
 public abstract class Element {
 
     private String name;
-    private String path;
+    private List<String> path;
     private Content content;
     private boolean isFeatured = false;
     private boolean isErased = false;
@@ -12,7 +14,7 @@ public abstract class Element {
     public Element() {
     }
 
-    public Element(String name, String path, Content content) {
+    public Element(String name, List<String> path, Content content) {
         setName(name);
         setPath(path);
         setContent(content);
@@ -26,7 +28,7 @@ public abstract class Element {
         return name;
     }
 
-    public String getPath() {
+    public List<String> getPath() {
         return path;
     }
 
@@ -54,7 +56,7 @@ public abstract class Element {
         this.name = name;
     }
 
-    public void setPath(String path) {
+    public void setPath(List<String> path) {
         this.path = path;
     }
 

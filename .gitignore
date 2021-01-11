@@ -7,3 +7,5 @@ credentials.json
 .idea/*
 drive.iml
 tokens/*
+target/*
+*.log

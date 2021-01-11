@@ -2,7 +2,10 @@ package jar;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.List;
 
+import jar.dao.FileDAO;
+import jar.model.File;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,7 +18,7 @@ import javafx.stage.Stage;
 public class App extends Application {
     private static Scene scene;
 
-    public static void main(String... args) throws IOException, GeneralSecurityException {
+    public static void main(String[] args) throws IOException, GeneralSecurityException {
         DriveConnection.initialize();
 
         // Print the names and IDs for up to 10 files.
@@ -30,11 +33,13 @@ public class App extends Application {
         // System.out.printf("%s (%s)\n", file.getName(), file.getId());
         // }
         // }
-        // FileDAO fdao = new FileDAO();
-        // List<File> lf = fdao.getAll(0);
-        // for (File file : lf) {
-        // System.out.println(file.getName() + " - " + file.getIdElement());
-        // }
+        FileDAO fdao = new FileDAO();
+        List<File> lf = fdao.getAll(0);
+        
+        System.out.println("----------------------------------------------------------------------------");
+
+        for (File file : lf)
+            System.out.println(file.getName() + " - " + file.getIdElement());
 
         // At this point the user has already logged in
         launch();
@@ -42,7 +47,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("views/home"), 1000, 700);
+        scene = new Scene(loadFXML("views/login"), 1000, 700);
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();

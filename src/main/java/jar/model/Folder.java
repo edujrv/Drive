@@ -1,35 +1,12 @@
 package jar.model;
 
+import java.util.List;
+
 public class Folder extends Element {
+	public Folder() {
+	}
 
-    private int accumulated = 0;
-
-    /*
-     * Construct.
-     */
-
-    public Folder() {
-    }
-
-    public Folder(String name, String path, Content content, Folder parentFolder, int accumulated) {
+    public Folder(String name, List<String> path, Content content) {
         super(name, path, content);
-        setAccumulated(accumulated);
     }
-
-    /*
-     * Getters.
-     */
-
-    public int getAccumulated() {
-        return accumulated;
-    }
-
-    /*
-     * Setters.
-     */
-
-    public void setAccumulated(int accumulated) {
-        this.accumulated = accumulated;
-    }
-
 }

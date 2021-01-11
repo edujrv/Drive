@@ -2,37 +2,44 @@ package jar.model;
 
 public class ContentType {
 
-    // TODO: Completar
-    public static enum TYPE {
-        FOLDER, IMAGE, PDF, VIDEO
-    }
+	// TODO: Completar
 
-    private TYPE type;
+	// UNKNOWN: application/vnd.google-apps.unknown
+	// FOLDER: application/vnd.google-apps.folder
+	// FILE: application/vnd.google-apps.file
+	// IMAGE: application/vnd.google-apps.photo
+	// PDF
 
-    /*
-     * Construct.
-     */
+	public static enum TYPE {
+		UNKNOWN, FOLDER, FILE, IMAGE, PDF, VIDEO, OFFICE, AUDIO, TEXT
+	}
 
-    public ContentType() {
-    }
+	private TYPE type;
 
-    public ContentType(TYPE type) {
-        setType(type);
-    }
+	/*
+	 * Construct.
+	 */
 
-    /*
-     * Getters.
-     */
+	public ContentType() {
+	}
 
-    public TYPE getType() {
-        return type;
-    }
+	public ContentType(TYPE type) {
+		setType(type);
+	}
 
-    /*
-     * Setters.
-     */
+	/*
+	 * Getters.
+	 */
 
-    public void setType(TYPE type) {
-        this.type = type;
-    }
+	public TYPE getType() {
+		return type;
+	}
+
+	/*
+	 * Setters.
+	 */
+
+	public void setType(TYPE type) {
+		this.type = type;
+	}
 }
