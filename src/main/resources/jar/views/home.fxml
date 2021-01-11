@@ -4,6 +4,9 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
@@ -145,14 +148,24 @@
                   <Font size="17.0" />
                </font>
             </Button>
-            <Button fx:id="helpBtn" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="?">
+            <MenuBar fx:id="helpBar" prefHeight="50.0" prefWidth="50.0">
+              <menus>
+                <Menu fx:id="helpMenu" mnemonicParsing="false" text="?">
+                  <items>
+                    <MenuItem fx:id="ayuda" mnemonicParsing="false" text="Ayuda" />
+                        <MenuItem fx:id="formacion" mnemonicParsing="false" text="Formacion" />
+                        <MenuItem fx:id="actualizaciones" mnemonicParsing="false" text="Actualizaciones" />
+                        <MenuItem fx:id="typ" mnemonicParsing="false" text="Terminos y Politica" />
+                  </items>
+                </Menu>
+              </menus>
                <HBox.margin>
                   <Insets left="290.0" />
                </HBox.margin>
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Button>
+               <padding>
+                  <Insets left="13.0" top="10.0" />
+               </padding>
+            </MenuBar>
             <Button fx:id="configBtn" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="C">
                <HBox.margin>
                   <Insets left="10.0" />
