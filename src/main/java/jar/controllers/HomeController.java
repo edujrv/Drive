@@ -22,26 +22,12 @@ public class HomeController {
     // TODO: Cambiar de Boton a MenuBar el newElementBtn
     @FXML
     public void blurNewBtn() {
-
-        DropShadow dropShadow = new DropShadow();
-        dropShadow.setColor(Color.BLUE);
-        dropShadow.setHeight(25.83);
-        dropShadow.setOffsetY(2.0);
-        dropShadow.setRadius(10.7075);
-        newElementBtn.setEffect(dropShadow);
-
+        newElementBtn.setEffect(Efectos.newElementBtnOn());
     }
 
     @FXML
     public void blurOfNewBtn() {
-
-        DropShadow dropShadow = new DropShadow();
-        dropShadow.setColor(Color.TRANSPARENT);
-        dropShadow.setHeight(0);
-        dropShadow.setOffsetY(0);
-        dropShadow.setRadius(0);
-        newElementBtn.setEffect(dropShadow);
-        // newElementBtn.setStyle("-fx-background-color:transparent;");
+        newElementBtn.setEffect(Efectos.newElementBtnOf());
     }
 
 }
