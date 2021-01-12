@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 /**
  * JavaFX App
@@ -35,16 +36,23 @@ public class App extends Application {
         // }
         // }
         FileDAO fdao = new FileDAO();
-        List<File> lf = null;
-        do {
-            lf = fdao.getAll(null, false);
-            for (File file : lf)
+        Pair<String, List<File>> lf = fdao.getAll(null, null);
+
+        // TODO: ver una forma mejor de iterar
+        while (lf.getKey() != null) {
+            for (File file : lf.getValue())
                 System.out.println(
                         file.getName() + " - " + file.getPath() + " || " + file.getContent().getContentType().getType()
                                 + " || " + (file.getFileSize() / 1048576.0) + "Mb");
             System.out.println(
                     "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
-        } while (lf != null);
+            lf = fdao.getAll(null, lf.getKey());
+        }
+        for (File file : lf.getValue())
+            System.out.println(file.getName() + " - " + file.getPath() + " || "
+                    + file.getContent().getContentType().getType() + " || " + (file.getFileSize() / 1048576.0) + "Mb");
+        System.out.println(
+                "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
 
         // At this point the user has already logged in
         launch();

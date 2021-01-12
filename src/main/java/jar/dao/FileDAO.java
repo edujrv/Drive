@@ -19,76 +19,41 @@ import jar.model.ContentType;
 import jar.model.ElementDataCreate;
 import jar.model.ElementLastOpened;
 import jar.model.ElementLastUpdate;
+import javafx.util.Pair;
 
 public class FileDAO {
-	private String getAllToken = null;
-
-	// Para Mi Unidad
-	// TODO: Evitar que busque archivos de los drives compartidos
 	/**
 	 * @param folderId  : Set to null if you want to list all files in root folder
 	 * @param startOver : If you want to start paging over
 	 * @return List of all files in 'folderId' paged.
+	 * @throws IOException
 	 */
-	public List<jar.model.File> getAll(String folderId, boolean startOver) {
-		List<jar.model.File> r = new ArrayList<jar.model.File>();
-		if (startOver)
-			getAllToken = null;
+	public Pair<String, List<jar.model.File>> getAll(String folderId, String pageToken) throws IOException {
 		if (folderId == null)
 			folderId = "root";
-		try {
-			// long ti = System.currentTimeMillis();
-			FileList result = DriveConnection.service.files().list().set("corpora", "user").setPageSize(10)
-					.setQ("'" + folderId + "' in parents and 'me' in owners and not trashed")
-					.setFields(
-							"nextPageToken, files(id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser)")
-					.setPageToken(getAllToken).execute();
 
-			getAllToken = result.getNextPageToken();
-			// System.out.println("DeltaT: " + ((System.currentTimeMillis() - ti) / 1000.0)
-			// + "seg");
+		List<jar.model.File> r = new ArrayList<jar.model.File>();
+		// long ti = System.currentTimeMillis();
+		FileList result = DriveConnection.service.files().list().set("corpora", "user").setPageSize(10)
+				.setQ("'" + folderId + "' in parents and 'me' in owners and not trashed")
+				.setFields(
+						"nextPageToken, files(id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser)")
+				.setPageToken(pageToken).execute();
 
-			for (File file : result.getFiles()) {
-				jar.model.File aux = new jar.model.File();
+		pageToken = result.getNextPageToken();
+		// System.out.println("DeltaT: " + ((System.currentTimeMillis() - ti) / 1000.0)
+		// + "seg");
 
-				aux.setIdElement(file.getId());
-				aux.setName(file.getName());
-				aux.setPath(getPath(file.getParents()));
-
-				Content c = new Content();
-				c.setContentType(getType(file.getMimeType()));
-
-				if (c.getContentType().getType() == ContentType.TYPE.FOLDER || file.getSize() == null)
-					aux.setFileSize(0);
-				else
-					aux.setFileSize(file.getSize());
-
-				// En mi unidad no puede estar borrado
-				aux.setIsErased(false);
-				aux.setIsFeatured(file.getStarred());
-
-				c.setIsShared(file.getShared());
-				c.setOwner(parseUser(file.getOwners().get(0)));
-				c.setDataCreate(new ElementDataCreate(parseDateTime(file.getCreatedTime()), c.getOwner()));
-
-				c.setLastUpdate(new ElementLastUpdate(parseDateTime(file.getModifiedTime()),
-						parseUser(file.getLastModifyingUser())));
-				c.setLastOpened(new ElementLastOpened(parseDateTime(file.getViewedByMeTime()), file.getViewedByMe()));
-
-				aux.setContent(c);
-
-				r.add(aux);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return r;
+		for (File file : result.getFiles())
+			r.add(parseFile(file));
+		return new Pair<>(pageToken, r);
 	}
 
-	public Optional<jar.model.File> get(String id) {
-		// File f = DriveConnection.service.files().get("a!").setFields("").execute();
-		// TODO Auto-generated method stub
-		return null;
+	public Optional<jar.model.File> get(String id) throws IOException {
+		File file = DriveConnection.service.files().get(id).setFields(
+				"id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser")
+				.execute();
+		return Optional.of(parseFile(file));
 	}
 
 	public void save(jar.model.File e) {
@@ -134,6 +99,37 @@ public class FileDAO {
 		if (dt == null)
 			return null;
 		return LocalDateTime.ofInstant(Instant.ofEpochMilli(dt.getValue()), TimeZone.getDefault().toZoneId());
+	}
+
+	private jar.model.File parseFile(File file) {
+		jar.model.File aux = new jar.model.File();
+
+		aux.setIdElement(file.getId());
+		aux.setName(file.getName());
+		aux.setPath(getPath(file.getParents()));
+
+		Content c = new Content();
+		c.setContentType(getType(file.getMimeType()));
+
+		if (c.getContentType().getType() == ContentType.TYPE.FOLDER || file.getSize() == null)
+			aux.setFileSize(0);
+		else
+			aux.setFileSize(file.getSize());
+
+		aux.setIsErased(false);
+		aux.setIsFeatured(file.getStarred());
+
+		c.setIsShared(file.getShared());
+		c.setOwner(parseUser(file.getOwners().get(0)));
+		c.setDataCreate(new ElementDataCreate(parseDateTime(file.getCreatedTime()), c.getOwner()));
+
+		c.setLastUpdate(
+				new ElementLastUpdate(parseDateTime(file.getModifiedTime()), parseUser(file.getLastModifyingUser())));
+		c.setLastOpened(new ElementLastOpened(parseDateTime(file.getViewedByMeTime()), file.getViewedByMe()));
+
+		aux.setContent(c);
+
+		return aux;
 	}
 
 	private ContentType getType(String mimeType) {
