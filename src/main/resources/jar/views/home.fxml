@@ -156,9 +156,6 @@
                 <Menu fx:id="helpMenu" mnemonicParsing="false" text="?">
                   <items>
                     <MenuItem fx:id="ayuda" mnemonicParsing="false" text="Ayuda" />
-                        <font>
-                           <Font size="24.0" />
-                        </font>
                         <MenuItem fx:id="formacion" mnemonicParsing="false" text="Formacion" />
                         <MenuItem fx:id="actualizaciones" mnemonicParsing="false" text="Actualizaciones" />
                         <MenuItem fx:id="typ" mnemonicParsing="false" text="Terminos y Politica" />
