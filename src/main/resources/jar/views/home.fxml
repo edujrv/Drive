@@ -22,14 +22,17 @@
    <left>
       <VBox prefHeight="958.0" prefWidth="305.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="newElementBtn" blendMode="MULTIPLY" cache="true" mnemonicParsing="false" prefHeight="60.0" prefWidth="158.0" text="Nuevo">
+            <ImageView fx:id="newElementBtn" fitHeight="60.0" fitWidth="160.0" onMouseEntered="#blurNewBtn" onMouseExited="#blurOfNewBtn" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/NewBtn.png" />
+               </image>
                <VBox.margin>
                   <Insets left="20.0" top="40.0" />
                </VBox.margin>
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Button>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
             <TreeView fx:id="miUnidadBtn" prefHeight="60.0" prefWidth="90.0">
                <VBox.margin>
                   <Insets top="40.0" />
