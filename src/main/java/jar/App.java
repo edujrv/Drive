@@ -37,7 +37,7 @@ public class App extends Application {
         FileDAO fdao = new FileDAO();
         List<File> lf = null;
         do {
-            lf = fdao.getAll(false);
+            lf = fdao.getAll(null, false);
             for (File file : lf)
                 System.out.println(
                         file.getName() + " - " + file.getPath() + " || " + file.getContent().getContentType().getType()

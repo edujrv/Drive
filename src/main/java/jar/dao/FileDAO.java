@@ -20,19 +20,26 @@ import jar.model.ElementDataCreate;
 import jar.model.ElementLastOpened;
 import jar.model.ElementLastUpdate;
 
-public class FileDAO implements IDAO<String, jar.model.File> {
+public class FileDAO {
 	private String getAllToken = null;
 
 	// Para Mi Unidad
-	@Override
-	public List<jar.model.File> getAll(boolean startOver) {
+	// TODO: Evitar que busque archivos de los drives compartidos
+	/**
+	 * @param folderId  : Set to null if you want to list all files in root folder
+	 * @param startOver : If you want to start paging over
+	 * @return List of all files in 'folderId' paged.
+	 */
+	public List<jar.model.File> getAll(String folderId, boolean startOver) {
 		List<jar.model.File> r = new ArrayList<jar.model.File>();
 		if (startOver)
 			getAllToken = null;
+		if (folderId == null)
+			folderId = "root";
 		try {
 			// long ti = System.currentTimeMillis();
-			FileList result = DriveConnection.service.files().list().setPageSize(10).setIncludeTeamDriveItems(false)
-					.setQ("'me' in owners and not trashed").setSpaces("drive")
+			FileList result = DriveConnection.service.files().list().set("corpora", "user").setPageSize(10)
+					.setQ("'" + folderId + "' in parents and 'me' in owners and not trashed")
 					.setFields(
 							"nextPageToken, files(id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser)")
 					.setPageToken(getAllToken).execute();
@@ -78,26 +85,22 @@ public class FileDAO implements IDAO<String, jar.model.File> {
 		return r;
 	}
 
-	@Override
 	public Optional<jar.model.File> get(String id) {
 		// File f = DriveConnection.service.files().get("a!").setFields("").execute();
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public void save(jar.model.File e) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void update(String id, jar.model.File e) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void delete(jar.model.File e) {
 		// TODO Auto-generated method stub
 
