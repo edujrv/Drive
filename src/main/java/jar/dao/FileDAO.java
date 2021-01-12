@@ -9,7 +9,6 @@ import java.util.Optional;
 import java.util.TimeZone;
 
 import com.google.api.client.util.DateTime;
-import com.google.api.services.drive.model.DriveList;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 import com.google.api.services.drive.model.User;
@@ -21,73 +20,67 @@ import jar.model.ElementDataCreate;
 import jar.model.ElementLastOpened;
 import jar.model.ElementLastUpdate;
 
-public class FileDAO implements IDAO<jar.model.File> {
+public class FileDAO implements IDAO<String, jar.model.File> {
+	private String getAllToken = null;
 
 	// Para Mi Unidad
 	@Override
-	public List<jar.model.File> getAll(int page) {
+	public List<jar.model.File> getAll(boolean startOver) {
 		List<jar.model.File> r = new ArrayList<jar.model.File>();
+		if (startOver)
+			getAllToken = null;
 		try {
-			String pageToken = null;
-			do {
-//				FileList result = DriveConnection.service.files().list().setSpaces("drive").setFields(
-//						"nextPageToken, files(id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser)")
-//						.setPageToken(pageToken).execute();
+			// long ti = System.currentTimeMillis();
+			FileList result = DriveConnection.service.files().list().setPageSize(10).setIncludeTeamDriveItems(false)
+					.setQ("'me' in owners and not trashed").setSpaces("drive")
+					.setFields(
+							"nextPageToken, files(id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser)")
+					.setPageToken(getAllToken).execute();
 
-				FileList result = DriveConnection.service.files().list().setQ("'me' in owners and not trashed").setSpaces("drive").setFields(
-						"nextPageToken, files(id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser)")
-						.setPageToken(pageToken).execute();
+			getAllToken = result.getNextPageToken();
+			// System.out.println("DeltaT: " + ((System.currentTimeMillis() - ti) / 1000.0)
+			// + "seg");
 
-				pageToken = result.getNextPageToken();
-				
-				for (File file : result.getFiles()) {
-					jar.model.File aux = new jar.model.File();
+			for (File file : result.getFiles()) {
+				jar.model.File aux = new jar.model.File();
 
-					aux.setIdElement(file.getId());
-					aux.setName(file.getName());
-					aux.setPath(getPath(file.getParents()));
+				aux.setIdElement(file.getId());
+				aux.setName(file.getName());
+				aux.setPath(getPath(file.getParents()));
 
-					Content c = new Content();
-					c.setContentType(getType(file.getMimeType()));
-					System.out.println(file.getName() + ": " + file.getMimeType() + " => "
-							+ c.getContentType().getType() + " || " + aux.getPath());
+				Content c = new Content();
+				c.setContentType(getType(file.getMimeType()));
 
-					if (c.getContentType().getType() == ContentType.TYPE.FOLDER || file.getSize() == null)
-						aux.setFileSize(-1);
-					else
-						aux.setFileSize(file.getSize());
+				if (c.getContentType().getType() == ContentType.TYPE.FOLDER || file.getSize() == null)
+					aux.setFileSize(0);
+				else
+					aux.setFileSize(file.getSize());
 
-					aux.setIsErased(file.getTrashed());
-					aux.setIsFeatured(file.getStarred());
+				// En mi unidad no puede estar borrado
+				aux.setIsErased(false);
+				aux.setIsFeatured(file.getStarred());
 
-					c.setIsShared(file.getShared());
-					c.setOwner(parseUser(file.getOwners().get(0)));
-					c.setDataCreate(new ElementDataCreate(parseDateTime(file.getCreatedTime()), c.getOwner()));
+				c.setIsShared(file.getShared());
+				c.setOwner(parseUser(file.getOwners().get(0)));
+				c.setDataCreate(new ElementDataCreate(parseDateTime(file.getCreatedTime()), c.getOwner()));
 
-					c.setLastUpdate(new ElementLastUpdate(parseDateTime(file.getModifiedTime()),
-							parseUser(file.getLastModifyingUser())));
-					c.setLastOpened(
-							new ElementLastOpened(parseDateTime(file.getViewedByMeTime()), file.getViewedByMe()));
+				c.setLastUpdate(new ElementLastUpdate(parseDateTime(file.getModifiedTime()),
+						parseUser(file.getLastModifyingUser())));
+				c.setLastOpened(new ElementLastOpened(parseDateTime(file.getViewedByMeTime()), file.getViewedByMe()));
 
-					aux.setContent(c);
-					file.getMimeType();
+				aux.setContent(c);
 
-					r.add(aux);
-				}
-
-			} while (pageToken != null);
-
-		} catch (
-
-		IOException e) {
+				r.add(aux);
+			}
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return r;
 	}
 
 	@Override
-	public Optional<jar.model.File> get(int id) {
-//		File f = DriveConnection.service.files().get("a!").setFields("").execute();
+	public Optional<jar.model.File> get(String id) {
+		// File f = DriveConnection.service.files().get("a!").setFields("").execute();
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -99,7 +92,7 @@ public class FileDAO implements IDAO<jar.model.File> {
 	}
 
 	@Override
-	public void update(int id, jar.model.File e) {
+	public void update(String id, jar.model.File e) {
 		// TODO Auto-generated method stub
 
 	}
@@ -143,19 +136,19 @@ public class FileDAO implements IDAO<jar.model.File> {
 	private ContentType getType(String mimeType) {
 		String left = mimeType.substring(0, mimeType.indexOf('/'));
 		switch (left) {
-		case "application":
-			String right = mimeType.substring(mimeType.indexOf('/') + 1, mimeType.length());
-			return new ContentType(getApplicationType(right));
-		case "image":
-			return new ContentType(ContentType.TYPE.IMAGE);
-		case "text":
-			return new ContentType(ContentType.TYPE.TEXT);
-		case "video":
-			return new ContentType(ContentType.TYPE.VIDEO);
-		case "audio":
-			return new ContentType(ContentType.TYPE.AUDIO);
-		default:
-			return new ContentType(ContentType.TYPE.UNKNOWN);
+			case "application":
+				String right = mimeType.substring(mimeType.indexOf('/') + 1, mimeType.length());
+				return new ContentType(getApplicationType(right));
+			case "image":
+				return new ContentType(ContentType.TYPE.IMAGE);
+			case "text":
+				return new ContentType(ContentType.TYPE.TEXT);
+			case "video":
+				return new ContentType(ContentType.TYPE.VIDEO);
+			case "audio":
+				return new ContentType(ContentType.TYPE.AUDIO);
+			default:
+				return new ContentType(ContentType.TYPE.UNKNOWN);
 		}
 	}
 
@@ -163,38 +156,38 @@ public class FileDAO implements IDAO<jar.model.File> {
 		// Google's stuff
 		if (app.startsWith("vnd.google"))
 			switch (app) {
-			case "vnd.google-apps.folder":
-				return ContentType.TYPE.FOLDER;
+				case "vnd.google-apps.folder":
+					return ContentType.TYPE.FOLDER;
 
-			case "vnd.google-apps.document":
-			case "vnd.google-apps.drawing":
-			case "vnd.google-apps.form":
-			case "vnd.google-apps.presentation":
-			case "vnd.google-apps.spreadsheet":
-				return ContentType.TYPE.OFFICE;
+				case "vnd.google-apps.document":
+				case "vnd.google-apps.drawing":
+				case "vnd.google-apps.form":
+				case "vnd.google-apps.presentation":
+				case "vnd.google-apps.spreadsheet":
+					return ContentType.TYPE.OFFICE;
 
-			case "vnd.google-apps.audio":
-				return ContentType.TYPE.AUDIO;
+				case "vnd.google-apps.audio":
+					return ContentType.TYPE.AUDIO;
 
-			case "vnd.google-apps.drive-sdk":
-			case "vnd.google-apps.file":
-			case "vnd.google-apps.fusiontable":
-			case "vnd.google-apps.map":
-			case "vnd.google-apps.shortcut":
-			case "vnd.google-apps.site":
-				return ContentType.TYPE.FILE;
+				case "vnd.google-apps.drive-sdk":
+				case "vnd.google-apps.file":
+				case "vnd.google-apps.fusiontable":
+				case "vnd.google-apps.map":
+				case "vnd.google-apps.shortcut":
+				case "vnd.google-apps.site":
+					return ContentType.TYPE.FILE;
 
-			case "application/vnd.google-apps.photo":
-				return ContentType.TYPE.IMAGE;
+				case "application/vnd.google-apps.photo":
+					return ContentType.TYPE.IMAGE;
 
-			case "application/vnd.google-apps.video":
-				return ContentType.TYPE.VIDEO;
+				case "application/vnd.google-apps.video":
+					return ContentType.TYPE.VIDEO;
 
-			case "application/vnd.google-apps.script":
-				return ContentType.TYPE.TEXT;
+				case "application/vnd.google-apps.script":
+					return ContentType.TYPE.TEXT;
 
-			default:
-				return ContentType.TYPE.UNKNOWN;
+				default:
+					return ContentType.TYPE.UNKNOWN;
 			}
 
 		if (app.contains("office") || app.contains("word") || app.contains("document") || app.contains("excel")

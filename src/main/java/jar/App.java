@@ -35,12 +35,16 @@ public class App extends Application {
         // }
         // }
         FileDAO fdao = new FileDAO();
-        List<File> lf = fdao.getAll(0);
-        
-        System.out.println("----------------------------------------------------------------------------");
-
-        for (File file : lf)
-            System.out.println(file.getName() + " - " + file.getIdElement());
+        List<File> lf = null;
+        do {
+            lf = fdao.getAll(false);
+            for (File file : lf)
+                System.out.println(
+                        file.getName() + " - " + file.getPath() + " || " + file.getContent().getContentType().getType()
+                                + " || " + (file.getFileSize() / 1048576.0) + "Mb");
+            System.out.println(
+                    "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
+        } while (lf != null);
 
         // At this point the user has already logged in
         launch();
