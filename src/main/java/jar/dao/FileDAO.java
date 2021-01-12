@@ -49,10 +49,15 @@ public class FileDAO {
 		return new Pair<>(pageToken, r);
 	}
 
-	public Optional<jar.model.File> get(String id) throws IOException {
-		File file = DriveConnection.service.files().get(id).setFields(
-				"id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser")
-				.execute();
+	public Optional<jar.model.File> get(String id) {
+		File file = null;
+		try {
+			file = DriveConnection.service.files().get(id).setFields(
+					"id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser")
+					.execute();
+		} catch (IOException e) {
+			file = null;
+		}
 		return Optional.of(parseFile(file));
 	}
 
