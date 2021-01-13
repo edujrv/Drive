@@ -30,4 +30,14 @@ public class HomeController {
         newElementBtn.setEffect(Efectos.newElementBtnOf());
     }
 
+    @FXML
+    public void makeBlue(){};
+
+    @FXML
+    public void makeGray(){};
+
+    @FXML
+    public void makeButtonGreatAgain(){};
+
+
 }
