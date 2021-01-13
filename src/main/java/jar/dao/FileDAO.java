@@ -24,39 +24,44 @@ import javafx.util.Pair;
 public class FileDAO {
 	/**
 	 * @param folderId  : Set to null if you want to list all files in root folder
-	 * @param startOver : If you want to start paging over
-	 * @return List of all files in 'folderId' paged.
-	 * @throws IOException
+	 * @param pageToken : pageToken to get the next list of files
+	 * @return Pair of the next pageToken and a List of files in 'folderId'
+	 * @throws IOException in case that folderId is invalid
 	 */
-	public Pair<String, List<jar.model.File>> getAll(String folderId, String pageToken) throws IOException {
+	public Pair<String, List<jar.model.File>> getAllMyDrive(String folderId, String pageToken) throws IOException {
 		if (folderId == null)
 			folderId = "root";
 
-		List<jar.model.File> r = new ArrayList<jar.model.File>();
-		// long ti = System.currentTimeMillis();
-		FileList result = DriveConnection.service.files().list().set("corpora", "user").setPageSize(10)
-				.setQ("'" + folderId + "' in parents and 'me' in owners and not trashed")
-				.setFields(
-						"nextPageToken, files(id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser)")
-				.setPageToken(pageToken).execute();
+		String query = "'" + folderId + "' in parents and 'me' in owners and not trashed";
+		String fields = "nextPageToken, files(id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser)";
 
-		pageToken = result.getNextPageToken();
-		// System.out.println("DeltaT: " + ((System.currentTimeMillis() - ti) / 1000.0)
-		// + "seg");
-
-		for (File file : result.getFiles())
-			r.add(parseFile(file));
-		return new Pair<>(pageToken, r);
+		return getAll(pageToken, "user", 10, query, fields);
 	}
 
-	public Optional<jar.model.File> get(String id) {
+	/**
+	 * @param pageToken : pageTOken to get the next list of files
+	 * @return Pair of the next pageToken and a List of files in 'folderId'
+	 * @throws IOException in case that pageToken is invalid
+	 */
+	public Pair<String, List<jar.model.File>> getAllTrashed(String pageToken) throws IOException {
+		String query = "trashed";
+		String fields = "nextPageToken, files(id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser)";
+
+		return getAll(pageToken, "user", 10, query, fields);
+	}
+
+	/**
+	 * @param fileId : id of the file to get
+	 * @return A optional file, it's empty if fileId doesen't exists
+	 */
+	public Optional<jar.model.File> get(String fileId) {
 		File file = null;
 		try {
-			file = DriveConnection.service.files().get(id).setFields(
+			file = DriveConnection.service.files().get(fileId).setFields(
 					"id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser")
 					.execute();
 		} catch (IOException e) {
-			file = null;
+			return Optional.empty();
 		}
 		return Optional.of(parseFile(file));
 	}
@@ -74,6 +79,20 @@ public class FileDAO {
 	public void delete(jar.model.File e) {
 		// TODO Auto-generated method stub
 
+	}
+
+	private Pair<String, List<jar.model.File>> getAll(String pageToken, String corpora, int pageSize, String query,
+			String fields) throws IOException {
+		List<jar.model.File> r = new ArrayList<jar.model.File>();
+
+		FileList result = DriveConnection.service.files().list().set("corpora", corpora).setPageSize(pageSize)
+				.setQ(query).setFields(fields).setPageToken(pageToken).execute();
+
+		pageToken = result.getNextPageToken();
+
+		for (File file : result.getFiles())
+			r.add(parseFile(file));
+		return new Pair<>(pageToken, r);
 	}
 
 	private List<String> getPath(List<String> arr) {
@@ -100,7 +119,6 @@ public class FileDAO {
 	}
 
 	private LocalDateTime parseDateTime(DateTime dt) {
-		// TODO: Revisar que el tiempo este correcto
 		if (dt == null)
 			return null;
 		return LocalDateTime.ofInstant(Instant.ofEpochMilli(dt.getValue()), TimeZone.getDefault().toZoneId());

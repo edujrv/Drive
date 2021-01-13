@@ -3,6 +3,7 @@ package jar;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.List;
+import java.util.Optional;
 
 import jar.dao.FileDAO;
 import jar.model.File;
@@ -36,17 +37,35 @@ public class App extends Application {
         // }
         // }
         FileDAO fdao = new FileDAO();
-        Pair<String, List<File>> lf = fdao.getAll(null, null);
 
-        // TODO: ver una forma mejor de iterar
+        // Asi se usa el get
+        Optional<File> of = fdao.get("Ahrex");
+        if (of.isEmpty())
+            System.out.println("El id no es valido");
+        else {
+            File file = of.get();
+            System.out.println(file.getName() + " - " + file.getPath() + " || " + file.getIdElement() + " || "
+                    + file.getContent().getContentType().getType() + " || " + (file.getFileSize() / 1048576.0) + "Mb");
+        }
+
+        System.out.println(
+                " = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = ");
+
+        // Asi se puede recorrer por el getAllMyDrive
+        Pair<String, List<File>> lf = fdao.getAllMyDrive(null, null);
+        // Pair<String, List<File>> lf = fdao.getAllTrashed(null);
+
         while (lf.getKey() != null) {
             for (File file : lf.getValue())
-                System.out.println(
-                        file.getName() + " - " + file.getPath() + " || " + file.getContent().getContentType().getType()
-                                + " || " + (file.getFileSize() / 1048576.0) + "Mb");
+                // if()
+                System.out.println(file.getContent().getDataCreate().getCreatorUser().getName() + " " + file.getName()
+                        + " - " + file.getPath() + " || " + file.getIdElement() + " || "
+                        + file.getContent().getContentType().getType() + " || " + (file.getFileSize() / 1048576.0)
+                        + "Mb");
             System.out.println(
                     "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
-            lf = fdao.getAll(null, lf.getKey());
+            lf = fdao.getAllMyDrive(null, lf.getKey());
+            // lf = fdao.getAllTrashed(lf.getKey());
         }
         for (File file : lf.getValue())
             System.out.println(file.getName() + " - " + file.getPath() + " || "
