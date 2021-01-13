@@ -25,8 +25,8 @@ public class FileDAO {
 	/**
 	 * @param folderId  : Set to null if you want to list all files in root folder
 	 * @param startOver : If you want to start paging over
-	 * @return List of all files in 'folderId' paged.
-	 * @throws IOException
+	 * @return Pair of the next pageToken and a List of 10 files in 'folderId'
+	 * @throws IOException in case that the folderId doesn't exists
 	 */
 	public Pair<String, List<jar.model.File>> getAll(String folderId, String pageToken) throws IOException {
 		if (folderId == null)
@@ -49,14 +49,18 @@ public class FileDAO {
 		return new Pair<>(pageToken, r);
 	}
 
-	public Optional<jar.model.File> get(String id) {
+	/**
+	 * @param fileId : id of the file to get
+	 * @return A optional file, it's empty if fileId doesen't exists
+	 */
+	public Optional<jar.model.File> get(String fileId) {
 		File file = null;
 		try {
-			file = DriveConnection.service.files().get(id).setFields(
+			file = DriveConnection.service.files().get(fileId).setFields(
 					"id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser")
 					.execute();
 		} catch (IOException e) {
-			file = null;
+			return Optional.empty();
 		}
 		return Optional.of(parseFile(file));
 	}
@@ -100,7 +104,6 @@ public class FileDAO {
 	}
 
 	private LocalDateTime parseDateTime(DateTime dt) {
-		// TODO: Revisar que el tiempo este correcto
 		if (dt == null)
 			return null;
 		return LocalDateTime.ofInstant(Instant.ofEpochMilli(dt.getValue()), TimeZone.getDefault().toZoneId());
