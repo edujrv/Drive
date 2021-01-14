@@ -11,6 +11,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TreeView?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -20,58 +21,142 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jar.controllers.HomeController">
    <left>
-      <VBox prefHeight="958.0" prefWidth="305.0" BorderPane.alignment="CENTER">
+      <VBox minWidth="-Infinity" prefHeight="958.0" prefWidth="310.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="newElementBtn" fitHeight="60.0" fitWidth="160.0" onMouseEntered="#blurNewBtn" onMouseExited="#blurOfNewBtn" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/NewBtn.png" />
-               </image>
-               <VBox.margin>
-                  <Insets left="20.0" top="40.0" />
-               </VBox.margin>
+            <Button fx:id="newElementBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#blurNewBtn" onMouseExited="#blurOfNewBtn" prefHeight="82.0" prefWidth="188.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Nuevo">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" translateX="-15.0">
+                     <image>
+                        <Image url="@../images/Pasted-20210113-155635_preview_rev_1.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </graphic>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
-            </ImageView>
+               <VBox.margin>
+                  <Insets left="20.0" top="40.0" />
+               </VBox.margin>
+               <effect>
+                  <DropShadow color="#727272" />
+               </effect>
+            </Button>
             <TreeView fx:id="miUnidadBtn" prefHeight="60.0" prefWidth="90.0">
                <VBox.margin>
                   <Insets top="40.0" />
                </VBox.margin>
             </TreeView>
-            <Button fx:id="shareBtn" mnemonicParsing="false" prefHeight="60.0" prefWidth="306.0" text="Compartido">
+            <Button fx:id="shareBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#buttonBlue" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="60.0" prefWidth="335.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Compartido" translateX="-25.0">
                <font>
                   <Font size="24.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-35.0">
+                     <image>
+                        <Image url="@../images/Share.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
-            <Button fx:id="recientBtn" mnemonicParsing="false" prefHeight="60.0" prefWidth="306.0" text="Reciente">
+            <Button fx:id="recientBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#buttonBlue" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="60.0" prefWidth="335.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Reciente" translateX="-25.0">
                <font>
                   <Font size="24.0" />
                </font>
-            </Button>
-            <Button fx:id="starredBtn" mnemonicParsing="false" prefHeight="60.0" prefWidth="306.0" text="Destacados">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Button>
-            <Button fx:id="trashBtn" mnemonicParsing="false" prefHeight="60.0" prefWidth="306.0" text="Papelera">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-35.0">
+                     <image>
+                        <Image url="@../images/Reciente.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets right="34.0" />
+               </padding>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
                <VBox.margin>
-                  <Insets />
+                  <Insets top="4.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="starredBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#buttonBlue" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="60.0" prefWidth="335.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Destacados" translateX="-25.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-35.0">
+                     <image>
+                        <Image url="@../images/Star.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <VBox.margin>
+                  <Insets top="4.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="trashBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#buttonBlue" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="60.0" prefWidth="335.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Papelera" translateX="-25.0">
+               <VBox.margin>
+                  <Insets top="4.0" />
                </VBox.margin>
                <font>
                   <Font size="24.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-35.0">
+                     <image>
+                        <Image url="@../images/Trash.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets right="35.0" />
+               </padding>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
-            <Button fx:id="storageBtn" mnemonicParsing="false" prefHeight="60.0" prefWidth="306.0" text="Almacenamiento">
+            <Button fx:id="storageBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#buttonBlue" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="60.0" prefWidth="335.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Almacenamiento" translateX="-25.0">
                <VBox.margin>
                   <Insets top="60.0" />
                </VBox.margin>
                <font>
                   <Font size="24.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-35.0">
+                     <image>
+                        <Image url="@../images/Almacenamiento.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="55.0" />
+               </padding>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <HBox prefHeight="18.0" prefWidth="119.0">
                <children>
-                  <Label text="0">
+                  <Label text="0" translateX="-20.0">
                      <HBox.margin>
                         <Insets left="50.0" top="30.0" />
                      </HBox.margin>
@@ -79,7 +164,7 @@
                         <Font size="21.0" />
                      </font>
                   </Label>
-                  <Label text="bytes de">
+                  <Label text="bytes de" translateX="-20.0">
                      <HBox.margin>
                         <Insets left="4.0" top="30.0" />
                      </HBox.margin>
@@ -87,7 +172,7 @@
                         <Font size="21.0" />
                      </font>
                   </Label>
-                  <Label text="15">
+                  <Label text="15" translateX="-20.0">
                      <HBox.margin>
                         <Insets left="4.0" top="30.0" />
                      </HBox.margin>
@@ -95,7 +180,7 @@
                         <Font size="21.0" />
                      </font>
                   </Label>
-                  <Label text="GB usado">
+                  <Label text="GB usado" translateX="-20.0">
                      <HBox.margin>
                         <Insets left="4.0" top="30.0" />
                      </HBox.margin>
@@ -110,9 +195,20 @@
             </HBox>
             <ProgressBar prefHeight="10.0" prefWidth="205.0" progress="0.0">
                <VBox.margin>
-                  <Insets left="100.0" top="15.0" />
+                  <Insets left="60.0" top="15.0" />
                </VBox.margin>
             </ProgressBar>
+            <Button fx:id="shopBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#buy" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="169.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Comprar espacio" textFill="#2d92eb">
+               <font>
+                  <Font size="19.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="60.0" top="20.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
          </children>
       </VBox>
    </left>
@@ -130,30 +226,49 @@
                   <Insets left="20.0" />
                </HBox.margin>
             </ImageView>
-            <Button fx:id="searchBtn" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" text="B">
-               <HBox.margin>
-                  <Insets left="150.0" />
-               </HBox.margin>
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Button>
-            <TextField fx:id="searchBarTxtf" prefHeight="60.0" prefWidth="822.0" promptText="Buscar en Drive" style="-fx-background-color: #e0e0e0;">
+            <TextField fx:id="searchBarTxtf" prefHeight="60.0" prefWidth="914.0" promptText="Buscar en Drive" style="-fx-background-color: #e0e0e0;" translateX="150.0">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
                <font>
                   <Font size="24.0" />
                </font>
+               <padding>
+                  <Insets left="80.0" />
+               </padding>
             </TextField>
-            <Button fx:id="filterBtn" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" text="▼">
+            <Button fx:id="searchBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #e0e0e0;" translateX="-890.0">
+               <HBox.margin>
+                  <Insets left="150.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="25.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="30.0" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/lupa.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="searchExpBtn" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #e0e0e0;" text="▼" textAlignment="CENTER" translateX="-100.0">
                <font>
                   <Font size="17.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
-            <MenuBar fx:id="helpBar" prefHeight="50.0" prefWidth="50.0">
+            <MenuBar fx:id="helpBar" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;">
               <menus>
-                <Menu fx:id="helpMenu" mnemonicParsing="false" text="?">
+                <Menu fx:id="helpMenu" mnemonicParsing="false" style="-fx-background-color: TRANSPARENT;" text="?">
                   <items>
                     <MenuItem fx:id="ayuda" mnemonicParsing="false" text="Ayuda" />
                         <MenuItem fx:id="formacion" mnemonicParsing="false" text="Formacion" />
@@ -163,27 +278,46 @@
                 </Menu>
               </menus>
                <HBox.margin>
-                  <Insets left="290.0" />
+                  <Insets left="215.0" />
                </HBox.margin>
                <padding>
                   <Insets left="13.0" top="10.0" />
                </padding>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </MenuBar>
-            <Button fx:id="configBtn" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="C">
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
+            <Button fx:id="settingsBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;">
                <font>
-                  <Font size="24.0" />
+                  <Font size="25.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="30.0" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/Settings.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
-            <Button fx:id="userBtn" mnemonicParsing="false" prefHeight="50.0" prefWidth="136.0" text="Usuario">
+            <Button fx:id="userBtn" mnemonicParsing="false" prefHeight="50.0" prefWidth="136.0" style="-fx-background-radius: 10;" text="Usuario">
                <HBox.margin>
                   <Insets left="90.0" />
                </HBox.margin>
                <font>
                   <Font size="24.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
          </children>
       </HBox>
@@ -193,21 +327,47 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="88.0" prefWidth="1614.0">
                <children>
-                  <Button fx:id="viewBtn" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="V">
+                  <Button fx:id="viewBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="30.0" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Eye.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                     </graphic>
                      <HBox.margin>
                         <Insets left="1400.0" />
                      </HBox.margin>
-                     <font>
-                        <Font size="24.0" />
-                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
-                  <Button fx:id="infoBtn" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="I">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
+                  <Button fx:id="infoBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="25.0" />
                      </font>
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="30.0" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Info.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                </children>
             </HBox>
