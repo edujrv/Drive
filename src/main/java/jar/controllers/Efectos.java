@@ -42,9 +42,13 @@ public class Efectos {
         return dropShadow;
     }
 
-    public static DropShadow grayOn() {
+    public static DropShadow grayOn(String id) {
         InnerShadow innerShadow = new InnerShadow();
-        innerShadow.setColor(Color.rgb(210, 222, 221, 1));
+        if (id.equals("searchBtn") || id.equals("searchExpBtn"))
+            innerShadow.setColor(Color.rgb(102, 102, 102, 0.2));
+        else
+            innerShadow.setColor(Color.rgb(210, 222, 221, 1));
+
         innerShadow.setHeight(234.49);
         innerShadow.setRadius(63.37);
 

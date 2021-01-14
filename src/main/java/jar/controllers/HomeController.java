@@ -76,7 +76,7 @@ public class HomeController {
     public void buttonBlue(Event e) {
 
         Button btn = (Button) e.getSource();
-        if(prevButton != null){
+        if (prevButton != null) {
             prevButton.setEffect(Efectos.grayOf());
         }
         prevButton = btn;
@@ -87,8 +87,8 @@ public class HomeController {
     public void buttonGray(Event e) {
 
         Button btn = (Button) e.getSource();
-        if(prevButton != btn){
-            btn.setEffect(Efectos.grayOn());
+        if (prevButton != btn) {
+            btn.setEffect(Efectos.grayOn(btn.getId()));
         }
     }
 
@@ -96,7 +96,7 @@ public class HomeController {
     public void buttonNormal(Event e) {
 
         Button btn = (Button) e.getSource();
-        if(prevButton != btn){
+        if (prevButton != btn) {
             btn.setEffect(Efectos.grayOf());
         }
     }
@@ -118,12 +118,13 @@ public class HomeController {
         }
 
     }
+
     @FXML
     public void menuGray(Event e) {
 
         MenuBar b = (MenuBar) e.getSource();
         System.out.println(b.getId());
-        b.setEffect(Efectos.grayOn());
+        b.setEffect(Efectos.grayOn(b.getId()));
 
     }
 
