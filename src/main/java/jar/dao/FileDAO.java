@@ -38,7 +38,7 @@ public class FileDAO {
 	}
 
 	/**
-	 * @param pageToken : pageTOken to get the next page of files
+	 * @param pageToken : pageToken to get the next page of files
 	 * @return Pair of the next pageToken and a List of trashed files
 	 * @throws IOException in case that pageToken is invalid
 	 */
@@ -49,7 +49,7 @@ public class FileDAO {
 	}
 
 	/**
-	 * @param pageToken : pageTOken to get the next page of files
+	 * @param pageToken : pageToken to get the next page of files
 	 * @return Pair of the next pageToken and a List of starred files
 	 * @throws IOException in case that pageToken is invalid
 	 */
@@ -57,6 +57,17 @@ public class FileDAO {
 		String query = "'me' in owners and starred";
 
 		return getAll(pageToken, "user", 10, query);
+	}
+
+	/**
+	 * @param pageToken : pageToken to get the next page of files
+	 * @return Pair of the next pageToken and a List of recent files
+	 * @throws IOException in case that pageToken is invalid
+	 */
+	public Pair<String, List<jar.model.File>> getAllRecent(String pageToken) throws IOException {
+		String query = "'me' in owners";
+
+		return getAll(pageToken, "user", 10, query, "viewedByMeTime desc");
 	}
 
 	/**
@@ -91,11 +102,17 @@ public class FileDAO {
 	}
 
 	private Pair<String, List<jar.model.File>> getAll(String pageToken, String corpora, int pageSize, String query,
-			String fields) throws IOException {
+			String fields, String orderBy) throws IOException {
 		List<jar.model.File> r = new ArrayList<jar.model.File>();
 
-		FileList result = DriveConnection.service.files().list().set("corpora", corpora).setPageSize(pageSize)
-				.setQ(query).setFields(fields).setPageToken(pageToken).execute();
+		FileList result;
+		if (orderBy == null) {
+			result = DriveConnection.service.files().list().set("corpora", corpora).setPageSize(pageSize).setQ(query)
+					.setFields(fields).setPageToken(pageToken).execute();
+		} else {
+			result = DriveConnection.service.files().list().set("corpora", corpora).setPageSize(pageSize).setQ(query)
+					.setFields(fields).set("orderBy", orderBy).setPageToken(pageToken).execute();
+		}
 
 		pageToken = result.getNextPageToken();
 
@@ -107,7 +124,13 @@ public class FileDAO {
 	private Pair<String, List<jar.model.File>> getAll(String pageToken, String corpora, int pageSize, String query)
 			throws IOException {
 		String fields = "nextPageToken, files(id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser)";
-		return getAll(pageToken, corpora, pageSize, query, fields);
+		return getAll(pageToken, corpora, pageSize, query, fields, null);
+	}
+
+	private Pair<String, List<jar.model.File>> getAll(String pageToken, String corpora, int pageSize, String query,
+			String orderBy) throws IOException {
+		String fields = "nextPageToken, files(id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser)";
+		return getAll(pageToken, corpora, pageSize, query, fields, orderBy);
 	}
 
 	private List<String> getPath(List<String> arr) {
@@ -120,6 +143,8 @@ public class FileDAO {
 			} while (arr != null);
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (NullPointerException e) {
+			return path;
 		}
 		return path;
 	}

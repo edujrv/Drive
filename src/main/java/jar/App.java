@@ -54,20 +54,26 @@ public class App extends Application {
         // Asi se puede recorrer por el getAllMyDrive
         // Pair<String, List<File>> lf = fdao.getAllMyDrive(null, null);
         // Pair<String, List<File>> lf = fdao.getAllTrashed(null);
-        Pair<String, List<File>> lf = fdao.getAllStarred(null);
+        // Pair<String, List<File>> lf = fdao.getAllStarred(null);
+        Pair<String, List<File>> lf = fdao.getAllRecent(null);
 
         while (lf.getKey() != null) {
             for (File file : lf.getValue())
-                // if()
-                System.out.println(file.getContent().getDataCreate().getCreatorUser().getName() + " " + file.getName()
-                        + " - " + file.getPath() + " || " + file.getIdElement() + " || "
-                        + file.getContent().getContentType().getType() + " || " + (file.getFileSize() / 1048576.0)
-                        + "Mb");
+                System.out.println(file.getContent().getDataCreate().getCreatorUser().getName() + " at "
+                        + file.getContent().getLastOpened().getOpenDate() + " || " + file.getName() + " - "
+                        + file.getPath() + " || " + file.getContent().getContentType().getType());
+            // System.out.println(file.getContent().getDataCreate().getCreatorUser().getName()
+            // + " " + file.getName()
+            // + " - " + file.getPath() + " || " + file.getIdElement() + " || "
+            // + file.getContent().getContentType().getType() + " || " + (file.getFileSize()
+            // / 1048576.0)
+            // + "Mb");
             System.out.println(
                     "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
             // lf = fdao.getAllMyDrive(null, lf.getKey());
             // lf = fdao.getAllTrashed(lf.getKey());
-            lf = fdao.getAllStarred(lf.getKey());
+            // lf = fdao.getAllStarred(lf.getKey());
+            lf = fdao.getAllRecent(lf.getKey());
         }
         for (File file : lf.getValue())
             System.out.println(file.getName() + " - " + file.getPath() + " || "
