@@ -31,3 +31,8 @@
 
 }
 
+.menu-item:focused {
+    -fx-background-color:red;
+    -fx-focus-color:white;
+}
+

@@ -266,7 +266,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <MenuBar fx:id="helpBar" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#menuGray" onMouseExited="#menuNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;">
+            <MenuBar fx:id="helpBar" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#menuGray" onMouseExited="#menuNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" stylesheets="@../Styles/folders.css">
               <menus>
                 <Menu fx:id="helpMenu" mnemonicParsing="false" style="-fx-background-color: TRANSPARENT;">
                   <items>
@@ -276,7 +276,7 @@
                         <MenuItem fx:id="typ" mnemonicParsing="false" text="Terminos y Politica" />
                   </items>
                      <graphic>
-                        <ImageView fitHeight="40.0" fitWidth="30.0" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" pickOnBounds="true" preserveRatio="true" translateX="-13.0" translateY="-6.0">
+                        <ImageView fitHeight="40.0" fitWidth="30.0" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" pickOnBounds="true" preserveRatio="true" styleClass="menu-item" translateX="-13.0" translateY="-6.0">
                            <image>
                               <Image url="@../images/Help.png" />
                            </image>
