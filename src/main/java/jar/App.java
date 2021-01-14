@@ -52,8 +52,9 @@ public class App extends Application {
                 " = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = ");
 
         // Asi se puede recorrer por el getAllMyDrive
-        Pair<String, List<File>> lf = fdao.getAllMyDrive(null, null);
+        // Pair<String, List<File>> lf = fdao.getAllMyDrive(null, null);
         // Pair<String, List<File>> lf = fdao.getAllTrashed(null);
+        Pair<String, List<File>> lf = fdao.getAllStarred(null);
 
         while (lf.getKey() != null) {
             for (File file : lf.getValue())
@@ -64,8 +65,9 @@ public class App extends Application {
                         + "Mb");
             System.out.println(
                     "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
-            lf = fdao.getAllMyDrive(null, lf.getKey());
+            // lf = fdao.getAllMyDrive(null, lf.getKey());
             // lf = fdao.getAllTrashed(lf.getKey());
+            lf = fdao.getAllStarred(lf.getKey());
         }
         for (File file : lf.getValue())
             System.out.println(file.getName() + " - " + file.getPath() + " || "

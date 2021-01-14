@@ -24,7 +24,7 @@ import javafx.util.Pair;
 public class FileDAO {
 	/**
 	 * @param folderId  : Set to null if you want to list all files in root folder
-	 * @param pageToken : pageToken to get the next list of files
+	 * @param pageToken : pageToken to get the next page of files
 	 * @return Pair of the next pageToken and a List of files in 'folderId'
 	 * @throws IOException in case that folderId is invalid
 	 */
@@ -33,21 +33,30 @@ public class FileDAO {
 			folderId = "root";
 
 		String query = "'" + folderId + "' in parents and 'me' in owners and not trashed";
-		String fields = "nextPageToken, files(id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser)";
 
-		return getAll(pageToken, "user", 10, query, fields);
+		return getAll(pageToken, "user", 10, query);
 	}
 
 	/**
-	 * @param pageToken : pageTOken to get the next list of files
-	 * @return Pair of the next pageToken and a List of files in 'folderId'
+	 * @param pageToken : pageTOken to get the next page of files
+	 * @return Pair of the next pageToken and a List of trashed files
 	 * @throws IOException in case that pageToken is invalid
 	 */
 	public Pair<String, List<jar.model.File>> getAllTrashed(String pageToken) throws IOException {
 		String query = "trashed";
-		String fields = "nextPageToken, files(id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser)";
 
-		return getAll(pageToken, "user", 10, query, fields);
+		return getAll(pageToken, "user", 10, query);
+	}
+
+	/**
+	 * @param pageToken : pageTOken to get the next page of files
+	 * @return Pair of the next pageToken and a List of starred files
+	 * @throws IOException in case that pageToken is invalid
+	 */
+	public Pair<String, List<jar.model.File>> getAllStarred(String pageToken) throws IOException {
+		String query = "'me' in owners and starred";
+
+		return getAll(pageToken, "user", 10, query);
 	}
 
 	/**
@@ -93,6 +102,12 @@ public class FileDAO {
 		for (File file : result.getFiles())
 			r.add(parseFile(file));
 		return new Pair<>(pageToken, r);
+	}
+
+	private Pair<String, List<jar.model.File>> getAll(String pageToken, String corpora, int pageSize, String query)
+			throws IOException {
+		String fields = "nextPageToken, files(id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser)";
+		return getAll(pageToken, corpora, pageSize, query, fields);
 	}
 
 	private List<String> getPath(List<String> arr) {
