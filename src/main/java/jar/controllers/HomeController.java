@@ -1,6 +1,5 @@
 package jar.controllers;
 
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 
@@ -9,20 +8,15 @@ import java.net.URISyntaxException;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
 public class HomeController {
-
-    @FXML
-    private MenuBar helpBar;
-
+    private Button prevButton = null;
     @FXML
     private Button newElementBtn;
 
@@ -74,64 +68,37 @@ public class HomeController {
     }
 
     @FXML
-    public void eventoMI(MouseEvent e) {
-
-        /*
-         * if (e.getEventType().equals(e.MOUSE_CLICKED)) { System.out.println("click");
-         * }
-         */
-        // e.getSource();
-    }
-
-    @FXML
     public void blurOfNewBtn() {
         newElementBtn.setEffect(Efectos.newElementBtnOf());
     }
 
     @FXML
-    public void buttonBlue() {
+    public void buttonBlue(Event e) {
 
-        shareBtn.setEffect(Efectos.blueOn());
-        recientBtn.setEffect(Efectos.blueOn());
-        trashBtn.setEffect(Efectos.blueOn());
-        starredBtn.setEffect(Efectos.blueOn());
-        storageBtn.setEffect(Efectos.blueOn());
-
+        Button btn = (Button) e.getSource();
+        if(prevButton != null){
+            prevButton.setEffect(Efectos.grayOf());
+        }
+        prevButton = btn;
+        btn.setEffect(Efectos.blueOn());
     }
 
     @FXML
     public void buttonGray(Event e) {
 
-        Button b = (Button) e.getSource();
-        System.out.println(b.getId());
-        b.setEffect(Efectos.grayOn());
-
-    }
-
-    @FXML
-    public void menuGray(Event e) {
-
-        MenuBar b = (MenuBar) e.getSource();
-        System.out.println(b.getId());
-        b.setEffect(Efectos.grayOn());
-
-    }
-
-    @FXML
-    public void menuNormal(Event e) {
-
-        MenuBar b = (MenuBar) e.getSource();
-        System.out.println(b.getId());
-        b.setEffect(Efectos.grayOf());
-
+        Button btn = (Button) e.getSource();
+        if(prevButton != btn){
+            btn.setEffect(Efectos.grayOn());
+        }
     }
 
     @FXML
     public void buttonNormal(Event e) {
-        Button b = (Button) e.getSource();
-        System.out.println(b.getId());
-        b.setEffect(Efectos.grayOf());
 
+        Button btn = (Button) e.getSource();
+        if(prevButton != btn){
+            btn.setEffect(Efectos.grayOf());
+        }
     }
 
     @FXML
@@ -149,6 +116,23 @@ public class HomeController {
             }
 
         }
+
+    }
+    @FXML
+    public void menuGray(Event e) {
+
+        MenuBar b = (MenuBar) e.getSource();
+        System.out.println(b.getId());
+        b.setEffect(Efectos.grayOn());
+
+    }
+
+    @FXML
+    public void menuNormal(Event e) {
+
+        MenuBar b = (MenuBar) e.getSource();
+        System.out.println(b.getId());
+        b.setEffect(Efectos.grayOf());
 
     }
 
