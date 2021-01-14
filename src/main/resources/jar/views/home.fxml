@@ -266,15 +266,25 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <MenuBar fx:id="helpBar" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;">
+            <MenuBar fx:id="helpBar" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#menuGray" onMouseExited="#menuNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;">
               <menus>
-                <Menu fx:id="helpMenu" mnemonicParsing="false" style="-fx-background-color: TRANSPARENT;" text="?">
+                <Menu fx:id="helpMenu" mnemonicParsing="false" style="-fx-background-color: TRANSPARENT;">
                   <items>
-                    <MenuItem fx:id="ayuda" mnemonicParsing="false" text="Ayuda" />
-                        <MenuItem fx:id="formacion" mnemonicParsing="false" text="Formacion" />
-                        <MenuItem fx:id="actualizaciones" mnemonicParsing="false" text="Actualizaciones" />
-                        <MenuItem fx:id="typ" mnemonicParsing="false" text="Terminos y Politica" />
+                    <MenuItem fx:id="ayuda" mnemonicParsing="false" onAction="#eventoMI" text="Ayuda" />
+                        <MenuItem fx:id="formacion" mnemonicParsing="false" onAction="#eventoMI" text="Formacion" />
+                        <MenuItem fx:id="actualizaciones" mnemonicParsing="false" onAction="#eventoMI" text="Actualizaciones" />
+                        <MenuItem fx:id="typ" mnemonicParsing="false" onAction="#eventoMI" text="Terminos y Politica" />
                   </items>
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="30.0" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" pickOnBounds="true" preserveRatio="true" translateX="-13.0" translateY="-6.0">
+                           <image>
+                              <Image url="@../images/Help.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                     </graphic>
                 </Menu>
               </menus>
                <HBox.margin>

@@ -1,19 +1,27 @@
 package jar.controllers;
 
+import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
 public class HomeController {
+
+    @FXML
+    private MenuBar helpBar;
 
     @FXML
     private Button newElementBtn;
@@ -66,6 +74,16 @@ public class HomeController {
     }
 
     @FXML
+    public void eventoMI(MouseEvent e) {
+
+        /*
+         * if (e.getEventType().equals(e.MOUSE_CLICKED)) { System.out.println("click");
+         * }
+         */
+        // e.getSource();
+    }
+
+    @FXML
     public void blurOfNewBtn() {
         newElementBtn.setEffect(Efectos.newElementBtnOf());
     }
@@ -82,38 +100,38 @@ public class HomeController {
     }
 
     @FXML
-    public void buttonGray() {
+    public void buttonGray(Event e) {
 
-        shareBtn.setEffect(Efectos.grayOn());
-        recientBtn.setEffect(Efectos.grayOn());
-        trashBtn.setEffect(Efectos.grayOn());
-        starredBtn.setEffect(Efectos.grayOn());
-        storageBtn.setEffect(Efectos.grayOn());
-        searchBtn.setEffect(Efectos.grayOn());
-        infoBtn.setEffect(Efectos.grayOn());
-        searchExpBtn.setEffect(Efectos.grayOn());
-        viewBtn.setEffect(Efectos.grayOn());
-        userBtn.setEffect(Efectos.grayOn());
-        settingsBtn.setEffect(Efectos.grayOn());
-        shopBtn.setEffect(Efectos.grayOn());
+        Button b = (Button) e.getSource();
+        System.out.println(b.getId());
+        b.setEffect(Efectos.grayOn());
 
     }
 
     @FXML
-    public void buttonNormal() {
+    public void menuGray(Event e) {
 
-        shareBtn.setEffect(Efectos.grayOf());
-        recientBtn.setEffect(Efectos.grayOf());
-        trashBtn.setEffect(Efectos.grayOf());
-        starredBtn.setEffect(Efectos.grayOf());
-        storageBtn.setEffect(Efectos.grayOf());
-        searchBtn.setEffect(Efectos.grayOf());
-        infoBtn.setEffect(Efectos.grayOf());
-        searchExpBtn.setEffect(Efectos.grayOf());
-        viewBtn.setEffect(Efectos.grayOf());
-        userBtn.setEffect(Efectos.grayOf());
-        settingsBtn.setEffect(Efectos.grayOf());
-        shopBtn.setEffect(Efectos.grayOf());
+        MenuBar b = (MenuBar) e.getSource();
+        System.out.println(b.getId());
+        b.setEffect(Efectos.grayOn());
+
+    }
+
+    @FXML
+    public void menuNormal(Event e) {
+
+        MenuBar b = (MenuBar) e.getSource();
+        System.out.println(b.getId());
+        b.setEffect(Efectos.grayOf());
+
+    }
+
+    @FXML
+    public void buttonNormal(Event e) {
+        Button b = (Button) e.getSource();
+        System.out.println(b.getId());
+        b.setEffect(Efectos.grayOf());
+
     }
 
     @FXML
