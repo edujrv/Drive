@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 public class HomeController {
     private Button prevButton = null;
@@ -57,6 +58,21 @@ public class HomeController {
     private Button shopBtn;
 
     @FXML
+    private ImageView personaIg;
+
+    @FXML
+    private ImageView clockIg;
+
+    @FXML
+    private ImageView storageIg;
+
+    @FXML
+    private ImageView trashIg;
+
+    @FXML
+    private ImageView starIg;
+
+    @FXML
     public void goHome() {
         System.out.println("BOTON DRIVE");
     }
@@ -76,11 +92,15 @@ public class HomeController {
     public void buttonBlue(Event e) {
 
         Button btn = (Button) e.getSource();
+
         if (prevButton != null) {
             prevButton.setEffect(Efectos.grayOf());
+            prevButton.setTextFill(Color.BLACK);
         }
         prevButton = btn;
         btn.setEffect(Efectos.blueOn());
+        btn.setTextFill(Color.BLUE);
+
     }
 
     @FXML

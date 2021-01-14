@@ -19,7 +19,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jar.controllers.HomeController">
    <left>
       <VBox minWidth="-Infinity" prefHeight="958.0" prefWidth="310.0" BorderPane.alignment="CENTER">
@@ -58,7 +57,7 @@
                   <Font size="24.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-35.0">
+                  <ImageView fx:id="personaIg" fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-35.0">
                      <image>
                         <Image url="@../images/Share.png" />
                      </image>
@@ -76,7 +75,7 @@
                   <Font size="24.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-35.0">
+                  <ImageView fx:id="clockIg" fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-35.0">
                      <image>
                         <Image url="@../images/Reciente.png" />
                      </image>
@@ -97,7 +96,7 @@
                   <Font size="24.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-35.0">
+                  <ImageView fx:id="starIg" fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-35.0">
                      <image>
                         <Image url="@../images/Star.png" />
                      </image>
@@ -121,7 +120,7 @@
                   <Font size="24.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-35.0">
+                  <ImageView fx:id="trashIg" fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-35.0">
                      <image>
                         <Image url="@../images/Trash.png" />
                      </image>
@@ -142,7 +141,7 @@
                   <Font size="24.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-35.0">
+                  <ImageView fx:id="storageIg" fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-35.0">
                      <image>
                         <Image url="@../images/Almacenamiento.png" />
                      </image>
@@ -271,9 +270,9 @@
               <menus>
                 <Menu fx:id="helpMenu" mnemonicParsing="false" style="-fx-background-color: TRANSPARENT;">
                   <items>
-                    <MenuItem fx:id="ayuda" mnemonicParsing="false"  text="Ayuda" />
-                        <MenuItem fx:id="formacion" mnemonicParsing="false"  text="Formacion" />
-                        <MenuItem fx:id="actualizaciones" mnemonicParsing="false"  text="Actualizaciones" />
+                    <MenuItem fx:id="ayuda" mnemonicParsing="false" text="Ayuda" />
+                        <MenuItem fx:id="formacion" mnemonicParsing="false" text="Formacion" />
+                        <MenuItem fx:id="actualizaciones" mnemonicParsing="false" text="Actualizaciones" />
                         <MenuItem fx:id="typ" mnemonicParsing="false" text="Terminos y Politica" />
                   </items>
                      <graphic>
