@@ -6,17 +6,18 @@ import javafx.fxml.FXML;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 
 public class HomeController {
+
+
+    @FXML
+    private Image picture;
+    @FXML
     private Button prevButton = null;
     @FXML
     private Button newElementBtn;
@@ -92,15 +93,34 @@ public class HomeController {
     public void buttonBlue(Event e) {
 
         Button btn = (Button) e.getSource();
+        String btnName = btn.getId();
+
 
         if (prevButton != null) {
             prevButton.setEffect(Efectos.grayOf());
             prevButton.setTextFill(Color.BLACK);
+            picture = new Image("jar/images/"+ prevButton.getId() + "Black.png");
+            ImageView icon = new ImageView(picture);
+            icon.setFitHeight(40);
+            icon.setFitWidth(30);
+            icon.setPickOnBounds(true);
+            icon.setPreserveRatio(true);
+            icon.setTranslateX(-35.0);
+            prevButton.setGraphic(icon);
         }
-        prevButton = btn;
-        btn.setEffect(Efectos.blueOn());
-        btn.setTextFill(Color.BLUE);
 
+            prevButton = btn;
+            prevButton.setId(btnName);
+            btn.setEffect(Efectos.blueOn());
+            btn.setTextFill(Color.rgb(76, 175, 232));
+            picture = new Image("jar/images/"+ btnName + "Blue.png");
+            ImageView ejemplo = new ImageView(picture);
+            ejemplo.setFitHeight(40);
+            ejemplo.setFitWidth(30);
+            ejemplo.setPickOnBounds(true);
+            ejemplo.setPreserveRatio(true);
+            ejemplo.setTranslateX(-35.0);
+            prevButton.setGraphic(ejemplo);
     }
 
     @FXML

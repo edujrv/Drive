@@ -60,7 +60,7 @@
                <graphic>
                   <ImageView fx:id="personaIg" fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-35.0">
                      <image>
-                        <Image url="@../images/Share.png" />
+                        <Image url="@../images/shareBtnBlack.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -78,7 +78,7 @@
                <graphic>
                   <ImageView fx:id="clockIg" fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-35.0">
                      <image>
-                        <Image url="@../images/Reciente.png" />
+                        <Image url="@../images/recientBtnBlack.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -99,7 +99,7 @@
                <graphic>
                   <ImageView fx:id="starIg" fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-35.0">
                      <image>
-                        <Image url="@../images/Star.png" />
+                        <Image url="@../images/starredBtnBlack.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -123,7 +123,7 @@
                <graphic>
                   <ImageView fx:id="trashIg" fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-35.0">
                      <image>
-                        <Image url="@../images/Trash.png" />
+                        <Image url="@../images/trashBtnBlack.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -144,7 +144,7 @@
                <graphic>
                   <ImageView fx:id="storageIg" fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-35.0">
                      <image>
-                        <Image url="@../images/Almacenamiento.png" />
+                        <Image url="@../images/storageBtnBlack.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -318,7 +318,7 @@
                   <Font size="25.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="40.0" fitWidth="30.0" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" pickOnBounds="true" preserveRatio="true">
+                  <ImageView accessibleRoleDescription="dsafasdfas" fitHeight="40.0" fitWidth="30.0" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/Settings.png" />
                      </image>
