@@ -260,7 +260,10 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                <tooltip>
-                  <Tooltip text="Búsqueda" />
+                  <Tooltip text="Búsqueda">
+                     <font>
+                        <Font size="12.9" />
+                     </font></Tooltip>
                </tooltip>
             </Button>
             <Button fx:id="searchExpBtn" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #e0e0e0;" text="▼" textAlignment="CENTER" translateX="-100.0">
@@ -273,7 +276,7 @@
                <tooltip>
                   <Tooltip text="Opciones de búsqueda">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="14.0" />
                      </font></Tooltip>
                </tooltip>
             </Button>
@@ -313,7 +316,7 @@
                <tooltip>
                   <Tooltip text="Asistencia">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="14.0" />
                      </font></Tooltip>
                </tooltip>
                <opaqueInsets>
@@ -341,7 +344,10 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                <tooltip>
-                  <Tooltip text="Configuración" />
+                  <Tooltip text="Configuración" y="0.0">
+                     <font>
+                        <Font size="12.9" />
+                     </font></Tooltip>
                </tooltip>
             </Button>
             <Button fx:id="userBtn" mnemonicParsing="false" prefHeight="50.0" prefWidth="136.0" style="-fx-background-radius: 10;" text="Usuario">
@@ -355,7 +361,10 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                <tooltip>
-                  <Tooltip text="Cuenta de Google" />
+                  <Tooltip text="Cuenta de Google">
+                     <font>
+                        <Font size="12.9" />
+                     </font></Tooltip>
                </tooltip>
             </Button>
          </children>
@@ -387,7 +396,10 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                      <tooltip>
-                        <Tooltip text="Vista de lista" />
+                        <Tooltip text="Vista de lista">
+                           <font>
+                              <Font size="12.9" />
+                           </font></Tooltip>
                      </tooltip>
                   </Button>
                   <Button fx:id="infoBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;">
@@ -411,7 +423,10 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                      <tooltip>
-                        <Tooltip text="Ver detalles" x="0.0" y="0.0" />
+                        <Tooltip text="Ver detalles" x="0.0" y="0.0">
+                           <font>
+                              <Font size="12.9" />
+                           </font></Tooltip>
                      </tooltip>
                   </Button>
                </children>
