@@ -260,7 +260,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                <tooltip>
-                  <Tooltip text="Busqueda" />
+                  <Tooltip text="Búsqueda" />
                </tooltip>
             </Button>
             <Button fx:id="searchExpBtn" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #e0e0e0;" text="▼" textAlignment="CENTER" translateX="-100.0">
@@ -271,7 +271,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                <tooltip>
-                  <Tooltip text="Opciones de busqueda">
+                  <Tooltip text="Opciones de búsqueda">
                      <font>
                         <Font size="20.0" />
                      </font></Tooltip>
@@ -282,9 +282,9 @@
                 <Menu fx:id="helpMenu" mnemonicParsing="false" style="-fx-background-color: TRANSPARENT;">
                   <items>
                     <MenuItem fx:id="ayuda" mnemonicParsing="false" style="-fx-pref-height: 40; -fx-text-fill: black; -fx-font: normal 15 Arial;" text="Ayuda" />
-                        <MenuItem fx:id="formacion" mnemonicParsing="false" style="-fx-pref-height: 40; -fx-text-fill: black; -fx-font: normal 15 Arial;" text="Formacion" />
+                        <MenuItem fx:id="formacion" mnemonicParsing="false" style="-fx-pref-height: 40; -fx-text-fill: black; -fx-font: normal 15 Arial;" text="Formación" />
                         <MenuItem fx:id="actualizaciones" mnemonicParsing="false" style="-fx-pref-height: 40; -fx-text-fill: black; -fx-font: normal 15 Arial;" text="Actualizaciones" />
-                        <MenuItem fx:id="typ" mnemonicParsing="false" style="-fx-pref-height: 40; -fx-text-fill: black; -fx-font: normal 15 Arial;" text="Terminos y Politica" />
+                        <MenuItem fx:id="typ" mnemonicParsing="false" style="-fx-pref-height: 40; -fx-text-fill: black; -fx-font: normal 15 Arial;" text="Términos y Política" />
                   </items>
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="30.0" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" pickOnBounds="true" preserveRatio="true" styleClass="menu-item" translateX="-13.0" translateY="-6.0">
@@ -341,7 +341,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                <tooltip>
-                  <Tooltip text="Configuracion" />
+                  <Tooltip text="Configuración" />
                </tooltip>
             </Button>
             <Button fx:id="userBtn" mnemonicParsing="false" prefHeight="50.0" prefWidth="136.0" style="-fx-background-radius: 10;" text="Usuario">
@@ -354,6 +354,9 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <tooltip>
+                  <Tooltip text="Cuenta de Google" />
+               </tooltip>
             </Button>
          </children>
       </HBox>
@@ -408,7 +411,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                      <tooltip>
-                        <Tooltip text="Ver detalles" />
+                        <Tooltip text="Ver detalles" x="0.0" y="0.0" />
                      </tooltip>
                   </Button>
                </children>
