@@ -19,8 +19,10 @@ import jar.model.ContentType;
 import jar.model.ElementDataCreate;
 import jar.model.ElementLastOpened;
 import jar.model.ElementLastUpdate;
+import jar.model.Folder;
 import javafx.util.Pair;
 
+// ! La implementacion de los getFolders es feisima por ahora
 public class FileDAO {
 	/**
 	 * @param folderId  : Set to null if you want to list all files in root folder
@@ -28,13 +30,36 @@ public class FileDAO {
 	 * @return Pair of the next pageToken and a List of files in 'folderId'
 	 * @throws IOException in case that folderId is invalid
 	 */
-	public Pair<String, List<jar.model.File>> getAllMyDrive(String folderId, String pageToken) throws IOException {
+	public Pair<String, List<jar.model.File>> getAllMyDriveFiles(String folderId, String pageToken) throws IOException {
 		if (folderId == null)
 			folderId = "root";
 
-		String query = "'" + folderId + "' in parents and 'me' in owners and not trashed";
+		String query = "'" + folderId
+				+ "' in parents and 'me' in owners and not trashed and not mimeType contains 'vnd.google-apps.folder'";
 
 		return getAll(pageToken, "user", 10, query);
+	}
+
+	/**
+	 * @param folderId  : Set to null if you want to list all folders in root folder
+	 * @param pageToken : pageToken to get the next page of folders
+	 * @return Pair of the next pageToken and a List of folders in 'folderId'
+	 * @throws IOException in case that folderId is invalid
+	 */
+	public Pair<String, List<Folder>> getAllMyDriveFolder(String folderId, String pageToken) throws IOException {
+		if (folderId == null)
+			folderId = "root";
+
+		String query = "'" + folderId
+				+ "' in parents and 'me' in owners and not trashed and mimeType contains 'vnd.google-apps.folder'";
+
+		Pair<String, List<jar.model.File>> aux = getAll(pageToken, "user", 10, query);
+
+		List<Folder> r = new ArrayList<Folder>();
+		for (jar.model.File file : aux.getValue())
+			r.add(parseFolder(file));
+
+		return new Pair<String, List<Folder>>(aux.getKey(), r);
 	}
 
 	/**
@@ -42,10 +67,27 @@ public class FileDAO {
 	 * @return Pair of the next pageToken and a List of trashed files
 	 * @throws IOException in case that pageToken is invalid
 	 */
-	public Pair<String, List<jar.model.File>> getAllTrashed(String pageToken) throws IOException {
-		String query = "trashed";
+	public Pair<String, List<jar.model.File>> getAllTrashedFiles(String pageToken) throws IOException {
+		String query = "trashed and not mimeType contains 'vnd.google-apps.folder'";
 
 		return getAll(pageToken, "user", 10, query);
+	}
+
+	/**
+	 * @param pageToken : pageToken to get the next page of folders
+	 * @return Pair of the next pageToken and a List of trashed folders
+	 * @throws IOException in case that pageToken is invalid
+	 */
+	public Pair<String, List<Folder>> getAllTrashedFolders(String pageToken) throws IOException {
+		String query = "trashed and mimeType contains 'vnd.google-apps.folder'";
+
+		Pair<String, List<jar.model.File>> aux = getAll(pageToken, "user", 10, query);
+
+		List<Folder> r = new ArrayList<Folder>();
+		for (jar.model.File file : aux.getValue())
+			r.add(parseFolder(file));
+
+		return new Pair<String, List<Folder>>(aux.getKey(), r);
 	}
 
 	/**
@@ -53,10 +95,27 @@ public class FileDAO {
 	 * @return Pair of the next pageToken and a List of starred files
 	 * @throws IOException in case that pageToken is invalid
 	 */
-	public Pair<String, List<jar.model.File>> getAllStarred(String pageToken) throws IOException {
-		String query = "'me' in owners and starred";
+	public Pair<String, List<jar.model.File>> getAllStarredFiles(String pageToken) throws IOException {
+		String query = "'me' in owners and starred and not mimeType contains 'vnd.google-apps.folder'";
 
 		return getAll(pageToken, "user", 10, query);
+	}
+
+	/**
+	 * @param pageToken : pageToken to get the next page of folders
+	 * @return Pair of the next pageToken and a List of starred folders
+	 * @throws IOException in case that pageToken is invalid
+	 */
+	public Pair<String, List<Folder>> getAllStarredFolders(String pageToken) throws IOException {
+		String query = "'me' in owners and starred and mimeType contains 'vnd.google-apps.folder'";
+
+		Pair<String, List<jar.model.File>> aux = getAll(pageToken, "user", 10, query);
+
+		List<Folder> r = new ArrayList<Folder>();
+		for (jar.model.File file : aux.getValue())
+			r.add(parseFolder(file));
+
+		return new Pair<String, List<Folder>>(aux.getKey(), r);
 	}
 
 	/**
@@ -64,8 +123,8 @@ public class FileDAO {
 	 * @return Pair of the next pageToken and a List of recent files
 	 * @throws IOException in case that pageToken is invalid
 	 */
-	public Pair<String, List<jar.model.File>> getAllRecent(String pageToken) throws IOException {
-		String query = "'me' in owners";
+	public Pair<String, List<jar.model.File>> getAllRecentFiles(String pageToken) throws IOException {
+		String query = "'me' in owners and not mimeType contains 'vnd.google-apps.folder'";
 
 		return getAll(pageToken, "user", 10, query, "viewedByMeTime desc");
 	}
@@ -74,7 +133,7 @@ public class FileDAO {
 	 * @param fileId : id of the file to get
 	 * @return A optional file, it's empty if fileId doesen't exists
 	 */
-	public Optional<jar.model.File> get(String fileId) {
+	public Optional<jar.model.File> getFile(String fileId) {
 		File file = null;
 		try {
 			file = DriveConnection.service.files().get(fileId).setFields(
@@ -84,6 +143,22 @@ public class FileDAO {
 			return Optional.empty();
 		}
 		return Optional.of(parseFile(file));
+	}
+
+	/**
+	 * @param fileId : id of the folder to get
+	 * @return A optional foldder, it's empty if folderId doesen't exists
+	 */
+	public Optional<Folder> getFolder(String folderId) {
+		File file = null;
+		try {
+			file = DriveConnection.service.files().get(folderId).setFields(
+					"id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser")
+					.execute();
+		} catch (IOException e) {
+			return Optional.empty();
+		}
+		return Optional.of(parseFolder(parseFile(file)));
 	}
 
 	public void save(jar.model.File e) {
@@ -118,7 +193,7 @@ public class FileDAO {
 
 		for (File file : result.getFiles())
 			r.add(parseFile(file));
-		return new Pair<>(pageToken, r);
+		return new Pair<String, List<jar.model.File>>(pageToken, r);
 	}
 
 	private Pair<String, List<jar.model.File>> getAll(String pageToken, String corpora, int pageSize, String query)
@@ -191,6 +266,19 @@ public class FileDAO {
 		c.setLastOpened(new ElementLastOpened(parseDateTime(file.getViewedByMeTime()), file.getViewedByMe()));
 
 		aux.setContent(c);
+
+		return aux;
+	}
+
+	private Folder parseFolder(jar.model.File file) {
+		Folder aux = new Folder();
+
+		aux.setIdElement(file.getIdElement());
+		aux.setName(file.getName());
+		aux.setPath(getPath(file.getPath()));
+		aux.setContent(file.getContent());
+		aux.setIsErased(false);
+		aux.setIsFeatured(file.isFeatured());
 
 		return aux;
 	}
