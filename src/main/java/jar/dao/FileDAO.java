@@ -25,6 +25,22 @@ import javafx.util.Pair;
 
 public class FileDAO {
 
+	public static PageTokenStep newQuery() {
+		return new QueryBuilder();
+	}
+
+	public interface PageTokenStep {
+		PageSizeStep setPageToken(String pageToken) throws IOException;
+
+		PageSizeStep startFromBeginning() throws IOException;
+	}
+
+	public interface PageSizeStep {
+		TypeStep setPageSize(int pageSize);
+
+		TypeStep defaultPageSize();
+	}
+
 	public interface TypeStep {
 		WhereFileStep getFiles();
 
@@ -32,7 +48,9 @@ public class FileDAO {
 	}
 
 	public interface WhereFolderStep {
-		FolderStep fromMyDrive();
+		SharedStep fromFolder(String folderId);
+
+		SharedStep fromMyDrive();
 
 		SharedStep fromStarred();
 
@@ -41,12 +59,6 @@ public class FileDAO {
 
 	public interface WhereFileStep extends WhereFolderStep {
 		SharedBuildStep fromRecent();
-	}
-
-	public interface FolderStep {
-		SharedStep fromFolder(String folderId);
-
-		SharedStep fromRoot();
 	}
 
 	public interface SharedStep {
@@ -68,117 +80,152 @@ public class FileDAO {
 	}
 
 	public interface Build {
-		List<Object> build();
+		Pair<String, List<Object>> build() throws IOException;
 	}
 
-	public static class Builder
-			implements TypeStep, WhereFileStep, FolderStep, SharedStep, SharedBuildStep, OrderStep, Build {
+	private static class QueryBuilder implements PageTokenStep, PageSizeStep, TypeStep, WhereFileStep, SharedStep,
+			SharedBuildStep, OrderStep, Build {
 		private Drive.Files.List fileList;
 		private String pageToken = null;
 		private String folderId = "root";
 		private int pageSize = 10;
 		private String query = "";
 		private String fields = "nextPageToken, files(id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser)";
-		private String orderBy;
+		private String orderBy = "";
+		private boolean isFile;
 
-		public Builder(String pageToken) throws IOException {
-			this.pageToken = pageToken;
-			this.fileList = DriveConnection.service.files().list().setPageToken(this.pageToken);
+		@Override
+		public Pair<String, List<Object>> build() throws IOException {
+			FileList result = fileList.execute();
+			this.pageToken = result.getNextPageToken();
+
+			List<Object> objs = new ArrayList<Object>();
+			if (isFile)
+				for (File file : result.getFiles())
+					objs.add((Object) parseFile(file));
+			else
+				for (File file : result.getFiles())
+					objs.add((Object) parseFolder(parseFile(file)));
+
+			return new Pair<String, List<Object>>(pageToken, objs);
 		}
 
 		@Override
-		public List<Object> build() {
-			// TODO Auto-generated method stub
-			return null;
+		public PageSizeStep setPageToken(String pageToken) throws IOException {
+			this.pageToken = pageToken;
+			this.fileList = DriveConnection.service.files().list().setPageToken(pageToken).setFields(this.fields)
+					.set("corpora", "user");
+			return this;
+		}
+
+		@Override
+		public PageSizeStep startFromBeginning() throws IOException {
+			this.fileList = DriveConnection.service.files().list().setPageToken(this.pageToken).setFields(this.fields)
+					.set("corpora", "user");
+			return this;
+		}
+
+		@Override
+		public TypeStep setPageSize(int pageSize) {
+			this.pageSize = pageSize;
+			this.fileList.setPageSize(pageSize);
+			return this;
+		}
+
+		@Override
+		public TypeStep defaultPageSize() {
+			this.fileList.setPageSize(this.pageSize);
+			return this;
 		}
 
 		@Override
 		public WhereFileStep getFiles() {
-			this.query.concat("");
+			this.isFile = true;
+			this.query = "not mimeType contains 'vnd.google-apps.folder'";
 			return this;
 		}
 
 		@Override
 		public WhereFolderStep getFolders() {
-			// TODO Auto-generated method stub
-			return this;
-		}
-
-		@Override
-		public FolderStep fromMyDrive() {
-			// TODO Auto-generated method stub
-			return this;
-		}
-
-		@Override
-		public SharedStep fromStarred() {
-			// TODO Auto-generated method stub
-			return this;
-		}
-
-		@Override
-		public Build fromTrashed() {
-			// TODO Auto-generated method stub
-			return this;
-		}
-
-		@Override
-		public SharedBuildStep fromRecent() {
-			// TODO Auto-generated method stub
+			this.isFile = false;
+			this.query = "mimeType contains 'vnd.google-apps.folder'";
 			return this;
 		}
 
 		@Override
 		public SharedStep fromFolder(String folderId) {
-			// TODO Auto-generated method stub
+			this.folderId = folderId;
+			this.query = this.query.concat(" and '" + folderId + "' in parents");
 			return this;
 		}
 
 		@Override
-		public SharedStep fromRoot() {
-			// TODO Auto-generated method stub
+		public SharedStep fromMyDrive() {
+			this.query = this.query.concat(" and '" + this.folderId + "' in parents and not trashed");
+			return this;
+		}
+
+		@Override
+		public SharedStep fromStarred() {
+			this.query = this.query.concat(" and starred");
+			return this;
+		}
+
+		@Override
+		public Build fromTrashed() {
+			this.query = this.query.concat(" and trahsed");
+			this.fileList.setQ(this.query);
+			return this;
+		}
+
+		@Override
+		public SharedBuildStep fromRecent() {
+			this.orderBy = "viewedByMeTime desc";
+			this.fileList.set("orderBy", this.orderBy);
 			return this;
 		}
 
 		@Override
 		public OrderStep myOwnershipOnly() {
-			// TODO Auto-generated method stub
+			this.query = this.query.concat(" and 'me' in owners");
+			this.fileList.setQ(this.query);
 			return this;
 		}
 
 		@Override
 		public OrderStep anyOwnership() {
-			// TODO Auto-generated method stub
+			this.fileList.setQ(this.query);
 			return this;
 		}
 
 		@Override
 		public Build myFilesOnly() {
-			// TODO Auto-generated method stub
+			this.query = this.query.concat(" and 'me' in owners");
+			this.fileList.setQ(this.query);
 			return this;
 		}
 
 		@Override
 		public Build anyFiles() {
-			// TODO Auto-generated method stub
+			this.fileList.setQ(this.query);
 			return this;
 		}
 
 		@Override
 		public Build notOrdered() {
-			// TODO Auto-generated method stub
 			return this;
 		}
 
 		@Override
 		public Build setOrder(String orderBy) {
-			// TODO Auto-generated method stub
+			this.orderBy = orderBy;
+			this.fileList.set("orderBy", orderBy);
 			return this;
 		}
 
 	}
 
-	private List<String> getPath(List<String> arr) {
+	private static List<String> getPath(List<String> arr) {
 		List<String> path = new ArrayList<String>();
 		try {
 			do {
@@ -194,7 +241,7 @@ public class FileDAO {
 		return path;
 	}
 
-	private jar.model.User parseUser(User us) {
+	private static jar.model.User parseUser(User us) {
 		jar.model.User r = new jar.model.User();
 		if (us == null)
 			return null;
@@ -203,13 +250,13 @@ public class FileDAO {
 		return r;
 	}
 
-	private LocalDateTime parseDateTime(DateTime dt) {
+	private static LocalDateTime parseDateTime(DateTime dt) {
 		if (dt == null)
 			return null;
 		return LocalDateTime.ofInstant(Instant.ofEpochMilli(dt.getValue()), TimeZone.getDefault().toZoneId());
 	}
 
-	private jar.model.File parseFile(File file) {
+	private static jar.model.File parseFile(File file) {
 		jar.model.File aux = new jar.model.File();
 
 		aux.setIdElement(file.getId());
@@ -240,7 +287,7 @@ public class FileDAO {
 		return aux;
 	}
 
-	private Folder parseFolder(jar.model.File file) {
+	private static Folder parseFolder(jar.model.File file) {
 		Folder aux = new Folder();
 
 		aux.setIdElement(file.getIdElement());
@@ -253,7 +300,7 @@ public class FileDAO {
 		return aux;
 	}
 
-	private ContentType getType(String mimeType) {
+	private static ContentType getType(String mimeType) {
 		String left = mimeType.substring(0, mimeType.indexOf('/'));
 		switch (left) {
 			case "application":
@@ -272,7 +319,7 @@ public class FileDAO {
 		}
 	}
 
-	private ContentType.TYPE getApplicationType(String app) {
+	private static ContentType.TYPE getApplicationType(String app) {
 		// Google's stuff
 		if (app.startsWith("vnd.google"))
 			switch (app) {

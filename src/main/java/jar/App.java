@@ -3,7 +3,6 @@ package jar;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.List;
-import java.util.Optional;
 
 import jar.dao.FileDAO;
 import jar.model.File;
@@ -23,6 +22,18 @@ public class App extends Application {
 
     public static void main(String[] args) throws IOException, GeneralSecurityException {
         DriveConnection.initialize();
+
+        // Pair<String, List<Object>> result =
+        // FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles()
+        // .fromStarred().myOwnershipOnly().notOrdered().build();
+        Pair<String, List<Object>> result = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles()
+                .fromMyDrive().myOwnershipOnly().notOrdered().build();
+
+        for (Object obj : result.getValue()) {
+            File file = (File) obj;
+            System.out.println(file.getName() + " - " + file.getPath() + " || " + file.getIdElement() + " || "
+                    + file.getContent().getContentType().getType() + " || " + (file.getFileSize() / 1048576.0) + "Mb");
+        }
 
         // At this point the user has already logged in
         launch();
