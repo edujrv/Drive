@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.TimeZone;
 
 import com.google.api.client.util.DateTime;
+import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 import com.google.api.services.drive.model.User;
@@ -22,190 +23,159 @@ import jar.model.ElementLastUpdate;
 import jar.model.Folder;
 import javafx.util.Pair;
 
-// ! La implementacion de los getFolders es feisima por ahora
 public class FileDAO {
-	/**
-	 * @param folderId  : Set to null if you want to list all files in root folder
-	 * @param pageToken : pageToken to get the next page of files
-	 * @return Pair of the next pageToken and a List of files in 'folderId'
-	 * @throws IOException in case that folderId is invalid
-	 */
-	public Pair<String, List<jar.model.File>> getAllMyDriveFiles(String folderId, String pageToken) throws IOException {
-		if (folderId == null)
-			folderId = "root";
 
-		String query = "'" + folderId
-				+ "' in parents and 'me' in owners and not trashed and not mimeType contains 'vnd.google-apps.folder'";
+	public interface TypeStep {
+		WhereFileStep getFiles();
 
-		return getAll(pageToken, "user", 10, query);
+		WhereFolderStep getFolders();
 	}
 
-	/**
-	 * @param folderId  : Set to null if you want to list all folders in root folder
-	 * @param pageToken : pageToken to get the next page of folders
-	 * @return Pair of the next pageToken and a List of folders in 'folderId'
-	 * @throws IOException in case that folderId is invalid
-	 */
-	public Pair<String, List<Folder>> getAllMyDriveFolder(String folderId, String pageToken) throws IOException {
-		if (folderId == null)
-			folderId = "root";
+	public interface WhereFolderStep {
+		FolderStep fromMyDrive();
 
-		String query = "'" + folderId
-				+ "' in parents and 'me' in owners and not trashed and mimeType contains 'vnd.google-apps.folder'";
+		SharedStep fromStarred();
 
-		Pair<String, List<jar.model.File>> aux = getAll(pageToken, "user", 10, query);
-
-		List<Folder> r = new ArrayList<Folder>();
-		for (jar.model.File file : aux.getValue())
-			r.add(parseFolder(file));
-
-		return new Pair<String, List<Folder>>(aux.getKey(), r);
+		Build fromTrashed();
 	}
 
-	/**
-	 * @param pageToken : pageToken to get the next page of files
-	 * @return Pair of the next pageToken and a List of trashed files
-	 * @throws IOException in case that pageToken is invalid
-	 */
-	public Pair<String, List<jar.model.File>> getAllTrashedFiles(String pageToken) throws IOException {
-		String query = "trashed and not mimeType contains 'vnd.google-apps.folder'";
-
-		return getAll(pageToken, "user", 10, query);
+	public interface WhereFileStep extends WhereFolderStep {
+		SharedBuildStep fromRecent();
 	}
 
-	/**
-	 * @param pageToken : pageToken to get the next page of folders
-	 * @return Pair of the next pageToken and a List of trashed folders
-	 * @throws IOException in case that pageToken is invalid
-	 */
-	public Pair<String, List<Folder>> getAllTrashedFolders(String pageToken) throws IOException {
-		String query = "trashed and mimeType contains 'vnd.google-apps.folder'";
+	public interface FolderStep {
+		SharedStep fromFolder(String folderId);
 
-		Pair<String, List<jar.model.File>> aux = getAll(pageToken, "user", 10, query);
-
-		List<Folder> r = new ArrayList<Folder>();
-		for (jar.model.File file : aux.getValue())
-			r.add(parseFolder(file));
-
-		return new Pair<String, List<Folder>>(aux.getKey(), r);
+		SharedStep fromRoot();
 	}
 
-	/**
-	 * @param pageToken : pageToken to get the next page of files
-	 * @return Pair of the next pageToken and a List of starred files
-	 * @throws IOException in case that pageToken is invalid
-	 */
-	public Pair<String, List<jar.model.File>> getAllStarredFiles(String pageToken) throws IOException {
-		String query = "'me' in owners and starred and not mimeType contains 'vnd.google-apps.folder'";
+	public interface SharedStep {
+		OrderStep myOwnershipOnly();
 
-		return getAll(pageToken, "user", 10, query);
+		OrderStep anyOwnership();
 	}
 
-	/**
-	 * @param pageToken : pageToken to get the next page of folders
-	 * @return Pair of the next pageToken and a List of starred folders
-	 * @throws IOException in case that pageToken is invalid
-	 */
-	public Pair<String, List<Folder>> getAllStarredFolders(String pageToken) throws IOException {
-		String query = "'me' in owners and starred and mimeType contains 'vnd.google-apps.folder'";
+	public interface SharedBuildStep {
+		Build myFilesOnly();
 
-		Pair<String, List<jar.model.File>> aux = getAll(pageToken, "user", 10, query);
-
-		List<Folder> r = new ArrayList<Folder>();
-		for (jar.model.File file : aux.getValue())
-			r.add(parseFolder(file));
-
-		return new Pair<String, List<Folder>>(aux.getKey(), r);
+		Build anyFiles();
 	}
 
-	/**
-	 * @param pageToken : pageToken to get the next page of files
-	 * @return Pair of the next pageToken and a List of recent files
-	 * @throws IOException in case that pageToken is invalid
-	 */
-	public Pair<String, List<jar.model.File>> getAllRecentFiles(String pageToken) throws IOException {
-		String query = "'me' in owners and not mimeType contains 'vnd.google-apps.folder'";
+	public interface OrderStep {
+		Build notOrdered();
 
-		return getAll(pageToken, "user", 10, query, "viewedByMeTime desc");
+		Build setOrder(String orderBy);
 	}
 
-	/**
-	 * @param fileId : id of the file to get
-	 * @return A optional file, it's empty if fileId doesen't exists
-	 */
-	public Optional<jar.model.File> getFile(String fileId) {
-		File file = null;
-		try {
-			file = DriveConnection.service.files().get(fileId).setFields(
-					"id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser")
-					.execute();
-		} catch (IOException e) {
-			return Optional.empty();
-		}
-		return Optional.of(parseFile(file));
+	public interface Build {
+		List<Object> build();
 	}
 
-	/**
-	 * @param fileId : id of the folder to get
-	 * @return A optional foldder, it's empty if folderId doesen't exists
-	 */
-	public Optional<Folder> getFolder(String folderId) {
-		File file = null;
-		try {
-			file = DriveConnection.service.files().get(folderId).setFields(
-					"id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser")
-					.execute();
-		} catch (IOException e) {
-			return Optional.empty();
-		}
-		return Optional.of(parseFolder(parseFile(file)));
-	}
+	public static class Builder
+			implements TypeStep, WhereFileStep, FolderStep, SharedStep, SharedBuildStep, OrderStep, Build {
+		private Drive.Files.List fileList;
+		private String pageToken = null;
+		private String folderId = "root";
+		private int pageSize = 10;
+		private String query = "";
+		private String fields = "nextPageToken, files(id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser)";
+		private String orderBy;
 
-	public void save(jar.model.File e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void update(String id, jar.model.File e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void delete(jar.model.File e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	private Pair<String, List<jar.model.File>> getAll(String pageToken, String corpora, int pageSize, String query,
-			String fields, String orderBy) throws IOException {
-		List<jar.model.File> r = new ArrayList<jar.model.File>();
-
-		FileList result;
-		if (orderBy == null) {
-			result = DriveConnection.service.files().list().set("corpora", corpora).setPageSize(pageSize).setQ(query)
-					.setFields(fields).setPageToken(pageToken).execute();
-		} else {
-			result = DriveConnection.service.files().list().set("corpora", corpora).setPageSize(pageSize).setQ(query)
-					.setFields(fields).set("orderBy", orderBy).setPageToken(pageToken).execute();
+		public Builder(String pageToken) throws IOException {
+			this.pageToken = pageToken;
+			this.fileList = DriveConnection.service.files().list().setPageToken(this.pageToken);
 		}
 
-		pageToken = result.getNextPageToken();
+		@Override
+		public List<Object> build() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 
-		for (File file : result.getFiles())
-			r.add(parseFile(file));
-		return new Pair<String, List<jar.model.File>>(pageToken, r);
-	}
+		@Override
+		public WhereFileStep getFiles() {
+			this.query.concat("");
+			return this;
+		}
 
-	private Pair<String, List<jar.model.File>> getAll(String pageToken, String corpora, int pageSize, String query)
-			throws IOException {
-		String fields = "nextPageToken, files(id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser)";
-		return getAll(pageToken, corpora, pageSize, query, fields, null);
-	}
+		@Override
+		public WhereFolderStep getFolders() {
+			// TODO Auto-generated method stub
+			return this;
+		}
 
-	private Pair<String, List<jar.model.File>> getAll(String pageToken, String corpora, int pageSize, String query,
-			String orderBy) throws IOException {
-		String fields = "nextPageToken, files(id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser)";
-		return getAll(pageToken, corpora, pageSize, query, fields, orderBy);
+		@Override
+		public FolderStep fromMyDrive() {
+			// TODO Auto-generated method stub
+			return this;
+		}
+
+		@Override
+		public SharedStep fromStarred() {
+			// TODO Auto-generated method stub
+			return this;
+		}
+
+		@Override
+		public Build fromTrashed() {
+			// TODO Auto-generated method stub
+			return this;
+		}
+
+		@Override
+		public SharedBuildStep fromRecent() {
+			// TODO Auto-generated method stub
+			return this;
+		}
+
+		@Override
+		public SharedStep fromFolder(String folderId) {
+			// TODO Auto-generated method stub
+			return this;
+		}
+
+		@Override
+		public SharedStep fromRoot() {
+			// TODO Auto-generated method stub
+			return this;
+		}
+
+		@Override
+		public OrderStep myOwnershipOnly() {
+			// TODO Auto-generated method stub
+			return this;
+		}
+
+		@Override
+		public OrderStep anyOwnership() {
+			// TODO Auto-generated method stub
+			return this;
+		}
+
+		@Override
+		public Build myFilesOnly() {
+			// TODO Auto-generated method stub
+			return this;
+		}
+
+		@Override
+		public Build anyFiles() {
+			// TODO Auto-generated method stub
+			return this;
+		}
+
+		@Override
+		public Build notOrdered() {
+			// TODO Auto-generated method stub
+			return this;
+		}
+
+		@Override
+		public Build setOrder(String orderBy) {
+			// TODO Auto-generated method stub
+			return this;
+		}
+
 	}
 
 	private List<String> getPath(List<String> arr) {
