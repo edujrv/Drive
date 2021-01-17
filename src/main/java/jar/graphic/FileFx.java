@@ -1,6 +1,7 @@
 package jar.graphic;
 
 import jar.controllers.Efectos;
+import jar.controllers.HomeController;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -21,34 +22,39 @@ import javafx.event.Event;
 
 
 public class FileFx extends VBox {
+    public String id;
     private FileFx prevFile = null;
     private Label title = new Label();
+    private Pane  pane = new Pane();
    // @FXML
     public FileFx(){
         this.setPrefSize(200,175);
         try {
             Image pic = new Image("jar/images/logoDrive.png");
-            setTitle("HOLAAAAAAAAAAAAAAAAAA");
+            setTitle("HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             changeTitleColor(0,0,0);
 
             ImageView icon = new ImageView(pic);
             icon.setFitWidth(200);
             icon.setFitHeight(150);
 
-            title.relocate(0,155);
-            title.setMaxWidth(200);
-            title.setStyle("-fx-font-size: 18; -fx-font: Normal 18 'Agency FB'");
-            title.setMinSize(200,25);
+            pane.setPrefSize(200,50);
+            pane.setStyle("-fx-padding: 0; -fx-border-radius: 10");
 
-            this.getChildren().addAll(icon,title);
+            title.setMaxWidth(200);
+            title.setStyle("-fx-font-size: 18; -fx-font: Normal 18 'Agency FB'; -fx-padding: 0 0 0 0");
+
+
+            pane.getChildren().addAll(title);
+            this.getChildren().addAll(icon,pane);
 
             this.setStyle("-fx-border-color: #bababa; " +
                             "-fx-border-width: 1;" +
                             "-fx-border-radius: 10; " +
                             "-fx-padding: 20; " +
-                            "-fx-border-insets: 10 5 0 5");
+                            "-fx-border-insets: 10 0 0 10");
 
-             this.setOnMouseClicked(this::fileSelected);
+             this.setOnMouseClicked(HomeController::fileSelected);
 
 
 
@@ -69,44 +75,30 @@ public class FileFx extends VBox {
 
         this.title.setStyle("-fx-background-color: "+red +" "+green+" "+blue);
     }
+
+    public void changeTitleBackground(Color color){
+
+        this.title.setStyle("-fx-background-color: color");
+    }
+
     public void changeTitleBackground(){
 
-        this.title.setStyle("-fx-background-color: #099194; "+
+        this.pane.setStyle("-fx-background-color: #80e0e2; "+
                             "-fx-font-size: 18; " +
-                            "-fx-font: Normal 18 'Agency FB'");
-      /*  this.setStyle("-fx-border-color: #099194; " +
-                "-fx-background-color: #80e0e2;"+
-                "-fx-border-width: 1;" +
+                            "-fx-font: Normal 18 'Agency FB';" +
+                            "-fx-padding: 0; -fx-border-insets: 0 0 0 0");
+
+
+        this.setStyle("-fx-border-color: #099194; " +
+
+                "-fx-border-width: 3;" +
                 "-fx-border-radius: 10; " +
-                "-fx-padding: 20; " +
-                "-fx-border-insets: 10 5 0 5");
-                */
+                "-fx-padding: 0; " +
+                "-fx-border-insets: 10 0 0 10; -fx-pref-width: 200; -fx-pref-height: 175");
+        this.setPrefSize(250,175);
+
 
     }
 
-    @FXML
-    public void fileSelected (Event e) {
-        FileFx actualFile = (FileFx) e.getSource();
-        String btnName = actualFile.getId();
 
-        if(prevFile != null){
-            prevFile.changeTitleColor(0,0,0);
-            prevFile.setStyle("-fx-border-color: #000000; " +
-                    "-fx-border-width: 1;" +
-                    "-fx-border-radius: 10; " +
-                    "-fx-padding: 20; " +
-                    "-fx-border-insets: 10 5 0 5");
-        }
-        prevFile = actualFile;
-        prevFile.setId(actualFile.getId());
-
-        //actualFile.changeTitleColor(9,145,148);
-        actualFile.setEffect(Efectos.blueOn());
-        actualFile.setStyle("-fx-border-color: #099194; " +
-                "-fx-border-width: 1;" +
-                "-fx-border-radius: 10; " +
-                "-fx-padding: 20; " +
-                "-fx-border-insets: 10 5 0 5");
-        actualFile.changeTitleBackground();
-    }
 }

@@ -441,32 +441,32 @@
 
                      <children>
 
-                              <FileFx>
+                              <FileFx id="13">
 
                               </FileFx>
-                        <FileFx>
+                        <FileFx id="1" >
 
                         </FileFx>
-                        <FileFx>
+                        <FileFx id="2">
 
                         </FileFx>
-                        <FileFx>
+                        <FileFx id="3">
                         </FileFx>
-                        <FileFx>
+                        <FileFx id="4">
                         </FileFx>
-                        <FileFx>
+                        <FileFx id="5">
                         </FileFx>
-                        <FileFx>
+                        <FileFx id="6">
                         </FileFx>
-                        <FileFx>
+                        <FileFx id="7">
                         </FileFx>
-                        <FileFx>
+                        <FileFx id="8">
                         </FileFx>
-                        <FileFx>
+                        <FileFx id="9">
                         </FileFx>
-                        <FileFx>
+                        <FileFx id="10">
                         </FileFx>
-                        <FileFx>
+                        <FileFx id="11">
                         </FileFx>
 
 
