@@ -99,11 +99,10 @@ public class HomeController {
         Button btn = (Button) e.getSource();
         String btnName = btn.getId();
 
-
         if (prevButton != null) {
             prevButton.setEffect(Efectos.grayOf());
             prevButton.setTextFill(Color.BLACK);
-            picture = new Image("jar/images/"+ prevButton.getId() + "Black.png");
+            picture = new Image("jar/images/" + prevButton.getId() + "Black.png");
             ImageView icon = new ImageView(picture);
             icon.setFitHeight(40);
             icon.setFitWidth(30);
@@ -111,22 +110,22 @@ public class HomeController {
             icon.setPreserveRatio(true);
             icon.setTranslateX(-35.0);
             prevButton.setGraphic(icon);
-        }else{
+        } else {
             prevButton = miUnidadBtn;
         }
 
-            prevButton = btn;
-            prevButton.setId(btnName);
-            btn.setEffect(Efectos.blueOn());
-            btn.setTextFill(Color.rgb(76, 175, 232));
-            picture = new Image("jar/images/"+ btnName + "Blue.png");
-            ImageView ejemplo = new ImageView(picture);
-            ejemplo.setFitHeight(40);
-            ejemplo.setFitWidth(30);
-            ejemplo.setPickOnBounds(true);
-            ejemplo.setPreserveRatio(true);
-            ejemplo.setTranslateX(-35.0);
-            prevButton.setGraphic(ejemplo);
+        prevButton = btn;
+        prevButton.setId(btnName);
+        btn.setEffect(Efectos.blueOn());
+        btn.setTextFill(Color.rgb(76, 175, 232));
+        picture = new Image("jar/images/" + btnName + "Blue.png");
+        ImageView ejemplo = new ImageView(picture);
+        ejemplo.setFitHeight(40);
+        ejemplo.setFitWidth(30);
+        ejemplo.setPickOnBounds(true);
+        ejemplo.setPreserveRatio(true);
+        ejemplo.setTranslateX(-35.0);
+        prevButton.setGraphic(ejemplo);
     }
 
     @FXML
@@ -134,9 +133,8 @@ public class HomeController {
 
         Button btn = (Button) e.getSource();
 
-        if(prevButton == null)
+        if (prevButton == null)
             prevButton = miUnidadBtn;
-
 
         if (prevButton != btn) {
             btn.setEffect(Efectos.grayOn(btn.getId()));
@@ -148,7 +146,7 @@ public class HomeController {
 
         Button btn = (Button) e.getSource();
 
-        if(prevButton == null)
+        if (prevButton == null)
             prevButton = miUnidadBtn;
 
         if (prevButton != btn) {
@@ -191,20 +189,18 @@ public class HomeController {
         b.setEffect(Efectos.grayOf());
 
     }
+
     @FXML
     public static void fileSelected(Event e) {
         FileFx actualFile = (FileFx) e.getSource();
         String btnName = actualFile.getId();
 
-        if(prevFile != null){
-            prevFile.changeTitleColor(0,0,0);
+        if (prevFile != null) {
+            prevFile.changeTitleColor(0, 0, 0);
             prevFile.setEffect(Efectos.grayOf());
             System.out.println("PONGO NEGRO A" + prevFile.getId());
-            prevFile.setStyle("-fx-border-color: #bababa; " +
-                    "-fx-border-width: 1;" +
-                    "-fx-border-radius: 10; " +
-                    "-fx-padding: 20; " +
-                    "-fx-border-insets: 10 5 0 5");
+            prevFile.setStyle("-fx-border-color: #bababa; " + "-fx-border-width: 1;" + "-fx-border-radius: 10; "
+                    + "-fx-padding: 20; " + "-fx-border-insets: 10 5 0 5");
             prevFile.changeTitleBackground(Color.TRANSPARENT);
         }
 
@@ -212,14 +208,14 @@ public class HomeController {
         prevFile.setId(actualFile.getId());
         System.out.println(prevFile.getId());
 
-        //actualFile.changeTitleColor(9,145,148);
+        // actualFile.changeTitleColor(9,145,148);
         actualFile.setEffect(Efectos.blueOn());
         System.out.println("PONGO AZUL A " + actualFile.getId());
-        /*actualFile.setStyle("-fx-border-color: #099194; " +
-                "-fx-border-width: 1;" +
-                "-fx-border-radius: 10; " +
-                "-fx-padding: 20; " +
-                "-fx-border-insets: 10 5 0 5");*/
+        /*
+         * actualFile.setStyle("-fx-border-color: #099194; " + "-fx-border-width: 1;" +
+         * "-fx-border-radius: 10; " + "-fx-padding: 20; " +
+         * "-fx-border-insets: 10 5 0 5");
+         */
         actualFile.changeTitleBackground();
     }
 

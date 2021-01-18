@@ -12,20 +12,20 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Tooltip?>
-<?import javafx.scene.control.TreeView?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import jar.graphic.FileFx?>
-<ScrollPane  maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jar.controllers.HomeController">
-<BorderPane  prefHeight="1080.0" prefWidth="1920.0">
+<?import jar.graphic.FileFx?>       
+
+<ScrollPane maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jar.controllers.HomeController">
+<BorderPane prefHeight="1080.0" prefWidth="1920.0">
    <left>
       <VBox minWidth="-Infinity" prefHeight="958.0" prefWidth="310.0" BorderPane.alignment="CENTER">
          <children>
@@ -53,11 +53,37 @@
                   <DropShadow color="#727272" />
                </effect>
             </Button>
-            <TreeView fx:id="UnidadBtn" prefHeight="60.0" prefWidth="90.0">
-               <VBox.margin>
-                  <Insets top="40.0" />
-               </VBox.margin>
-            </TreeView>
+               <Button fx:id="miUnidadBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#buttonBlue" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="60.0" prefWidth="335.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Mi unidad" textFill="#4cafe8" translateX="-25.0">
+                  <font>
+                     <Font size="24.0" />
+                  </font>
+                  <graphic>
+                     <ImageView fx:id="personaIg1" fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-35.0">
+                        <image>
+                           <Image url="@../images/miUnidadBtnBlue.png" />
+                        </image>
+                        <cursor>
+                           <Cursor fx:constant="HAND" />
+                        </cursor>
+                     </ImageView>
+                  </graphic>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+                  <VBox.margin>
+                     <Insets top="40.0" />
+                  </VBox.margin>
+                  <effect>
+                     <DropShadow color="#4cafe8a6" height="6.0" radius="6.25">
+                        <input>
+                           <InnerShadow color="#4cafe8a6" height="148.49" radius="41.8725" />
+                        </input>
+                     </DropShadow>
+                  </effect>
+                  <padding>
+                     <Insets right="20.0" />
+                  </padding>
+               </Button>
             <Button fx:id="shareBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#buttonBlue" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="60.0" prefWidth="335.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Compartido" translateX="-25.0">
                <font>
                   <Font size="24.0" />
@@ -75,6 +101,9 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+                  <VBox.margin>
+                     <Insets top="4.0" />
+                  </VBox.margin>
             </Button>
             <Button fx:id="recientBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#buttonBlue" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="60.0" prefWidth="335.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Reciente" translateX="-25.0">
                <font>
@@ -437,10 +466,10 @@
             </HBox>
             <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="370.0" prefWidth="706.0">
                <content>
-                  <FlowPane prefHeight="200.0" prefWidth="200.0" >
+                  <FlowPane prefHeight="200.0" prefWidth="200.0">
 
                      <children>
-
+                  
                               <FileFx id="13">
 
                               </FileFx>
@@ -468,7 +497,7 @@
                         </FileFx>
                         <FileFx id="11">
                         </FileFx>
-
+                    
 
 
                      </children>
