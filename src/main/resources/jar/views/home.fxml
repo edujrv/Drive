@@ -53,7 +53,7 @@
                   <DropShadow color="#727272" />
                </effect>
             </Button>
-            <TreeView fx:id="miUnidadBtn" prefHeight="60.0" prefWidth="90.0">
+            <TreeView fx:id="UnidadBtn" prefHeight="60.0" prefWidth="90.0">
                <VBox.margin>
                   <Insets top="40.0" />
                </VBox.margin>

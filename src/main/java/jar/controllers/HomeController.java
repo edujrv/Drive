@@ -16,6 +16,8 @@ import javafx.scene.paint.Color;
 public class HomeController {
 
     @FXML
+    private Button miUnidadBtn;
+    @FXML
     private static FileFx prevFile = null;
     @FXML
     private Image picture;
@@ -109,6 +111,8 @@ public class HomeController {
             icon.setPreserveRatio(true);
             icon.setTranslateX(-35.0);
             prevButton.setGraphic(icon);
+        }else{
+            prevButton = miUnidadBtn;
         }
 
             prevButton = btn;
@@ -129,6 +133,11 @@ public class HomeController {
     public void buttonGray(Event e) {
 
         Button btn = (Button) e.getSource();
+
+        if(prevButton == null)
+            prevButton = miUnidadBtn;
+
+
         if (prevButton != btn) {
             btn.setEffect(Efectos.grayOn(btn.getId()));
         }
@@ -138,6 +147,10 @@ public class HomeController {
     public void buttonNormal(Event e) {
 
         Button btn = (Button) e.getSource();
+
+        if(prevButton == null)
+            prevButton = miUnidadBtn;
+
         if (prevButton != btn) {
             btn.setEffect(Efectos.grayOf());
         }
