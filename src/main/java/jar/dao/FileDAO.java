@@ -1,26 +1,14 @@
 package jar.dao;
 
 import java.io.IOException;
-import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.TimeZone;
 
-import com.google.api.client.util.DateTime;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
-import com.google.api.services.drive.model.User;
 
 import jar.DriveConnection;
-import jar.model.Content;
-import jar.model.ContentType;
-import jar.model.ElementDataCreate;
-import jar.model.ElementLastOpened;
-import jar.model.ElementLastUpdate;
-import jar.model.Folder;
 import javafx.util.Pair;
 
 public class FileDAO {
@@ -29,24 +17,37 @@ public class FileDAO {
 		return new QueryBuilder();
 	}
 
+	/**
+	 * 1st step. The page token is set here.
+	 */
 	public interface PageTokenStep {
 		PageSizeStep setPageToken(String pageToken) throws IOException;
 
 		PageSizeStep startFromBeginning() throws IOException;
 	}
 
+	/**
+	 * 2nd step. The page size is set here.
+	 */
 	public interface PageSizeStep {
 		TypeStep setPageSize(int pageSize);
 
 		TypeStep defaultPageSize();
 	}
 
+	/**
+	 * 3rd step. The type of file to be return is set here.
+	 */
 	public interface TypeStep {
 		WhereFileStep getFiles();
 
 		WhereFolderStep getFolders();
 	}
 
+	/**
+	 * 4th step. Where the files/folders should be fetched from This step also
+	 * applies to files.
+	 */
 	public interface WhereFolderStep {
 		SharedStep fromFolder(String folderId);
 
@@ -57,28 +58,45 @@ public class FileDAO {
 		Build fromTrashed();
 	}
 
+	/**
+	 * 4th step only for files. Files can also fetch from the recent tab.
+	 */
 	public interface WhereFileStep extends WhereFolderStep {
 		SharedBuildStep fromRecent();
 	}
 
+	/**
+	 * 5th step. Filters based on the ownership (who ownes them) of the
+	 * files/folders.
+	 */
 	public interface SharedStep {
 		OrderStep myOwnershipOnly();
 
 		OrderStep anyOwnership();
 	}
 
+	/**
+	 * 5th and final step only for files from "fromRecent". This is because files
+	 * that come from "fromRecent" are already ordered.
+	 */
 	public interface SharedBuildStep {
 		Build myFilesOnly();
 
 		Build anyFiles();
 	}
 
+	/**
+	 * 6th step. Orders (or not) the files/folders.
+	 */
 	public interface OrderStep {
 		Build notOrdered();
 
 		Build setOrder(String orderBy);
 	}
 
+	/**
+	 * 7th step and final step. Builds the object.
+	 */
 	public interface Build {
 		Pair<String, List<Object>> build() throws IOException;
 	}
@@ -92,8 +110,9 @@ public class FileDAO {
 		private String query = "";
 		private String fields = "nextPageToken, files(id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser)";
 		private String orderBy = "";
-		private boolean isFile;
+		private boolean isFile = true;
 
+		// ## Build
 		@Override
 		public Pair<String, List<Object>> build() throws IOException {
 			FileList result = fileList.execute();
@@ -102,14 +121,15 @@ public class FileDAO {
 			List<Object> objs = new ArrayList<Object>();
 			if (isFile)
 				for (File file : result.getFiles())
-					objs.add((Object) parseFile(file));
+					objs.add((Object) FileUtils.parseFile(file));
 			else
 				for (File file : result.getFiles())
-					objs.add((Object) parseFolder(parseFile(file)));
+					objs.add((Object) FileUtils.parseFolder(FileUtils.parseFile(file)));
 
 			return new Pair<String, List<Object>>(pageToken, objs);
 		}
 
+		// ## PageTokenStep
 		@Override
 		public PageSizeStep setPageToken(String pageToken) throws IOException {
 			this.pageToken = pageToken;
@@ -125,6 +145,7 @@ public class FileDAO {
 			return this;
 		}
 
+		// ## PageSizeStep
 		@Override
 		public TypeStep setPageSize(int pageSize) {
 			this.pageSize = pageSize;
@@ -138,9 +159,9 @@ public class FileDAO {
 			return this;
 		}
 
+		// ## TypeStep
 		@Override
 		public WhereFileStep getFiles() {
-			this.isFile = true;
 			this.query = "not mimeType contains 'vnd.google-apps.folder'";
 			return this;
 		}
@@ -152,6 +173,7 @@ public class FileDAO {
 			return this;
 		}
 
+		// ## WhereFolderStep && WhereFilesStep
 		@Override
 		public SharedStep fromFolder(String folderId) {
 			this.folderId = folderId;
@@ -178,6 +200,7 @@ public class FileDAO {
 			return this;
 		}
 
+		// ## WhereFilesStep
 		@Override
 		public SharedBuildStep fromRecent() {
 			this.orderBy = "viewedByMeTime desc";
@@ -185,6 +208,7 @@ public class FileDAO {
 			return this;
 		}
 
+		// ## SharedStep
 		@Override
 		public OrderStep myOwnershipOnly() {
 			this.query = this.query.concat(" and 'me' in owners");
@@ -198,6 +222,7 @@ public class FileDAO {
 			return this;
 		}
 
+		// ## SharedBuildStep
 		@Override
 		public Build myFilesOnly() {
 			this.query = this.query.concat(" and 'me' in owners");
@@ -211,6 +236,7 @@ public class FileDAO {
 			return this;
 		}
 
+		// ## OrderStep
 		@Override
 		public Build notOrdered() {
 			return this;
@@ -225,152 +251,4 @@ public class FileDAO {
 
 	}
 
-	private static List<String> getPath(List<String> arr) {
-		List<String> path = new ArrayList<String>();
-		try {
-			do {
-				File f = DriveConnection.service.files().get(arr.get(0)).setFields("name, parents").execute();
-				arr = f.getParents();
-				path.add(0, f.getName());
-			} while (arr != null);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (NullPointerException e) {
-			return path;
-		}
-		return path;
-	}
-
-	private static jar.model.User parseUser(User us) {
-		jar.model.User r = new jar.model.User();
-		if (us == null)
-			return null;
-		r.setName(us.getDisplayName());
-		r.setMail(us.getEmailAddress());
-		return r;
-	}
-
-	private static LocalDateTime parseDateTime(DateTime dt) {
-		if (dt == null)
-			return null;
-		return LocalDateTime.ofInstant(Instant.ofEpochMilli(dt.getValue()), TimeZone.getDefault().toZoneId());
-	}
-
-	private static jar.model.File parseFile(File file) {
-		jar.model.File aux = new jar.model.File();
-
-		aux.setIdElement(file.getId());
-		aux.setName(file.getName());
-		aux.setPath(getPath(file.getParents()));
-
-		Content c = new Content();
-		c.setContentType(getType(file.getMimeType()));
-
-		if (c.getContentType().getType() == ContentType.TYPE.FOLDER || file.getSize() == null)
-			aux.setFileSize(0);
-		else
-			aux.setFileSize(file.getSize());
-
-		aux.setIsErased(false);
-		aux.setIsFeatured(file.getStarred());
-
-		c.setIsShared(file.getShared());
-		c.setOwner(parseUser(file.getOwners().get(0)));
-		c.setDataCreate(new ElementDataCreate(parseDateTime(file.getCreatedTime()), c.getOwner()));
-
-		c.setLastUpdate(
-				new ElementLastUpdate(parseDateTime(file.getModifiedTime()), parseUser(file.getLastModifyingUser())));
-		c.setLastOpened(new ElementLastOpened(parseDateTime(file.getViewedByMeTime()), file.getViewedByMe()));
-
-		aux.setContent(c);
-
-		return aux;
-	}
-
-	private static Folder parseFolder(jar.model.File file) {
-		Folder aux = new Folder();
-
-		aux.setIdElement(file.getIdElement());
-		aux.setName(file.getName());
-		aux.setPath(getPath(file.getPath()));
-		aux.setContent(file.getContent());
-		aux.setIsErased(false);
-		aux.setIsFeatured(file.isFeatured());
-
-		return aux;
-	}
-
-	private static ContentType getType(String mimeType) {
-		String left = mimeType.substring(0, mimeType.indexOf('/'));
-		switch (left) {
-			case "application":
-				String right = mimeType.substring(mimeType.indexOf('/') + 1, mimeType.length());
-				return new ContentType(getApplicationType(right));
-			case "image":
-				return new ContentType(ContentType.TYPE.IMAGE);
-			case "text":
-				return new ContentType(ContentType.TYPE.TEXT);
-			case "video":
-				return new ContentType(ContentType.TYPE.VIDEO);
-			case "audio":
-				return new ContentType(ContentType.TYPE.AUDIO);
-			default:
-				return new ContentType(ContentType.TYPE.UNKNOWN);
-		}
-	}
-
-	private static ContentType.TYPE getApplicationType(String app) {
-		// Google's stuff
-		if (app.startsWith("vnd.google"))
-			switch (app) {
-				case "vnd.google-apps.folder":
-					return ContentType.TYPE.FOLDER;
-
-				case "vnd.google-apps.document":
-				case "vnd.google-apps.drawing":
-				case "vnd.google-apps.form":
-				case "vnd.google-apps.presentation":
-				case "vnd.google-apps.spreadsheet":
-					return ContentType.TYPE.OFFICE;
-
-				case "vnd.google-apps.audio":
-					return ContentType.TYPE.AUDIO;
-
-				case "vnd.google-apps.drive-sdk":
-				case "vnd.google-apps.file":
-				case "vnd.google-apps.fusiontable":
-				case "vnd.google-apps.map":
-				case "vnd.google-apps.shortcut":
-				case "vnd.google-apps.site":
-					return ContentType.TYPE.FILE;
-
-				case "application/vnd.google-apps.photo":
-					return ContentType.TYPE.IMAGE;
-
-				case "application/vnd.google-apps.video":
-					return ContentType.TYPE.VIDEO;
-
-				case "application/vnd.google-apps.script":
-					return ContentType.TYPE.TEXT;
-
-				default:
-					return ContentType.TYPE.UNKNOWN;
-			}
-
-		if (app.contains("office") || app.contains("word") || app.contains("document") || app.contains("excel")
-				|| app.contains("spreadsheet") || app.contains("powerpoint") || app.contains("presentation")
-				|| app.contains("write") || app.contains("rtf"))
-			return ContentType.TYPE.OFFICE;
-
-		if (app.contains("zip") || app.contains("x-7z") || app.equals("vnd.rar") || app.equals("x-tar")
-				|| app.equals("gzip") || app.equals("java-archive"))
-			return ContentType.TYPE.FILE;
-
-		if (app.equals("pdf"))
-			return ContentType.TYPE.PDF;
-
-		if (app.equals("json"))
-			return ContentType.TYPE.TEXT;
-		return ContentType.TYPE.UNKNOWN;
-	}
 }
