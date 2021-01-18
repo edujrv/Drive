@@ -188,10 +188,10 @@ public class HomeController {
             prevFile.setEffect(Efectos.grayOf());
             System.out.println("PONGO NEGRO A" + prevFile.getId());
             prevFile.setStyle("-fx-border-color: #bababa; " +
-                    "-fx-border-width: 1;" +
+                    "-fx-border-width: 3;" +
                     "-fx-border-radius: 10; " +
-                    "-fx-padding: 20; " +
-                    "-fx-border-insets: 10 5 0 5");
+                    "-fx-padding: 0; " +
+                    "-fx-border-insets: 10 0 0 10");
             prevFile.changeTitleBackground(Color.TRANSPARENT);
         }
 
@@ -207,7 +207,9 @@ public class HomeController {
                 "-fx-border-radius: 10; " +
                 "-fx-padding: 20; " +
                 "-fx-border-insets: 10 5 0 5");*/
+        actualFile.changeTitleBackground(Color.TRANSPARENT);
         actualFile.changeTitleBackground();
+
     }
 
 }
