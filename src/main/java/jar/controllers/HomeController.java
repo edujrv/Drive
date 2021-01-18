@@ -1,5 +1,6 @@
 package jar.controllers;
 
+import jar.graphic.FileFx;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 
@@ -14,7 +15,10 @@ import javafx.scene.paint.Color;
 
 public class HomeController {
 
-
+    @FXML
+    private Button miUnidadBtn;
+    @FXML
+    private static FileFx prevFile = null;
     @FXML
     private Image picture;
     @FXML
@@ -107,6 +111,8 @@ public class HomeController {
             icon.setPreserveRatio(true);
             icon.setTranslateX(-35.0);
             prevButton.setGraphic(icon);
+        }else{
+            prevButton = miUnidadBtn;
         }
 
             prevButton = btn;
@@ -127,6 +133,11 @@ public class HomeController {
     public void buttonGray(Event e) {
 
         Button btn = (Button) e.getSource();
+
+        if(prevButton == null)
+            prevButton = miUnidadBtn;
+
+
         if (prevButton != btn) {
             btn.setEffect(Efectos.grayOn(btn.getId()));
         }
@@ -136,6 +147,10 @@ public class HomeController {
     public void buttonNormal(Event e) {
 
         Button btn = (Button) e.getSource();
+
+        if(prevButton == null)
+            prevButton = miUnidadBtn;
+
         if (prevButton != btn) {
             btn.setEffect(Efectos.grayOf());
         }
@@ -175,6 +190,37 @@ public class HomeController {
         System.out.println(b.getId());
         b.setEffect(Efectos.grayOf());
 
+    }
+    @FXML
+    public static void fileSelected(Event e) {
+        FileFx actualFile = (FileFx) e.getSource();
+        String btnName = actualFile.getId();
+
+        if(prevFile != null){
+            prevFile.changeTitleColor(0,0,0);
+            prevFile.setEffect(Efectos.grayOf());
+            System.out.println("PONGO NEGRO A" + prevFile.getId());
+            prevFile.setStyle("-fx-border-color: #bababa; " +
+                    "-fx-border-width: 1;" +
+                    "-fx-border-radius: 10; " +
+                    "-fx-padding: 20; " +
+                    "-fx-border-insets: 10 5 0 5");
+            prevFile.changeTitleBackground(Color.TRANSPARENT);
+        }
+
+        prevFile = actualFile;
+        prevFile.setId(actualFile.getId());
+        System.out.println(prevFile.getId());
+
+        //actualFile.changeTitleColor(9,145,148);
+        actualFile.setEffect(Efectos.blueOn());
+        System.out.println("PONGO AZUL A " + actualFile.getId());
+        /*actualFile.setStyle("-fx-border-color: #099194; " +
+                "-fx-border-width: 1;" +
+                "-fx-border-radius: 10; " +
+                "-fx-padding: 20; " +
+                "-fx-border-insets: 10 5 0 5");*/
+        actualFile.changeTitleBackground();
     }
 
 }

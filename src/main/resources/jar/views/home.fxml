@@ -17,11 +17,15 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jar.controllers.HomeController">
+<?import jar.graphic.FileFx?>
+<ScrollPane  maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jar.controllers.HomeController">
+<BorderPane  prefHeight="1080.0" prefWidth="1920.0">
    <left>
       <VBox minWidth="-Infinity" prefHeight="958.0" prefWidth="310.0" BorderPane.alignment="CENTER">
          <children>
@@ -49,7 +53,7 @@
                   <DropShadow color="#727272" />
                </effect>
             </Button>
-            <TreeView fx:id="miUnidadBtn" prefHeight="60.0" prefWidth="90.0">
+            <TreeView fx:id="UnidadBtn" prefHeight="60.0" prefWidth="90.0">
                <VBox.margin>
                   <Insets top="40.0" />
                </VBox.margin>
@@ -431,8 +435,47 @@
                   </Button>
                </children>
             </HBox>
-            <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="370.0" prefWidth="706.0" />
+            <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="370.0" prefWidth="706.0">
+               <content>
+                  <FlowPane prefHeight="200.0" prefWidth="200.0" >
+
+                     <children>
+
+                              <FileFx id="13">
+
+                              </FileFx>
+                        <FileFx id="1" >
+
+                        </FileFx>
+                        <FileFx id="2">
+
+                        </FileFx>
+                        <FileFx id="3">
+                        </FileFx>
+                        <FileFx id="4">
+                        </FileFx>
+                        <FileFx id="5">
+                        </FileFx>
+                        <FileFx id="6">
+                        </FileFx>
+                        <FileFx id="7">
+                        </FileFx>
+                        <FileFx id="8">
+                        </FileFx>
+                        <FileFx id="9">
+                        </FileFx>
+                        <FileFx id="10">
+                        </FileFx>
+                        <FileFx id="11">
+                        </FileFx>
+
+
+
+                     </children>
+                  </FlowPane>
+               </content></ScrollPane>
          </children>
       </VBox>
    </center>
 </BorderPane>
+</ScrollPane>
