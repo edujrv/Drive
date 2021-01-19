@@ -24,18 +24,16 @@ public class FileFx extends VBox {
         try {
             Image pic = new Image("jar/images/office.png");
             setTitle("HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-            changeTitleColor(0,0,0);
 
             ImageView icon = new ImageView(pic);
             icon.setFitWidth(200);
             icon.setFitHeight(150);
 
-            pane.setPrefSize(200,50);
-            pane.setStyle("-fx-padding: 20 20 0 20; -fx-border-radius: 10");
-
             title.setMaxWidth(200);
-            title.setStyle("-fx-font-size: 18; -fx-font: Normal 18 'Agency FB'; -fx-padding: 10");
-
+            title.setStyle("-fx-font-size: 18;" +
+                           " -fx-font: Normal 18 'Agency FB';" +
+                           " -fx-padding: 10;" +
+                           " -fx-text-fill: black");
 
             pane.getChildren().addAll(title);
             this.getChildren().addAll(icon,pane);
@@ -47,12 +45,9 @@ public class FileFx extends VBox {
                             "-fx-border-insets: 10 0 0 10");
 
             this.setAlignment(Pos.CENTER);
-            this.setMinSize(225,200);
-            this.setMaxSize(225,200);
             this.setPrefSize(225,200);
-             this.setOnMouseClicked(HomeController::fileSelected);
 
-
+            this.setOnMouseClicked(HomeController::fileSelected);
 
         }catch (Exception e){
             System.out.println(e);
@@ -64,44 +59,40 @@ public class FileFx extends VBox {
         this.title.setText(title);
 
     }
-    public void changeTitleColor(int red, int green, int blue){
-        this.title.setTextFill(Color.rgb(red,green,blue));
-    }
-    public void changeTitleBackground(int red, int green, int blue){
 
-        this.title.setStyle("-fx-background-color: "+red +" "+green+" "+blue);
-    }
+    public void changeTitleBackgroundBlue(){
+        title.setStyle("-fx-font-size: 18; " +
+                       "-fx-font: Normal 18 'Agency FB';" +
+                       "-fx-padding: 10;" +
+                       "-fx-text-fill: #0b7bf3");
 
-    public void changeTitleBackground(Color color){
+        this.pane.setStyle("-fx-background-color: #c4d5ff;");
 
-        this.pane.setStyle("-fx-background-color: color");
-        this.pane.setPrefSize(200,50);
-        this.pane.setStyle("-fx-padding: 20 20 0 20; -fx-border-radius: 10");
+        this.setStyle("-fx-border-color: #bababa; " +
+                      "-fx-border-width: 3;" +
+                      "-fx-border-radius: 10 ;" +
+                      " -fx-border-insets: 10 0 0 10;" );
+
         this.setAlignment(Pos.CENTER);
-        this.setMinSize(225,200);
-        this.setMaxSize(225,200);
         this.setPrefSize(225,200);
+
     }
 
-    public void changeTitleBackground(){
+    public void changeTitleBackgroundGray(){
+        title.setStyle("-fx-font-size: 18; " +
+                "-fx-font: Normal 18 'Agency FB';" +
+                "-fx-padding: 10;" +
+                "-fx-text-fill: #black");
 
-        this.pane.setStyle("-fx-background-color: #80e0e2; "+
-                            "-fx-font-size: 18; " +
-                            "-fx-font: Normal 18 'Agency FB';" );
+        this.pane.setStyle("-fx-background-color: #transparent;");
 
-
-        this.setStyle("-fx-border-color: #099194; " +
-
+        this.setStyle("-fx-border-color: #bababa; " +
                 "-fx-border-width: 3;" +
-                "-fx-border-radius: 10 ; -fx-border-insets: 10 0 0 10" );
+                "-fx-border-radius: 10 ;" +
+                " -fx-border-insets: 10 0 0 10;" );
 
         this.setAlignment(Pos.CENTER);
-        this.setMinSize(225,200);
-        this.setMaxSize(225,200);
         this.setPrefSize(225,200);
 
-
     }
-
-
 }
