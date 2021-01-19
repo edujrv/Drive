@@ -66,7 +66,7 @@ public class FileUtils {
         else
             aux.setFileSize(file.getSize());
 
-        aux.setIsErased(false);
+        aux.setIsErased(file.getTrashed());
         aux.setIsFeatured(file.getStarred());
 
         c.setIsShared(file.getShared());
@@ -82,15 +82,28 @@ public class FileUtils {
         return aux;
     }
 
-    static Folder parseFolder(jar.model.File file) {
+    static Folder parseFolder(File file) {
         Folder aux = new Folder();
 
-        aux.setIdElement(file.getIdElement());
+        aux.setIdElement(file.getId());
         aux.setName(file.getName());
-        aux.setPath(getPath(file.getPath()));
-        aux.setContent(file.getContent());
-        aux.setIsErased(false);
-        aux.setIsFeatured(file.isFeatured());
+        aux.setPath(getPath(file.getParents()));
+
+        Content c = new Content();
+        c.setContentType(getType(file.getMimeType()));
+
+        aux.setIsErased(file.getTrashed());
+        aux.setIsFeatured(file.getStarred());
+
+        c.setIsShared(file.getShared());
+        c.setOwner(parseUser(file.getOwners().get(0)));
+        c.setDataCreate(new ElementDataCreate(parseDateTime(file.getCreatedTime()), c.getOwner()));
+
+        c.setLastUpdate(
+                new ElementLastUpdate(parseDateTime(file.getModifiedTime()), parseUser(file.getLastModifyingUser())));
+        c.setLastOpened(new ElementLastOpened(parseDateTime(file.getViewedByMeTime()), file.getViewedByMe()));
+
+        aux.setContent(c);
 
         return aux;
     }

@@ -124,7 +124,7 @@ public class FileDAO {
 					objs.add((Object) FileUtils.parseFile(file));
 			else
 				for (File file : result.getFiles())
-					objs.add((Object) FileUtils.parseFolder(FileUtils.parseFile(file)));
+					objs.add((Object) FileUtils.parseFolder(file));
 
 			return new Pair<String, List<Object>>(pageToken, objs);
 		}
