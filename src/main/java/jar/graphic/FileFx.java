@@ -82,9 +82,9 @@ public class FileFx extends VBox {
         title.setStyle("-fx-font-size: 18; " +
                 "-fx-font: Normal 18 'Agency FB';" +
                 "-fx-padding: 10;" +
-                "-fx-text-fill: #black");
+                "-fx-text-fill: black");
 
-        this.pane.setStyle("-fx-background-color: #transparent;");
+        this.pane.setStyle("-fx-background-color: transparent;");
 
         this.setStyle("-fx-border-color: #bababa; " +
                 "-fx-border-width: 3;" +
