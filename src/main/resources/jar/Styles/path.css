@@ -1,0 +1,7 @@
+.pathBtn{
+    -fx-text-fill: Black;
+    -fx-text-alignment: center;
+    -fx-font-size: 24;
+    -fx-pref-height: 40;
+    -fx-max-width: 250;
+}
