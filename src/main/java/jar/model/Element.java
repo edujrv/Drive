@@ -5,7 +5,7 @@ import java.util.List;
 public abstract class Element {
 
     private String name;
-    private List<String> path;
+    private List<Folder> path;
     private Content content;
     private boolean isFeatured = false;
     private boolean isErased = false;
@@ -14,7 +14,7 @@ public abstract class Element {
     public Element() {
     }
 
-    public Element(String name, List<String> path, Content content) {
+    public Element(String name, List<Folder> path, Content content) {
         setName(name);
         setPath(path);
         setContent(content);
@@ -28,7 +28,7 @@ public abstract class Element {
         return name;
     }
 
-    public List<String> getPath() {
+    public List<Folder> getPath() {
         return path;
     }
 
@@ -56,7 +56,7 @@ public abstract class Element {
         this.name = name;
     }
 
-    public void setPath(List<String> path) {
+    public void setPath(List<Folder> path) {
         this.path = path;
     }
 

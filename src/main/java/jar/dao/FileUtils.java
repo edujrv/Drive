@@ -20,13 +20,15 @@ import jar.model.ElementLastUpdate;
 import jar.model.Folder;
 
 public class FileUtils {
-    static List<String> getPath(List<String> arr) {
-        List<String> path = new ArrayList<String>();
+    static List<Folder> getPath(List<String> arr) {
+        List<Folder> path = new ArrayList<Folder>();
         try {
             do {
-                File f = DriveConnection.service.files().get(arr.get(0)).setFields("name, parents").execute();
+                File f = DriveConnection.service.files().get(arr.get(0)).setFields(
+                        "files(id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser)")
+                        .execute();
                 arr = f.getParents();
-                path.add(0, f.getName());
+                path.add(0, parseFolder(f));
             } while (arr != null);
         } catch (IOException e) {
             e.printStackTrace();

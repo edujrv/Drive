@@ -9,7 +9,7 @@ public class File extends Element implements Comparable<File> {
     public File() {
     }
 
-    public File(String name, List<String> path, Content content, long fileSize) {
+    public File(String name, List<Folder> path, Content content, long fileSize) {
         super(name, path, content);
         setFileSize(fileSize);
     }
