@@ -2,18 +2,15 @@ package jar;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.util.List;
+import java.util.Map;
 
-import jar.dao.FileDAO;
-import jar.model.File;
-import jar.model.Folder;
+import jar.dao.AboutDAO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 
 /**
  * JavaFX App
@@ -23,6 +20,9 @@ public class App extends Application {
 
     public static void main(String[] args) throws IOException, GeneralSecurityException {
         DriveConnection.initialize();
+
+        Map<String, Map<String, String>> aux = AboutDAO.newQuery().getStorageInfo().getUserInfo().build();
+        System.out.println(aux);
 
         // Pair<String, List<Object>> result =
         // FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles()

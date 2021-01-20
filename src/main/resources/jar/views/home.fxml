@@ -443,7 +443,7 @@
                            </Tooltip>
                         </tooltip>
                      </Button>
-                     <Button fx:id="infoBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" onMouseClicked="toggleDetailSidebar" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;">
+                     <Button fx:id="infoBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" onMouseClicked="#toggleDetailSidebar" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;">
                         <font>
                            <Font size="25.0" />
                         </font>
