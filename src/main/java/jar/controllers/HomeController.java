@@ -1,6 +1,7 @@
 package jar.controllers;
 
 import jar.graphic.FileFx;
+import jar.graphic.SidebarFx;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 
@@ -226,6 +227,14 @@ public class HomeController {
 
         actualFile.changeTitleBackground();
 
+    }
+
+    @FXML
+    private SidebarFx detailSidebar;
+
+    @FXML
+    public void toggleDetailSidebar() {
+        detailSidebar.openClose();
     }
 
 }

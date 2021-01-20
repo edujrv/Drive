@@ -27,14 +27,6 @@ public class App extends Application {
         // Pair<String, List<Object>> result =
         // FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles()
         // .fromStarred().myOwnershipOnly().notOrdered().build();
-        Pair<String, List<Object>> result = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFolders()
-                .fromMyDrive().myOwnershipOnly().notOrdered().build();
-
-        for (Object obj : result.getValue()) {
-            Folder file = (Folder) obj;
-            System.out.println(file.getName() + " - " + file.getPath() + " || " + file.getIdElement() + " || "
-                    + file.getContent().getContentType().getType());
-        }
 
         // At this point the user has already logged in
         launch();
