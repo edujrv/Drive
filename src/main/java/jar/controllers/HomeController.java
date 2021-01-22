@@ -1,5 +1,7 @@
 package jar.controllers;
 
+import com.google.api.services.drive.model.About;
+import jar.dao.AboutDAO;
 import jar.graphic.FileFx;
 import jar.graphic.FolderFX;
 import jar.graphic.SidebarFx;
@@ -8,7 +10,9 @@ import javafx.fxml.FXML;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Map;
 
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -16,6 +20,9 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public class HomeController {
+
+    @FXML
+    private Label spaceLbl;
 
     @FXML
     private Button miUnidadBtn;
@@ -29,6 +36,57 @@ public class HomeController {
     private Button prevButton = null;
     @FXML
     private Button newElementBtn;
+
+    @FXML
+    private Button shareBtn;
+
+    @FXML
+    private Button recientBtn;
+
+    @FXML
+    private Button starredBtn;
+
+    @FXML
+    private Button trashBtn;
+
+    @FXML
+    private Button storageBtn;
+
+    @FXML
+    private Button searchBtn;
+
+    @FXML
+    private Button searchExpBtn;
+
+    @FXML
+    private Button settingsBtn;
+
+    @FXML
+    private Button userBtn;
+
+    @FXML
+    private Button viewBtn;
+
+    @FXML
+    private Button infoBtn;
+
+    @FXML
+    private Button shopBtn;
+
+    @FXML
+    private ImageView personaIg;
+
+    @FXML
+    private ImageView clockIg;
+
+    @FXML
+    private ImageView storageIg;
+
+    @FXML
+    private ImageView trashIg;
+
+    @FXML
+    private ImageView starIg;
 
     @FXML
     public void goHome() {
@@ -82,7 +140,46 @@ public class HomeController {
         ejemplo.setPreserveRatio(true);
         ejemplo.setTranslateX(-35.0);
         prevButton.setGraphic(ejemplo);
+
+        try{
+            updateSpace();
+        }catch(Exception about){
+            System.out.println(about);
+        }
+
+
+
+
+
     }
+
+    public void updateSpace() throws IOException {
+        String aux = "";
+        Map<String, Map<String, Long>> info = AboutDAO.newQuery().getStorageInfo().build();
+
+        try{
+            Long space = info.get("storageQuota").get("usageInDrive");
+
+            double spaceB = (double) space;
+
+             spaceB = spaceB / 1048576;
+            System.out.println(spaceB);
+            if(spaceB > 1024){
+                spaceB = spaceB / 1024;
+                spaceB = Math.floor(spaceB*100)/100;
+                aux = aux + spaceB + "  GB utilizado";
+            }else{
+                spaceB = Math.floor(spaceB*100)/100;
+                aux = aux + spaceB + "  MB utilizado";
+            }
+            spaceLbl.setText(aux);
+            System.out.println("Almacenamiento: "+aux);
+
+        }catch (Exception ex){
+            System.out.println(ex);
+        }
+    }
+
 
     @FXML
     public void buttonGray(Event e) {
@@ -124,7 +221,9 @@ public class HomeController {
                     System.out.println("Explorador no encontrado");
                 }
             }
+
         }
+
     }
 
     @FXML
@@ -133,6 +232,7 @@ public class HomeController {
         MenuBar b = (MenuBar) e.getSource();
         System.out.println(b.getId());
         b.setEffect(Efectos.grayOn(b.getId()));
+
     }
 
     @FXML

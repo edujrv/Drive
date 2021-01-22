@@ -21,8 +21,12 @@ public class App extends Application {
     public static void main(String[] args) throws IOException, GeneralSecurityException {
         DriveConnection.initialize();
 
-        Map<String, Map<String, String>> aux = AboutDAO.newQuery().getStorageInfo().getUserInfo().build();
+        Map<String, Map<String, Long>> aux = AboutDAO.newQuery().getStorageInfo().getUserInfo().build();
+
         System.out.println(aux);
+
+
+
 
         // Pair<String, List<Object>> result =
         // FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles()

@@ -18,8 +18,8 @@ public class AboutDAO {
     public static class Builder {
         private List<String> fields = new ArrayList<String>();
 
-        public Map<String, Map<String, String>> build() throws IOException {
-            Map<String, Map<String, String>> r = new HashMap<>();
+        public Map<String, Map<String, Long>> build() throws IOException {
+            Map<String, Map<String, Long>> r = new HashMap<>();
 
             String aux = fields.get(0);
             for (int i = 1; i < fields.size(); i++)
@@ -27,7 +27,7 @@ public class AboutDAO {
 
             About ab = DriveConnection.service.about().get().setFields(aux).execute();
             for (String string : fields)
-                r.put(string, (Map<String, String>) ab.get(string));
+                r.put(string, (Map<String, Long>) ab.get(string));
 
             return r;
         }
