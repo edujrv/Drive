@@ -40,11 +40,11 @@ public class Path extends HBox {
         folder.setText(name);
         folder.setId(folderId);
 
-        folder.setStyle("-fx-text-fill: Black;" +
+        folder.setStyle("-fx-text-fill: #3e3e3e;" +
                 "    -fx-text-alignment: center;" +
                 "    -fx-background-color: TRANSPARENT;" +
                 "    -fx-background-radius: 40;" +
-                "    -fx-font-size: 24;" +
+                "    -fx-font: Normal 24 'Agency FB';" +
                 "    -fx-pref-height: 40;" +
                 "    -fx-max-width: 200;" +
                 "    -fx-cursor: HAND;"+
