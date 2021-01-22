@@ -23,7 +23,9 @@
 <?import javafx.scene.layout.VBox ?>
 <?import javafx.scene.text.Font ?>
 
-<?import jar.graphic.FileFx ?>
+
+<?import jar.graphic.FileFx?>
+<?import jar.graphic.FolderFX?>
 <?import jar.graphic.SidebarFx ?>
 
 <ScrollPane maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jar.controllers.HomeController">
@@ -473,30 +475,86 @@
                      </Button>
                   </children>
                </HBox>
-               <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="370.0" prefWidth="706.0">
+               <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="1000.0" prefWidth="706.0">
                   <content>
-                     <FlowPane prefHeight="200.0" prefWidth="200.0">
-
+                     <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="1000.0" prefWidth="1590.0">
                         <children>
 
-                           <FileFx id="13" />
-                           <FileFx id="1" />
-                           <FileFx id="2" />
-                           <FileFx id="3" />
-                           <FileFx id="4" />
-                           <FileFx id="5" />
-                           <FileFx id="6" />
-                           <FileFx id="7" />
-                           <FileFx id="8" />
-                           <FileFx id="9" />
-                           <FileFx id="10" />
-                           <FileFx id="11" />
 
+                           <FlowPane prefHeight="500.0" prefWidth="1590.0">
+                              <children>
+
+                                 <FolderFX id="1" />
+                                 <FolderFX id="2" />
+                                 <FolderFX id="3" />
+                                 <FolderFX id="4" />
+                                 <FolderFX id="5" />
+                                 <FolderFX id="6" />
+                                 <FolderFX id="7" />
+                                 <FolderFX id="8" />
+                                 <FolderFX id="9" />
+                                 <FolderFX id="10" />
+
+                                 <FolderFX id="1" />
+                                 <FolderFX id="2" />
+                                 <FolderFX id="3" />
+
+
+
+
+
+
+                              </children>
+                           </FlowPane>
+
+
+                           <FlowPane prefHeight="500.0" prefWidth="1590.0">
+                              <children>
+
+                                 <FileFx id="1" />
+                                 <FileFx id="2" />
+                                 <FileFx id="3" />
+                                 <FileFx id="4" />
+                                 <FileFx id="5" />
+                                 <FileFx id="6" />
+                                 <FileFx id="7" />
+                                 <FileFx id="8" />
+                                 <FileFx id="9" />
+                                 <FileFx id="10" />
+
+                                 <FileFx id="1" />
+                                 <FileFx id="2" />
+                                 <FileFx id="3" />
+                                 <FileFx id="4" />
+                                 <FileFx id="5" />
+                                 <FileFx id="6" />
+                                 <FileFx id="7" />
+                                 <FileFx id="8" />
+                                 <FileFx id="9" />
+                                 <FileFx id="10" />
+
+                                 <FileFx id="1" />
+                                 <FileFx id="2" />
+                                 <FileFx id="3" />
+                                 <FileFx id="4" />
+                                 <FileFx id="5" />
+                                 <FileFx id="6" />
+                                 <FileFx id="7" />
+                                 <FileFx id="8" />
+                                 <FileFx id="9" />
+                                 <FileFx id="10" />
+
+
+
+                              </children>
+                           </FlowPane>
 
                         </children>
-                     </FlowPane>
+                     </VBox>
                   </content>
+
                </ScrollPane>
+
             </children>
          </VBox>
       </center>

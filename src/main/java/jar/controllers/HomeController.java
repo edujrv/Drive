@@ -1,6 +1,7 @@
 package jar.controllers;
 
 import jar.graphic.FileFx;
+import jar.graphic.FolderFX;
 import jar.graphic.SidebarFx;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -20,6 +21,8 @@ public class HomeController {
     private Button miUnidadBtn;
     @FXML
     private static FileFx prevFile = null;
+    @FXML
+    private static FolderFX prevFolder = null;
     @FXML
     private Image picture;
     @FXML
@@ -196,7 +199,7 @@ public class HomeController {
         FileFx actualFile = (FileFx) e.getSource();
 
         if (prevFile != null) {
-            System.out.println("PONGO NEGRO A" + prevFile.getId());
+            System.out.println("PONGO GRIS FILE " + prevFile.getId());
             prevFile.changeTitleBackgroundGray();
         }
 
@@ -204,9 +207,29 @@ public class HomeController {
         prevFile.setId(actualFile.getId());
         System.out.println(prevFile.getId());
 
-        System.out.println("PONGO AZUL A " + actualFile.getId());
+        System.out.println("PONGO AZUL FILE " + actualFile.getId());
         actualFile.changeTitleBackgroundBlue();
 
+        prevFolder.changeGray();
+    }
+
+    @FXML
+    public static void folderSelected(Event e) {
+        FolderFX actualFolder = (FolderFX) e.getSource();
+
+        if (prevFolder != null) {
+            System.out.println("PONGO GRIS FOLDER " + prevFolder.getId());
+            prevFolder.changeGray();
+        }
+
+        prevFolder = actualFolder;
+        prevFolder.setId(actualFolder.getId());
+        System.out.println(prevFolder.getId());
+
+        System.out.println("PONGO AZUL FOLDER " + actualFolder.getId());
+        actualFolder.changeBlue();
+
+        prevFile.changeTitleBackgroundGray();
     }
 
     @FXML
