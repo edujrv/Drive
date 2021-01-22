@@ -31,60 +31,12 @@ public class HomeController {
     private Button newElementBtn;
 
     @FXML
-    private Button shareBtn;
-
-    @FXML
-    private Button recientBtn;
-
-    @FXML
-    private Button starredBtn;
-
-    @FXML
-    private Button trashBtn;
-
-    @FXML
-    private Button storageBtn;
-
-    @FXML
-    private Button searchBtn;
-
-    @FXML
-    private Button searchExpBtn;
-
-    @FXML
-    private Button settingsBtn;
-
-    @FXML
-    private Button userBtn;
-
-    @FXML
-    private Button viewBtn;
-
-    @FXML
-    private Button infoBtn;
-
-    @FXML
-    private Button shopBtn;
-
-    @FXML
-    private ImageView personaIg;
-
-    @FXML
-    private ImageView clockIg;
-
-    @FXML
-    private ImageView storageIg;
-
-    @FXML
-    private ImageView trashIg;
-
-    @FXML
-    private ImageView starIg;
-
-    @FXML
     public void goHome() {
         System.out.println("BOTON DRIVE");
     }
+
+    // TODO: Cambiar de Boton a MenuBar el newElementBtn
+
 
     // TODO: Cambiar de Boton a MenuBar el newElementBtn
     @FXML
@@ -169,11 +121,10 @@ public class HomeController {
                             "https://one.google.com/storage?i=m&utm_source=drive&utm_medium=web&utm_campaign=widget_normal#upgrade");
                     desktop.browse(uri);
                 } catch (URISyntaxException | IOException ex) {
+                    System.out.println("Explorador no encontrado");
                 }
             }
-
         }
-
     }
 
     @FXML
@@ -182,7 +133,6 @@ public class HomeController {
         MenuBar b = (MenuBar) e.getSource();
         System.out.println(b.getId());
         b.setEffect(Efectos.grayOn(b.getId()));
-
     }
 
     @FXML
