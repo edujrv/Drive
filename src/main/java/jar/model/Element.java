@@ -4,12 +4,12 @@ import java.util.List;
 
 public abstract class Element {
 
+    private String idElement;
     private String name;
     private List<Folder> path;
     private Content content;
     private boolean isFeatured = false;
     private boolean isErased = false;
-    private String idElement;
 
     public Element() {
     }
