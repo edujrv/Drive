@@ -2,8 +2,10 @@ package jar.controllers;
 
 import com.google.api.services.drive.model.About;
 import jar.dao.AboutDAO;
+import jar.dao.FileDAO;
 import jar.graphic.FileFx;
 import jar.graphic.FolderFX;
+import jar.graphic.ISelectable;
 import jar.graphic.SidebarFx;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -11,6 +13,7 @@ import javafx.fxml.FXML;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -19,8 +22,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.util.Pair;
 
 public class HomeController implements Initializable {
 
@@ -29,24 +34,26 @@ public class HomeController implements Initializable {
 
     @FXML
     private Button miUnidadBtn;
-    @FXML
-    private static FileFx prevFile = null;
-    @FXML
-    private static FolderFX prevFolder = null;
+    private static ISelectable prevSelected = null;
     @FXML
     private Image picture;
     @FXML
     private Button prevButton = null;
     @FXML
     private Button newElementBtn;
+
+    @FXML
+    private FlowPane fileList;
+
+    @FXML
+    private FlowPane folderList;
+
     @FXML
     public void goHome() {
         System.out.println("BOTON DRIVE");
     }
 
     // TODO: Cambiar de Boton a MenuBar el newElementBtn
-
-
     // TODO: Cambiar de Boton a MenuBar el newElementBtn
     @FXML
     public void blurNewBtn() {
@@ -92,15 +99,11 @@ public class HomeController implements Initializable {
         ejemplo.setTranslateX(-35.0);
         prevButton.setGraphic(ejemplo);
 
-        try{
+        try {
             updateSpace();
-        }catch(Exception about){
+        } catch (Exception about) {
             System.out.println(about);
         }
-
-
-
-
 
     }
 
@@ -108,29 +111,28 @@ public class HomeController implements Initializable {
         String aux = "";
         Map<String, Map<String, Long>> info = AboutDAO.newQuery().getStorageInfo().build();
 
-        try{
+        try {
             Long space = info.get("storageQuota").get("usageInDrive");
 
             double spaceB = (double) space;
 
-             spaceB = spaceB / 1048576;
+            spaceB = spaceB / 1048576;
             System.out.println(spaceB);
-            if(spaceB > 1024){
+            if (spaceB > 1024) {
                 spaceB = spaceB / 1024;
-                spaceB = Math.floor(spaceB*100)/100;
+                spaceB = Math.floor(spaceB * 100) / 100;
                 aux = aux + spaceB + "  GB utilizado";
-            }else{
-                spaceB = Math.floor(spaceB*100)/100;
+            } else {
+                spaceB = Math.floor(spaceB * 100) / 100;
                 aux = aux + spaceB + "  MB utilizado";
             }
             spaceLbl.setText(aux);
-            System.out.println("Almacenamiento: "+aux);
+            System.out.println("Almacenamiento: " + aux);
 
-        }catch (Exception ex){
+        } catch (Exception ex) {
             System.out.println(ex);
         }
     }
-
 
     @FXML
     public void buttonGray(Event e) {
@@ -195,42 +197,19 @@ public class HomeController implements Initializable {
 
     }
 
-    @FXML
+    /**
+     * When a file or folder is selected this method is called to unselect the
+     * previous file/folder and select the new one
+     */
     public static void fileSelected(Event e) {
-        FileFx actualFile = (FileFx) e.getSource();
+        ISelectable actualSelect = (ISelectable) e.getSource();
 
-        if (prevFile != null) {
-            System.out.println("PONGO GRIS FILE " + prevFile.getId());
-            prevFile.changeTitleBackgroundGray();
-        }
+        actualSelect.select();
 
-        prevFile = actualFile;
-        prevFile.setId(actualFile.getId());
-        System.out.println(prevFile.getId());
+        if (prevSelected != null)
+            prevSelected.unselect();
 
-        System.out.println("PONGO AZUL FILE " + actualFile.getId());
-        actualFile.changeTitleBackgroundBlue();
-
-        prevFolder.changeGray();
-    }
-
-    @FXML
-    public static void folderSelected(Event e) {
-        FolderFX actualFolder = (FolderFX) e.getSource();
-
-        if (prevFolder != null) {
-            System.out.println("PONGO GRIS FOLDER " + prevFolder.getId());
-            prevFolder.changeGray();
-        }
-
-        prevFolder = actualFolder;
-        prevFolder.setId(actualFolder.getId());
-        System.out.println(prevFolder.getId());
-
-        System.out.println("PONGO AZUL FOLDER " + actualFolder.getId());
-        actualFolder.changeBlue();
-
-        prevFile.changeTitleBackgroundGray();
+        prevSelected = actualSelect;
     }
 
     @FXML
@@ -241,10 +220,25 @@ public class HomeController implements Initializable {
         detailSidebar.openClose();
     }
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+            // Pair<String, List<Object>> r1 =
+            // FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles()
+            // .fromMyDrive().myOwnershipOnly().notOrdered().build();
+
+            // for (Object obj : r1.getValue())
+            // fileList.getChildren().add(new FileFx((jar.model.File) obj));
+
+            // System.out.println("WESA");
+
+            // Pair<String, List<Object>> r2 =
+            // FileDAO.newQuery().startFromBeginning().defaultPageSize().getFolders()
+            // .fromMyDrive().myOwnershipOnly().notOrdered().build();
+
+            // for (Object obj : r2.getValue())
+            // fileList.getChildren().add(new FolderFX((jar.model.Folder) obj));
+
             updateSpace();
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,32 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.geometry.Rectangle2D?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.Tooltip?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.effect.InnerShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets ?>
+<?import javafx.geometry.Rectangle2D ?>
+<?import javafx.scene.Cursor ?>
+<?import javafx.scene.control.Button ?>
+<?import javafx.scene.control.Label ?>
+<?import javafx.scene.control.Menu ?>
+<?import javafx.scene.control.MenuBar ?>
+<?import javafx.scene.control.MenuItem ?>
+<?import javafx.scene.control.ScrollPane ?>
+<?import javafx.scene.control.TextField ?>
+<?import javafx.scene.control.Tooltip ?>
+<?import javafx.scene.effect.DropShadow ?>
+<?import javafx.scene.effect.InnerShadow ?>
+<?import javafx.scene.image.Image ?>
+<?import javafx.scene.image.ImageView ?>
+<?import javafx.scene.layout.BorderPane ?>
+<?import javafx.scene.layout.FlowPane ?>
+<?import javafx.scene.layout.HBox ?>
+<?import javafx.scene.layout.VBox ?>
+<?import javafx.scene.text.Font ?>
 
-<!--
 <?import jar.graphic.FileFx ?>
 <?import jar.graphic.SidebarFx ?>
-<?import jar.graphic.Path?>
-<?import jar.graphic.FolderFX?>
--->
+<?import jar.graphic.Path ?>
+<?import jar.graphic.FolderFX ?>
 
 <ScrollPane maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jar.controllers.HomeController">
    <BorderPane prefHeight="1080.0" prefWidth="1920.0">
@@ -388,12 +386,12 @@
             <children>
                <HBox alignment="CENTER_LEFT" prefHeight="88.0" prefWidth="1614.0">
                   <children>
-                      <FlowPane fx:id="Path" minHeight="-Infinity" minWidth="-Infinity" prefHeight="88.0" prefWidth="1145.0">
+                     <FlowPane fx:id="Path" minHeight="-Infinity" minWidth="-Infinity" prefHeight="88.0" prefWidth="1145.0">
 
                         <!--
                          <Path/>
                         -->
-                      </FlowPane>
+                     </FlowPane>
                      <Button fx:id="viewBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" translateX="300.0">
                         <font>
                            <Font size="25.0" />
@@ -469,29 +467,22 @@
                            </FlowPane>
 
 
-
-                           <FlowPane prefHeight="500.0" prefWidth="1590.0">
-                              <children>
-<!--
-                                          <FolderFX id="1" />
-          <FolderFX id="2" />
-          <FolderFX id="3" />
-          <FolderFX id="4" />
-          <FolderFX id="5" />
-          <FolderFX id="6" />
-          <FolderFX id="7" />
-          <FolderFX id="8" />
-          <FolderFX id="9" />
-          <FolderFX id="10" />
-
-          <FolderFX id="1" />
-          <FolderFX id="2" />
-          <FolderFX id="3" />
-
-
--->
-
-                              </children>
+                           <FlowPane fx:id="folderList" prefHeight="500.0" prefWidth="1590.0">
+                              <!-- <children>
+                                 <FolderFX id="1" />
+                                 <FolderFX id="2" />
+                                 <FolderFX id="3" />
+                                 <FolderFX id="4" />
+                                 <FolderFX id="5" />
+                                 <FolderFX id="6" />
+                                 <FolderFX id="7" />
+                                 <FolderFX id="8" />
+                                 <FolderFX id="9" />
+                                 <FolderFX id="10" />
+                                 <FolderFX id="1" />
+                                 <FolderFX id="2" />
+                                 <FolderFX id="3" />
+                              </children> -->
                            </FlowPane>
 
 
@@ -503,12 +494,11 @@
                                     </font>
                                  </Label>
                               </children>
-                     </FlowPane>
+                           </FlowPane>
 
 
-                           <FlowPane prefHeight="500.0" prefWidth="1590.0">
-                              <children>
-<!--
+                           <FlowPane fx:id="fileList" prefHeight="500.0" prefWidth="1590.0">
+                              <!-- <children>
                                  <FileFx id="1" />
                                  <FileFx id="2" />
                                  <FileFx id="3" />
@@ -542,9 +532,8 @@
                                  <FileFx id="9" />
                                  <FileFx id="10" />
 
--->
 
-                              </children>
+                              </children> -->
                            </FlowPane>
 
 
