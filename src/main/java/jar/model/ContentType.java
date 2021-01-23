@@ -2,14 +2,6 @@ package jar.model;
 
 public class ContentType {
 
-	// TODO: Completar
-
-	// UNKNOWN: application/vnd.google-apps.unknown
-	// FOLDER: application/vnd.google-apps.folder
-	// FILE: application/vnd.google-apps.file
-	// IMAGE: application/vnd.google-apps.photo
-	// PDF
-
 	public static enum TYPE {
 		UNKNOWN, FOLDER, FILE, IMAGE, PDF, VIDEO, OFFICE, AUDIO, TEXT
 	}

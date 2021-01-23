@@ -1,15 +1,5 @@
 package jar.controllers;
 
-import com.google.api.services.drive.model.About;
-import jar.dao.AboutDAO;
-import jar.dao.FileDAO;
-import jar.graphic.FileFx;
-import jar.graphic.FolderFX;
-import jar.graphic.ISelectable;
-import jar.graphic.SidebarFx;
-import javafx.event.Event;
-import javafx.fxml.FXML;
-
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -17,13 +7,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import jar.dao.AboutDAO;
+import jar.dao.FileDAO;
+import jar.graphic.FileFx;
+import jar.graphic.FolderFx;
+import jar.graphic.ISelectable;
+import jar.graphic.SidebarFx;
+import javafx.event.Event;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
 
@@ -53,7 +51,6 @@ public class HomeController implements Initializable {
         System.out.println("BOTON DRIVE");
     }
 
-    // TODO: Cambiar de Boton a MenuBar el newElementBtn
     // TODO: Cambiar de Boton a MenuBar el newElementBtn
     @FXML
     public void blurNewBtn() {
@@ -223,21 +220,17 @@ public class HomeController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            // Pair<String, List<Object>> r1 =
-            // FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles()
-            // .fromMyDrive().myOwnershipOnly().notOrdered().build();
+            Pair<String, List<Object>> r1 = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles()
+                    .fromMyDrive().myOwnershipOnly().notOrdered().build();
 
-            // for (Object obj : r1.getValue())
-            // fileList.getChildren().add(new FileFx((jar.model.File) obj));
+            for (Object obj : r1.getValue())
+                fileList.getChildren().add(new FileFx((jar.model.File) obj));
 
-            // System.out.println("WESA");
+            Pair<String, List<Object>> r2 = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFolders()
+                    .fromMyDrive().myOwnershipOnly().notOrdered().build();
 
-            // Pair<String, List<Object>> r2 =
-            // FileDAO.newQuery().startFromBeginning().defaultPageSize().getFolders()
-            // .fromMyDrive().myOwnershipOnly().notOrdered().build();
-
-            // for (Object obj : r2.getValue())
-            // fileList.getChildren().add(new FolderFX((jar.model.Folder) obj));
+            for (Object obj : r2.getValue())
+                folderList.getChildren().add(new FolderFx((jar.model.Folder) obj));
 
             updateSpace();
         } catch (IOException e) {

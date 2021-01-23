@@ -25,7 +25,7 @@ public class FileUtils {
         try {
             do {
                 File f = DriveConnection.service.files().get(arr.get(0)).setFields(
-                        "files(id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser)")
+                        "id, name, parents, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser")
                         .execute();
                 arr = f.getParents();
                 path.add(0, parseFolder(f));

@@ -14,60 +14,27 @@ public class FileFx extends VBox implements ISelectable {
     private Label title = new Label();
     private Pane pane = new Pane();
 
-    // TODO: BORRAR
-    public FileFx() {
-        this.setPrefSize(300, 300);
-
-        setTitle("TEST");
-
-        title.setMaxWidth(230);
-        title.setStyle("-fx-font-size: 18;" + " -fx-font: Normal 18 'Agency FB';" + " -fx-padding: 20 0 0 30;"
-                + " -fx-text-fill: black");
-
-        pane.setPrefSize(300, 55);
-        pane.getChildren().addAll(title);
-
-        ImageView icon = new ImageView(chooseImage(ContentType.TYPE.OFFICE));
-        icon.setFitWidth(275);
-        icon.setFitHeight(210);
-
-        this.getChildren().addAll(icon, pane);
-
-        this.setStyle("-fx-border-color: #bababa; " + "-fx-border-width: 1;" + "-fx-border-radius: 10; "
-                + "-fx-padding: 0; " + "-fx-border-insets: 15 0 0 20");
-
-        this.setAlignment(Pos.BOTTOM_CENTER);
-        this.setPrefSize(300, 300);
-
-        this.setOnMouseClicked(HomeController::fileSelected);
-
-    }
-
     public FileFx(File file) {
-        this.setPrefSize(300, 300);
-
-        setTitle(file.getName());
-
+        title.setText(file.getName());
         title.setMaxWidth(230);
         title.setStyle("-fx-font-size: 18;" + " -fx-font: Normal 18 'Agency FB';" + " -fx-padding: 20 0 0 30;"
                 + " -fx-text-fill: black");
-
-        pane.setPrefSize(300, 55);
-        pane.getChildren().addAll(title);
 
         ImageView icon = new ImageView(chooseImage(file.getContent().getContentType().getType()));
         icon.setFitWidth(275);
         icon.setFitHeight(210);
 
-        this.getChildren().addAll(icon, pane);
+        pane.setPrefSize(300, 55);
+        pane.getChildren().addAll(title);
 
-        this.setStyle("-fx-border-color: #bababa; " + "-fx-border-width: 1;" + "-fx-border-radius: 10; "
-                + "-fx-padding: 0; " + "-fx-border-insets: 15 0 0 20");
+        getChildren().addAll(icon, pane);
 
-        this.setAlignment(Pos.BOTTOM_CENTER);
-        this.setPrefSize(300, 300);
+        setPrefSize(300, 300);
+        setStyle("-fx-border-color: #bababa; " + "-fx-border-width: 1;" + "-fx-border-radius: 10; " + "-fx-padding: 0; "
+                + "-fx-border-insets: 15 0 0 20");
+        setAlignment(Pos.BOTTOM_CENTER);
 
-        this.setOnMouseClicked(HomeController::fileSelected);
+        setOnMouseClicked(HomeController::fileSelected);
     }
 
     private Image chooseImage(ContentType.TYPE type) {
@@ -80,10 +47,6 @@ public class FileFx extends VBox implements ISelectable {
                 return new Image("jar/images/office.png");
         }
 
-    }
-
-    private void setTitle(String title) {
-        this.title.setText(title);
     }
 
     @Override
@@ -112,6 +75,5 @@ public class FileFx extends VBox implements ISelectable {
 
         this.setAlignment(Pos.BOTTOM_CENTER);
         this.setPrefSize(300, 300);
-
     }
 }

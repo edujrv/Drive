@@ -2,9 +2,7 @@ package jar;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.util.Map;
 
-import jar.dao.AboutDAO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,17 +18,6 @@ public class App extends Application {
 
     public static void main(String[] args) throws IOException, GeneralSecurityException {
         DriveConnection.initialize();
-
-        Map<String, Map<String, Long>> aux = AboutDAO.newQuery().getStorageInfo().getUserInfo().build();
-
-        System.out.println(aux);
-
-
-
-
-        // Pair<String, List<Object>> result =
-        // FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles()
-        // .fromStarred().myOwnershipOnly().notOrdered().build();
 
         // At this point the user has already logged in
         launch();
