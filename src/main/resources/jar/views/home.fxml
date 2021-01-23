@@ -21,10 +21,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<!--
 <?import jar.graphic.FileFx ?>
 <?import jar.graphic.SidebarFx ?>
 <?import jar.graphic.Path?>
 <?import jar.graphic.FolderFX?>
+-->
 
 <ScrollPane maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jar.controllers.HomeController">
    <BorderPane prefHeight="1080.0" prefWidth="1920.0">
@@ -255,7 +257,7 @@
                   <graphic>
                      <ImageView fitHeight="40.0" fitWidth="30.0" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" pickOnBounds="true" preserveRatio="true">
                         <image>
-                           <Image url="@../images/Lupa.png" />
+                           <Image url="@../images/lupa.png" />
                         </image>
                         <cursor>
                            <Cursor fx:constant="HAND" />
@@ -387,10 +389,12 @@
                <HBox alignment="CENTER_LEFT" prefHeight="88.0" prefWidth="1614.0">
                   <children>
                       <FlowPane fx:id="Path" minHeight="-Infinity" minWidth="-Infinity" prefHeight="88.0" prefWidth="1145.0">
-                         <Path/>
 
+                        <!--
+                         <Path/>
+                        -->
                       </FlowPane>
-                     <Button fx:id="viewBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;">
+                     <Button fx:id="viewBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" translateX="300.0">
                         <font>
                            <Font size="25.0" />
                         </font>
@@ -405,7 +409,7 @@
                            </ImageView>
                         </graphic>
                         <HBox.margin>
-                           <Insets left="1400.0" />
+                           <Insets />
                         </HBox.margin>
                         <cursor>
                            <Cursor fx:constant="HAND" />
@@ -418,7 +422,7 @@
                            </Tooltip>
                         </tooltip>
                      </Button>
-                     <Button fx:id="infoBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" onMouseClicked="#toggleDetailSidebar" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;">
+                     <Button fx:id="infoBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#toggleDetailSidebar" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" translateX="300.0">
                         <font>
                            <Font size="25.0" />
                         </font>
@@ -468,7 +472,7 @@
 
                            <FlowPane prefHeight="500.0" prefWidth="1590.0">
                               <children>
-
+<!--
                                           <FolderFX id="1" />
           <FolderFX id="2" />
           <FolderFX id="3" />
@@ -485,7 +489,7 @@
           <FolderFX id="3" />
 
 
-
+-->
 
                               </children>
                            </FlowPane>
@@ -504,7 +508,7 @@
 
                            <FlowPane prefHeight="500.0" prefWidth="1590.0">
                               <children>
-
+<!--
                                  <FileFx id="1" />
                                  <FileFx id="2" />
                                  <FileFx id="3" />
@@ -538,7 +542,7 @@
                                  <FileFx id="9" />
                                  <FileFx id="10" />
 
-
+-->
 
                               </children>
                            </FlowPane>
@@ -554,7 +558,9 @@
          </VBox>
       </center>
       <right>
+         <!--
          <SidebarFx fx:id="detailSidebar" prefHeight="200.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
+         -->
       </right>
    </BorderPane>
 </ScrollPane>
