@@ -12,6 +12,19 @@ import jar.DriveConnection;
 import javafx.util.Pair;
 
 public class FileDAO {
+	public static jar.model.File getFile(String id) throws IOException {
+		File file = DriveConnection.service.files().get(id).setFields(
+				"id, name, parents, size, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser")
+				.execute();
+		return FileUtils.parseFile(file);
+	}
+
+	public static jar.model.Folder getFolder(String id) throws IOException {
+		File folder = DriveConnection.service.files().get(id).setFields(
+				"id, name, parents, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser")
+				.execute();
+		return FileUtils.parseFolder(folder);
+	}
 
 	public static PageTokenStep newQuery() {
 		return new QueryBuilder();
