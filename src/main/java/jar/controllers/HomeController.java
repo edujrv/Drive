@@ -10,8 +10,11 @@ import javafx.fxml.FXML;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Map;
+import java.util.ResourceBundle;
 
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.Button;
@@ -19,7 +22,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
-public class HomeController {
+public class HomeController implements Initializable {
 
     @FXML
     private Label spaceLbl;
@@ -36,58 +39,6 @@ public class HomeController {
     private Button prevButton = null;
     @FXML
     private Button newElementBtn;
-
-    @FXML
-    private Button shareBtn;
-
-    @FXML
-    private Button recientBtn;
-
-    @FXML
-    private Button starredBtn;
-
-    @FXML
-    private Button trashBtn;
-
-    @FXML
-    private Button storageBtn;
-
-    @FXML
-    private Button searchBtn;
-
-    @FXML
-    private Button searchExpBtn;
-
-    @FXML
-    private Button settingsBtn;
-
-    @FXML
-    private Button userBtn;
-
-    @FXML
-    private Button viewBtn;
-
-    @FXML
-    private Button infoBtn;
-
-    @FXML
-    private Button shopBtn;
-
-    @FXML
-    private ImageView personaIg;
-
-    @FXML
-    private ImageView clockIg;
-
-    @FXML
-    private ImageView storageIg;
-
-    @FXML
-    private ImageView trashIg;
-
-    @FXML
-    private ImageView starIg;
-
     @FXML
     public void goHome() {
         System.out.println("BOTON DRIVE");
@@ -290,4 +241,13 @@ public class HomeController {
         detailSidebar.openClose();
     }
 
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        try {
+            updateSpace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
