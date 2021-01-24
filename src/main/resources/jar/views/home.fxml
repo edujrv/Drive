@@ -18,6 +18,7 @@
 <?import javafx.scene.layout.BorderPane ?>
 <?import javafx.scene.layout.FlowPane ?>
 <?import javafx.scene.layout.HBox ?>
+<?import javafx.scene.layout.Pane ?>
 <?import javafx.scene.layout.VBox ?>
 <?import javafx.scene.text.Font ?>
 
@@ -450,25 +451,27 @@
                      </Button>
                   </children>
                </HBox>
-               <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="1000.0" prefWidth="706.0">
-                  <content>
-                     <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="1200.0" prefWidth="1590.0">
-                        <children>
-
-
-                           <FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="1590.0">
+               <BorderPane>
+                  <center>
+                     <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="1000.0" prefWidth="706.0" style="-fx-focus-color: false; -fx-border-color: #f4f4f4;">
+                        <content>
+                           <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="1200.0" prefWidth="1590.0">
                               <children>
-                                 <Label prefHeight="38.0" prefWidth="110.0" style="-fx-text-fill: #3e3e3e; -fx-font: Normal 18 'Agency FB';" text="Carpetas" translateX="50.0" translateY="22.0">
-                                    <font>
-                                       <Font size="18.0" />
-                                    </font>
-                                 </Label>
-                              </children>
-                           </FlowPane>
 
 
-                           <FlowPane fx:id="folderList" prefHeight="500.0" prefWidth="1590.0">
-                              <!-- <children>
+                                 <FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="1590.0">
+                                    <children>
+                                       <Label prefHeight="38.0" prefWidth="110.0" style="-fx-text-fill: #3e3e3e; -fx-font: Normal 18 'Agency FB';" text="Carpetas" translateX="50.0" translateY="22.0">
+                                          <font>
+                                             <Font size="18.0" />
+                                          </font>
+                                       </Label>
+                                    </children>
+                                 </FlowPane>
+
+
+                                 <FlowPane fx:id="folderList" prefHeight="500.0" prefWidth="1590.0">
+                                    <!-- <children>
                                  <FolderFx id="1" />
                                  <FolderFx id="2" />
                                  <FolderFx id="3" />
@@ -483,22 +486,22 @@
                                  <FolderFx id="2" />
                                  <FolderFx id="3" />
                               </children> -->
-                           </FlowPane>
+                                 </FlowPane>
 
 
-                           <FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="1590.0">
-                              <children>
-                                 <Label prefHeight="38.0" prefWidth="110.0" style="-fx-text-fill: #3e3e3e; -fx-font: Normal 18 'Agency FB';" text="Archivos" translateX="50.0" translateY="22.0">
-                                    <font>
-                                       <Font size="18.0" />
-                                    </font>
-                                 </Label>
-                              </children>
-                           </FlowPane>
+                                 <FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="1590.0">
+                                    <children>
+                                       <Label prefHeight="38.0" prefWidth="110.0" style="-fx-text-fill: #3e3e3e; -fx-font: Normal 18 'Agency FB';" text="Archivos" translateX="50.0" translateY="22.0">
+                                          <font>
+                                             <Font size="18.0" />
+                                          </font>
+                                       </Label>
+                                    </children>
+                                 </FlowPane>
 
 
-                           <FlowPane fx:id="fileList" prefHeight="500.0" prefWidth="1590.0">
-                              <!-- <children>
+                                 <FlowPane fx:id="fileList" prefHeight="500.0" prefWidth="1590.0">
+                                    <!-- <children>
                                  <FileFx id="1" />
                                  <FileFx id="2" />
                                  <FileFx id="3" />
@@ -510,22 +513,21 @@
                                  <FileFx id="9" />
                                  <FileFx id="10" />
                               </children> -->
-                           </FlowPane>
+                                 </FlowPane>
 
 
-                        </children>
-                     </VBox>
-                  </content>
+                              </children>
+                           </VBox>
+                        </content>
 
-               </ScrollPane>
-
+                     </ScrollPane>
+                  </center>
+                  <right>
+                     <SidebarFx fx:id="detailSidebar" prefHeight="200.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
+                  </right>
+               </BorderPane>
             </children>
          </VBox>
       </center>
-      <right>
-         <!--
-         <SidebarFx fx:id="detailSidebar" prefHeight="200.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
-         -->
-      </right>
    </BorderPane>
 </ScrollPane>
