@@ -47,6 +47,64 @@ public class FileUtils {
         return aux;
     }
 
+    static jar.model.File parseFile(File file, FileDTO dto) {
+        jar.model.File aux = new jar.model.File();
+
+        aux.setIdElement(dto.getIdElement());
+        aux.setName(dto.getName());
+        aux.setPath(CommonUtils.getPath(file.getParents()));
+
+        Content c = new Content();
+        ContentDTO cdto = dto.getContent();
+
+        c.setContentType(cdto.getContentType());
+        c.setErased(file.getTrashed());
+        c.setShared(cdto.isShared());
+        c.setStarred(cdto.isStarred());
+        c.setOwner(CommonUtils.parseUser(file.getOwners().get(0)));
+        c.setDataCreate(new ElementDataCreate(CommonUtils.parseDateTime(file.getCreatedTime()), c.getOwner()));
+        c.setLastUpdate(new ElementLastUpdate(CommonUtils.parseDateTime(file.getModifiedTime()),
+                CommonUtils.parseUser(file.getLastModifyingUser())));
+        c.setLastOpened(
+                new ElementLastOpened(CommonUtils.parseDateTime(file.getViewedByMeTime()), file.getViewedByMe()));
+
+        aux.setContent(c);
+
+        if (c.getContentType().getType() == ContentType.TYPE.FOLDER || file.getSize() == null)
+            aux.setFileSize(0);
+        else
+            aux.setFileSize(file.getSize());
+
+        return aux;
+    }
+
+    static Folder parseFolder(File file, FolderDTO dto) {
+        Folder aux = new Folder();
+
+        aux.setIdElement(dto.getIdElement());
+        aux.setName(dto.getName());
+        aux.setPath(CommonUtils.getPath(file.getParents()));
+        aux.setColor(dto.getColor());
+
+        Content c = new Content();
+        ContentDTO cdto = dto.getContent();
+
+        c.setContentType(cdto.getContentType());
+        c.setErased(file.getTrashed());
+        c.setShared(cdto.isShared());
+        c.setStarred(cdto.isStarred());
+        c.setOwner(CommonUtils.parseUser(file.getOwners().get(0)));
+        c.setDataCreate(new ElementDataCreate(CommonUtils.parseDateTime(file.getCreatedTime()), c.getOwner()));
+        c.setLastUpdate(new ElementLastUpdate(CommonUtils.parseDateTime(file.getModifiedTime()),
+                CommonUtils.parseUser(file.getLastModifyingUser())));
+        c.setLastOpened(
+                new ElementLastOpened(CommonUtils.parseDateTime(file.getViewedByMeTime()), file.getViewedByMe()));
+
+        aux.setContent(c);
+
+        return aux;
+    }
+
     static jar.model.File parseFile(File file) {
         jar.model.File aux = new jar.model.File();
 
@@ -62,13 +120,11 @@ public class FileUtils {
         else
             aux.setFileSize(file.getSize());
 
-        aux.setIsErased(file.getTrashed());
-        aux.setIsFeatured(file.getStarred());
-
-        c.setIsShared(file.getShared());
+        c.setErased(file.getTrashed());
+        c.setStarred(file.getStarred());
+        c.setShared(file.getShared());
         c.setOwner(CommonUtils.parseUser(file.getOwners().get(0)));
         c.setDataCreate(new ElementDataCreate(CommonUtils.parseDateTime(file.getCreatedTime()), c.getOwner()));
-
         c.setLastUpdate(new ElementLastUpdate(CommonUtils.parseDateTime(file.getModifiedTime()),
                 CommonUtils.parseUser(file.getLastModifyingUser())));
         c.setLastOpened(
@@ -90,13 +146,11 @@ public class FileUtils {
         Content c = new Content();
         c.setContentType(CommonUtils.getType(file.getMimeType()));
 
-        aux.setIsErased(file.getTrashed());
-        aux.setIsFeatured(file.getStarred());
-
-        c.setIsShared(file.getShared());
+        c.setErased(file.getTrashed());
+        c.setStarred(file.getStarred());
+        c.setShared(file.getShared());
         c.setOwner(CommonUtils.parseUser(file.getOwners().get(0)));
         c.setDataCreate(new ElementDataCreate(CommonUtils.parseDateTime(file.getCreatedTime()), c.getOwner()));
-
         c.setLastUpdate(new ElementLastUpdate(CommonUtils.parseDateTime(file.getModifiedTime()),
                 CommonUtils.parseUser(file.getLastModifyingUser())));
         c.setLastOpened(

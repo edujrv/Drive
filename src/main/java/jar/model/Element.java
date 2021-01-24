@@ -8,8 +8,6 @@ public abstract class Element {
     private String name;
     private List<Folder> path;
     private Content content;
-    private boolean isFeatured = false;
-    private boolean isErased = false;
 
     public Element() {
     }
@@ -32,14 +30,6 @@ public abstract class Element {
         return path;
     }
 
-    public boolean isFeatured() {
-        return isFeatured;
-    }
-
-    public boolean isErased() {
-        return isErased;
-    }
-
     public String getIdElement() {
         return idElement;
     }
@@ -58,14 +48,6 @@ public abstract class Element {
 
     public void setPath(List<Folder> path) {
         this.path = path;
-    }
-
-    public void setIsFeatured(boolean isFeatured) {
-        this.isFeatured = isFeatured;
-    }
-
-    public void setIsErased(boolean isErased) {
-        this.isErased = isErased;
     }
 
     public void setIdElement(String idElement) {

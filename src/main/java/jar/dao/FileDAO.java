@@ -9,9 +9,27 @@ import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 
 import jar.DriveConnection;
+import jar.model.dto.FileDTO;
+import jar.model.dto.FolderDTO;
 import javafx.util.Pair;
 
 public class FileDAO {
+
+	public static jar.model.File getFile(FileDTO file) throws IOException {
+		File aux = DriveConnection.service.files().get(file.getIdElement())
+				.setFields("parents, size, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners")
+				.execute();
+
+		return FileUtils.parseFile(aux, file);
+	}
+
+	public static jar.model.Folder getFolder(FolderDTO folder) throws IOException {
+		File aux = DriveConnection.service.files().get(folder.getIdElement()).setFields(
+				"parents, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, folderColorRgb")
+				.execute();
+		return FileUtils.parseFolder(aux, folder);
+	}
+
 	public static jar.model.File getFile(String id) throws IOException {
 		File file = DriveConnection.service.files().get(id).setFields(
 				"id, name, parents, size, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared")
