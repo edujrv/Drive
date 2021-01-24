@@ -66,4 +66,9 @@ public abstract class Element {
         return getIdElement().equals(((Element) obj).getIdElement());
     }
 
+    @Override
+    public String toString() {
+        return getName();
+    }
+
 }

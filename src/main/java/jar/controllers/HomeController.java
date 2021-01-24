@@ -203,9 +203,7 @@ public class HomeController implements Initializable {
     public static void fileSelected(Event e) {
         ISelectable actualSelect = (ISelectable) e.getSource();
 
-        actualSelect.select();
-
-        if (prevSelected != null)
+        if (prevSelected != null && prevSelected != actualSelect)
             prevSelected.unselect();
 
         prevSelected = actualSelect;

@@ -1,11 +1,17 @@
 package jar.graphic;
 
+import java.io.IOException;
+
 import jar.controllers.HomeController;
+import jar.dao.FileDAO;
+import jar.model.Folder;
 import jar.model.dto.FolderDTO;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
 public class FolderFx extends HBox implements ISelectable {
@@ -13,6 +19,7 @@ public class FolderFx extends HBox implements ISelectable {
         private Label label = new Label("");
 
         public FolderFx(FolderDTO folder) {
+
                 label.setText(folder.getName());
                 label.setMaxWidth(130);
                 label.setStyle("-fx-font-size: 18;" + " -fx-font: Normal 18 'Agency FB';" + " -fx-padding: 0 0 0 25;"
@@ -29,7 +36,24 @@ public class FolderFx extends HBox implements ISelectable {
                                 + "-fx-padding: 0 0 0 25; " + "-fx-border-insets: 15 0 0 20");
                 setAlignment(Pos.CENTER_LEFT);
 
-                setOnMouseClicked(HomeController::fileSelected);
+                setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                                select();
+                                if (event.getClickCount() > 1) {
+                                        Folder aux = null;
+                                        try {
+                                                aux = FileDAO.getFolder(folder);
+                                        } catch (IOException e) {
+                                                e.printStackTrace();
+                                        }
+                                        System.out.println(aux.getName() + " || " + aux.getPath() + " || "
+                                                        + aux.getContent().getContentType().getType());
+                                } else {
+                                        HomeController.fileSelected(event);
+                                }
+                        }
+                });
         }
 
         @Override
