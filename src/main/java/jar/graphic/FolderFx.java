@@ -1,7 +1,7 @@
 package jar.graphic;
 
 import jar.controllers.HomeController;
-import jar.model.Folder;
+import jar.model.dto.FolderDTO;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -12,7 +12,7 @@ public class FolderFx extends HBox implements ISelectable {
 
         private Label label = new Label("");
 
-        public FolderFx(Folder folder) {
+        public FolderFx(FolderDTO folder) {
                 label.setText(folder.getName());
                 label.setMaxWidth(130);
                 label.setStyle("-fx-font-size: 18;" + " -fx-font: Normal 18 'Agency FB';" + " -fx-padding: 0 0 0 25;"

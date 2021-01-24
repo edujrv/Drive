@@ -8,13 +8,13 @@ import javafx.scene.image.Image;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import jar.model.ContentType;
-import jar.model.File;
+import jar.model.dto.FileDTO;
 
 public class FileFx extends VBox implements ISelectable {
     private Label title = new Label();
     private Pane pane = new Pane();
 
-    public FileFx(File file) {
+    public FileFx(FileDTO file) {
         title.setText(file.getName());
         title.setMaxWidth(230);
         title.setStyle("-fx-font-size: 18;" + " -fx-font: Normal 18 'Agency FB';" + " -fx-padding: 20 0 0 30;"

@@ -13,6 +13,8 @@ import jar.graphic.FileFx;
 import jar.graphic.FolderFx;
 import jar.graphic.ISelectable;
 import jar.graphic.SidebarFx;
+import jar.model.dto.FileDTO;
+import jar.model.dto.FolderDTO;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -224,13 +226,13 @@ public class HomeController implements Initializable {
                     .fromMyDrive().myOwnershipOnly().notOrdered().build();
 
             for (Object obj : r1.getValue())
-                fileList.getChildren().add(new FileFx((jar.model.File) obj));
+                fileList.getChildren().add(new FileFx((FileDTO) obj));
 
             Pair<String, List<Object>> r2 = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFolders()
                     .fromMyDrive().myOwnershipOnly().notOrdered().build();
 
             for (Object obj : r2.getValue())
-                folderList.getChildren().add(new FolderFx((jar.model.Folder) obj));
+                folderList.getChildren().add(new FolderFx((FolderDTO) obj));
 
             updateSpace();
         } catch (IOException e) {
