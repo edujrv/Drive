@@ -9,19 +9,37 @@ import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 
 import jar.DriveConnection;
+import jar.model.dto.FileDTO;
+import jar.model.dto.FolderDTO;
 import javafx.util.Pair;
 
 public class FileDAO {
+
+	public static jar.model.File getFile(FileDTO file) throws IOException {
+		File aux = DriveConnection.service.files().get(file.getIdElement())
+				.setFields("parents, size, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners")
+				.execute();
+
+		return FileUtils.parseFile(aux, file);
+	}
+
+	public static jar.model.Folder getFolder(FolderDTO folder) throws IOException {
+		File aux = DriveConnection.service.files().get(folder.getIdElement()).setFields(
+				"parents, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, folderColorRgb")
+				.execute();
+		return FileUtils.parseFolder(aux, folder);
+	}
+
 	public static jar.model.File getFile(String id) throws IOException {
 		File file = DriveConnection.service.files().get(id).setFields(
-				"id, name, parents, size, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser")
+				"id, name, parents, size, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared")
 				.execute();
 		return FileUtils.parseFile(file);
 	}
 
 	public static jar.model.Folder getFolder(String id) throws IOException {
 		File folder = DriveConnection.service.files().get(id).setFields(
-				"id, name, parents, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser")
+				"id, name, parents, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser, folderColorRgb")
 				.execute();
 		return FileUtils.parseFolder(folder);
 	}
@@ -121,7 +139,10 @@ public class FileDAO {
 		private String folderId = "root";
 		private int pageSize = 10;
 		private String query = "";
-		private String fields = "nextPageToken, files(id, name, parents, size, kind, mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe, viewedByMeTime, owners, shared, sharingUser)";
+		private String fields = "nextPageToken, files(id, name, mimeType, shared, starred)";
+		// private String fields = "nextPageToken, files(id, name, parents, size, kind,
+		// mimeType, starred, trashed, createdTime, modifiedTime, viewedByMe,
+		// viewedByMeTime, owners, shared, sharingUser)";
 		private String orderBy = "";
 		private boolean isFile = true;
 
@@ -134,10 +155,10 @@ public class FileDAO {
 			List<Object> objs = new ArrayList<Object>();
 			if (isFile)
 				for (File file : result.getFiles())
-					objs.add((Object) FileUtils.parseFile(file));
+					objs.add((Object) FileUtils.parseFileDTO(file));
 			else
 				for (File file : result.getFiles())
-					objs.add((Object) FileUtils.parseFolder(file));
+					objs.add((Object) FileUtils.parseFolderDTO(file));
 
 			return new Pair<String, List<Object>>(pageToken, objs);
 		}
@@ -175,14 +196,15 @@ public class FileDAO {
 		// ## TypeStep
 		@Override
 		public WhereFileStep getFiles() {
-			this.query = "not mimeType contains 'vnd.google-apps.folder'";
+			query = "not mimeType contains 'vnd.google-apps.folder'";
 			return this;
 		}
 
 		@Override
 		public WhereFolderStep getFolders() {
-			this.isFile = false;
-			this.query = "mimeType contains 'vnd.google-apps.folder'";
+			isFile = false;
+			query = "mimeType contains 'vnd.google-apps.folder'";
+			fields = fields.substring(0, fields.length() - 1) + ", folderColorRgb)";
 			return this;
 		}
 

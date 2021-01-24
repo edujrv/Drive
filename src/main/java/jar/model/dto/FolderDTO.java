@@ -1,15 +1,17 @@
-package jar.model;
+package jar.model.dto;
 
-import java.util.List;
-
-public class Folder extends Element {
+public class FolderDTO extends ElementDTO {
     private String color = "black";
 
-    public Folder() {
+    public FolderDTO() {
     }
 
-    public Folder(String name, List<Folder> path, Content content, String color) {
-        super(name, path, content);
+    public FolderDTO(String idElement, String name, ContentDTO content) {
+        super(idElement, name, content);
+    }
+
+    public FolderDTO(String idElement, String name, ContentDTO content, String color) {
+        super(idElement, name, content);
     }
 
     /**
@@ -26,4 +28,5 @@ public class Folder extends Element {
     public void setColor(String color) {
         this.color = color;
     }
+
 }

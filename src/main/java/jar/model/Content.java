@@ -1,21 +1,15 @@
 package jar.model;
 
-//import com.sun.prism.Texture;
-
 public class Content {
 
-    // public Texture textureContent;
     private ContentType contentType;
     private ElementDataCreate dataCreate;
     private ElementLastUpdate lastUpdate;
     private ElementLastOpened lastOpened;
     private User owner;
-    private boolean isShared;
-    // private List<User> sharedWith;
-
-    /*
-     * Construct.
-     */
+    private boolean shared = false;
+    private boolean starred = false;
+    private boolean erased = false;
 
     public Content() {
     }
@@ -27,12 +21,6 @@ public class Content {
         setLastOpened(lastOpened);
         setLastUpdate(lastUpdate);
         setOwner(owner);
-    }
-
-    public Content(ContentType contentType, ElementDataCreate dataCreate, ElementLastOpened lastOpened,
-            ElementLastUpdate lastUpdate, User owner, boolean isShared) {
-        this(contentType, dataCreate, lastOpened, lastUpdate, owner);
-        setIsShared(isShared);
     }
 
     /**
@@ -106,17 +94,45 @@ public class Content {
     }
 
     /**
-     * @return boolean return the isShared
+     * @return boolean return the shared
      */
-    public boolean isIsShared() {
-        return isShared;
+    public boolean isShared() {
+        return shared;
     }
 
     /**
-     * @param isShared the isShared to set
+     * @param shared the shared to set
      */
-    public void setIsShared(boolean isShared) {
-        this.isShared = isShared;
+    public void setShared(boolean shared) {
+        this.shared = shared;
+    }
+
+    /**
+     * @return boolean return the featured
+     */
+    public boolean isStarred() {
+        return starred;
+    }
+
+    /**
+     * @param featured the featured to set
+     */
+    public void setStarred(boolean starred) {
+        this.starred = starred;
+    }
+
+    /**
+     * @return boolean return the erased
+     */
+    public boolean isErased() {
+        return erased;
+    }
+
+    /**
+     * @param erased the erased to set
+     */
+    public void setErased(boolean erased) {
+        this.erased = erased;
     }
 
 }

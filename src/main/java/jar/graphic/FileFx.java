@@ -1,20 +1,27 @@
 package jar.graphic;
 
+import java.io.IOException;
+
 import jar.controllers.HomeController;
-import javafx.geometry.Pos;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.scene.image.Image;
-import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
+import jar.dao.FileDAO;
 import jar.model.ContentType;
 import jar.model.File;
+import jar.model.dto.FileDTO;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 public class FileFx extends VBox implements ISelectable {
     private Label title = new Label();
     private Pane pane = new Pane();
 
-    public FileFx(File file) {
+    public FileFx(FileDTO file) {
+
         title.setText(file.getName());
         title.setMaxWidth(230);
         title.setStyle("-fx-font-size: 18;" + " -fx-font: Normal 18 'Agency FB';" + " -fx-padding: 20 0 0 30;"
@@ -34,7 +41,24 @@ public class FileFx extends VBox implements ISelectable {
                 + "-fx-border-insets: 15 0 0 20");
         setAlignment(Pos.BOTTOM_CENTER);
 
-        setOnMouseClicked(HomeController::fileSelected);
+        setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                select();
+                if (event.getClickCount() > 1) {
+                    File aux = null;
+                    try {
+                        aux = FileDAO.getFile(file);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(aux.getName() + " || " + aux.getPath() + " || "
+                            + aux.getContent().getContentType().getType());
+                } else {
+                    HomeController.fileSelected(event);
+                }
+            }
+        });
     }
 
     private Image chooseImage(ContentType.TYPE type) {

@@ -4,12 +4,10 @@ import java.util.List;
 
 public abstract class Element {
 
+    private String idElement;
     private String name;
     private List<Folder> path;
     private Content content;
-    private boolean isFeatured = false;
-    private boolean isErased = false;
-    private String idElement;
 
     public Element() {
     }
@@ -32,14 +30,6 @@ public abstract class Element {
         return path;
     }
 
-    public boolean isFeatured() {
-        return isFeatured;
-    }
-
-    public boolean isErased() {
-        return isErased;
-    }
-
     public String getIdElement() {
         return idElement;
     }
@@ -60,14 +50,6 @@ public abstract class Element {
         this.path = path;
     }
 
-    public void setIsFeatured(boolean isFeatured) {
-        this.isFeatured = isFeatured;
-    }
-
-    public void setIsErased(boolean isErased) {
-        this.isErased = isErased;
-    }
-
     public void setIdElement(String idElement) {
         this.idElement = idElement;
     }
@@ -82,6 +64,11 @@ public abstract class Element {
     @Override
     public boolean equals(Object obj) {
         return getIdElement().equals(((Element) obj).getIdElement());
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 
 }
