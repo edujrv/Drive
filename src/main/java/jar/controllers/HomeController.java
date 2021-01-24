@@ -9,10 +9,7 @@ import java.util.ResourceBundle;
 
 import jar.dao.AboutDAO;
 import jar.dao.FileDAO;
-import jar.graphic.FileFx;
-import jar.graphic.FolderFx;
-import jar.graphic.ISelectable;
-import jar.graphic.SidebarFx;
+import jar.graphic.*;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -213,8 +210,16 @@ public class HomeController implements Initializable {
     private SidebarFx detailSidebar;
 
     @FXML
+    private SearchbarFx searchSidebar;
+
+    @FXML
     public void toggleDetailSidebar() {
         detailSidebar.openClose();
+    }
+
+    @FXML
+    public void toggleSearchSidebar() {
+        searchSidebar.openClose();
     }
 
     @Override
