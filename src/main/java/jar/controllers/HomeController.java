@@ -22,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
@@ -32,7 +33,6 @@ public class HomeController implements Initializable {
 
     @FXML
     private Label spaceLbl;
-
     @FXML
     private Button miUnidadBtn;
     private static ISelectable prevSelected = null;
@@ -53,6 +53,30 @@ public class HomeController implements Initializable {
     public void goHome() {
         System.out.println("BOTON DRIVE");
     }
+
+
+    @FXML
+    private Button cancelSearchBtn;
+
+    @FXML
+    private TextField searchBarTxtf;
+
+    @FXML
+    public void searchBarTxtDetection(){
+        System.out.println(searchBarTxtf.getText());
+        if(!searchBarTxtf.getText().equals("")){
+            cancelSearchBtn.setVisible(true);
+        }else {
+            cancelSearchBtn.setVisible(false);
+        }
+    }
+
+    @FXML
+    public  void clearSearchBarTxt(){
+        searchBarTxtf.setText("");
+        cancelSearchBtn.setVisible(false);
+    }
+
 
     // TODO: Cambiar de Boton a MenuBar el newElementBtn
     @FXML
@@ -245,5 +269,6 @@ public class HomeController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 }

@@ -23,7 +23,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<?import jar.graphic.FileFx ?>
+<?import jar.graphic.FileFx?>
 <?import jar.graphic.SidebarFx ?>
 <?import jar.graphic.Path ?>
 <?import jar.graphic.FolderFx ?>
@@ -238,7 +238,7 @@
                      <Insets left="20.0" />
                   </HBox.margin>
                </ImageView>
-               <TextField fx:id="searchBarTxtf" prefHeight="60.0" prefWidth="914.0" promptText="Buscar en Drive" style="-fx-background-color: #e0e0e0;" translateX="150.0">
+               <TextField fx:id="searchBarTxtf" onKeyTyped="#searchBarTxtDetection" prefHeight="60.0" prefWidth="914.0" promptText="Buscar en Drive" style="-fx-background-color: #e0e0e0;" translateX="150.0">
                   <HBox.margin>
                      <Insets />
                   </HBox.margin>
@@ -349,6 +349,21 @@
                      <Tooltip text="Cuenta de Google">
                         <font>
                            <Font size="12.9" />
+                        </font>
+                     </Tooltip>
+                  </tooltip>
+               </Button>
+               <Button fx:id="cancelSearchBtn" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#clearSearchBarTxt" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #e0e0e0;" text="X" textAlignment="CENTER" translateX="-750.0" visible="false">
+                  <font>
+                     <Font size="20.0" />
+                  </font>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+                  <tooltip>
+                     <Tooltip text="Borrar búsqueda">
+                        <font>
+                           <Font size="14.0" />
                         </font>
                      </Tooltip>
                   </tooltip>
