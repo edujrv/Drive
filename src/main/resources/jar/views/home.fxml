@@ -238,7 +238,7 @@
                      <Insets left="20.0" />
                   </HBox.margin>
                </ImageView>
-               <TextField fx:id="searchBarTxtf" onKeyTyped="#searchBarTxtDetection" prefHeight="60.0" prefWidth="914.0" promptText="Buscar en Drive" style="-fx-background-color: #e0e0e0;" translateX="150.0">
+               <TextField fx:id="searchBarTxtf" onKeyPressed="#searchBarEnter" onKeyTyped="#searchBarTxtDetection" prefHeight="60.0" prefWidth="914.0" promptText="Buscar en Drive" style="-fx-background-color: #e0e0e0;" translateX="150.0">
                   <HBox.margin>
                      <Insets />
                   </HBox.margin>

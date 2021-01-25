@@ -25,7 +25,8 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
@@ -65,11 +66,18 @@ public class HomeController implements Initializable {
     @FXML
     public void searchBarTxtDetection(){
 
-        System.out.println(searchBarTxtf.getText());
-        if(!searchBarTxtf.getText().equals("")){
-            cancelSearchBtn.setVisible(true);
-        }else {
-            cancelSearchBtn.setVisible(false);
+            if(!searchBarTxtf.getText().equals("")){
+                cancelSearchBtn.setVisible(true);
+            }else {
+                cancelSearchBtn.setVisible(false);
+            }
+            System.out.println(searchBarTxtf.getText());
+        }
+
+    @FXML
+    public void searchBarEnter(javafx.scene.input.KeyEvent event){
+        if (event.getCode() == KeyCode.ENTER) {
+            search();
         }
     }
 
@@ -81,7 +89,7 @@ public class HomeController implements Initializable {
 
     @FXML
     public  void search(){
-        System.out.println("Lo que esta buscando es: "+searchBarTxtf.getText());
+        System.out.println("Lo que esta buscando es: "+searchBarTxtf.getCharacters());
     }
 
 
