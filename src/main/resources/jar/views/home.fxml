@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets ?>
-<?import javafx.geometry.Rectangle2D ?>
-<?import javafx.scene.Cursor ?>
-<?import javafx.scene.control.Button ?>
-<?import javafx.scene.control.Label ?>
-<?import javafx.scene.control.Menu ?>
-<?import javafx.scene.control.MenuBar ?>
-<?import javafx.scene.control.MenuItem ?>
-<?import javafx.scene.control.ScrollPane ?>
-<?import javafx.scene.control.TextField ?>
-<?import javafx.scene.control.Tooltip ?>
-<?import javafx.scene.effect.DropShadow ?>
-<?import javafx.scene.effect.InnerShadow ?>
-<?import javafx.scene.image.Image ?>
-<?import javafx.scene.image.ImageView ?>
-<?import javafx.scene.layout.BorderPane ?>
-<?import javafx.scene.layout.FlowPane ?>
-<?import javafx.scene.layout.HBox ?>
-<?import javafx.scene.layout.VBox ?>
-<?import javafx.scene.text.Font ?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
 
 <?import jar.graphic.FileFx ?>
 <?import jar.graphic.SidebarFx ?>
@@ -28,7 +30,6 @@
 <?import jar.graphic.SearchbarFx?>
 
 
-<?import javafx.scene.layout.Pane?>
 <ScrollPane maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jar.controllers.HomeController">
    <BorderPane prefHeight="1080.0" prefWidth="1920.0">
       <left>
@@ -276,7 +277,7 @@
                      </Tooltip>
                   </tooltip>
                </Button>
-               <Button fx:id="searchExpBtn" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#buttonGray" onMouseClicked="#toggleSearchSidebar" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #e0e0e0;" text="▼" textAlignment="CENTER" translateX="-100.0">
+               <Button fx:id="searchExpBtn" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#toggleSearchSidebar" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #e0e0e0;" text="▼" textAlignment="CENTER" translateX="-100.0">
                   <font>
                      <Font size="17.0" />
                   </font>
@@ -291,11 +292,10 @@
                      </Tooltip>
                   </tooltip>
                </Button>
-               <MenuBar fx:id="helpBar" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#menuGray" onMouseExited="#menuNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" stylesheets="@../Styles/folders.css">
+               <MenuBar fx:id="helpBar" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#menuGray" onMouseExited="#menuNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" stylesheets="@../Styles/folders.css" translateX="50.0">
                   <menus>
                      <Menu fx:id="helpMenu" mnemonicParsing="false" style="-fx-background-color: TRANSPARENT;">
                         <items>
-                           <MenuItem fx:id="ayuda" mnemonicParsing="false" style="-fx-pref-height: 40; -fx-text-fill: black; -fx-font: normal 15 Arial;" text="Ayuda" />
                            <MenuItem fx:id="formacion" mnemonicParsing="false" style="-fx-pref-height: 40; -fx-text-fill: black; -fx-font: normal 15 Arial;" text="Formación" />
                            <MenuItem fx:id="actualizaciones" mnemonicParsing="false" style="-fx-pref-height: 40; -fx-text-fill: black; -fx-font: normal 15 Arial;" text="Actualizaciones" />
                            <MenuItem fx:id="typ" mnemonicParsing="false" style="-fx-pref-height: 40; -fx-text-fill: black; -fx-font: normal 15 Arial;" text="Términos y Política" />
@@ -335,37 +335,9 @@
                      <Insets />
                   </opaqueInsets>
                </MenuBar>
-               <Button fx:id="settingsBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;">
-                  <font>
-                     <Font size="25.0" />
-                  </font>
-                  <graphic>
-                     <ImageView accessibleRoleDescription="dsafasdfas" fitHeight="40.0" fitWidth="30.0" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                           <Image url="@../images/Settings.png" />
-                        </image>
-                        <cursor>
-                           <Cursor fx:constant="HAND" />
-                        </cursor>
-                     </ImageView>
-                  </graphic>
-                  <HBox.margin>
-                     <Insets left="30.0" />
-                  </HBox.margin>
-                  <cursor>
-                     <Cursor fx:constant="HAND" />
-                  </cursor>
-                  <tooltip>
-                     <Tooltip text="Configuración" y="0.0">
-                        <font>
-                           <Font size="12.9" />
-                        </font>
-                     </Tooltip>
-                  </tooltip>
-               </Button>
                <Button fx:id="userBtn" mnemonicParsing="false" prefHeight="50.0" prefWidth="136.0" style="-fx-background-radius: 10;" text="Usuario">
                   <HBox.margin>
-                     <Insets left="90.0" />
+                     <Insets left="150.0" />
                   </HBox.margin>
                   <font>
                      <Font size="24.0" />
@@ -388,16 +360,16 @@
          <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
             <children>
 
-               <Pane prefHeight="0.0" prefWidth="914.0" BorderPane.alignment="CENTER" maxHeight="Infinity">
+               <Pane maxHeight="Infinity" prefHeight="0.0" prefWidth="914.0" BorderPane.alignment="CENTER">
 
-                  <SearchbarFx fx:id="searchSidebar" prefHeight="0.0" prefWidth="914.0" maxWidth="914.0" translateX="19" translateY="-51" BorderPane.alignment="CENTER"  />
+                  <SearchbarFx fx:id="searchSidebar" maxWidth="914.0" prefHeight="0.0" prefWidth="914.0" translateX="19" translateY="-51" BorderPane.alignment="CENTER" />
 
 
                </Pane>
 
 
 
-               <HBox alignment="CENTER_LEFT" prefHeight="88.0" prefWidth="1614.0" >
+               <HBox alignment="CENTER_LEFT" prefHeight="88.0" prefWidth="1614.0">
                   <children>
                      <FlowPane fx:id="Path" minHeight="-Infinity" minWidth="-Infinity" prefHeight="88.0" prefWidth="1145.0">
 
@@ -405,7 +377,7 @@
                          <Path/>
                         -->
                      </FlowPane>
-                     <Button fx:id="viewBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" translateX="300.0">
+                     <Button fx:id="viewBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" translateX="285.0">
                         <font>
                            <Font size="25.0" />
                         </font>
@@ -433,7 +405,7 @@
                            </Tooltip>
                         </tooltip>
                      </Button>
-                     <Button fx:id="infoBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#toggleDetailSidebar" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" translateX="300.0">
+                     <Button fx:id="infoBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#toggleDetailSidebar" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" translateX="305.0">
                         <font>
                            <Font size="25.0" />
                         </font>
