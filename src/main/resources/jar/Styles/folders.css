@@ -36,3 +36,39 @@
     -fx-focus-color:white;
 }
 
+.buscarBtn{
+    -fx-pref-width: 90;
+    -fx-pref-height: 35;
+    -fx-min-width: USE_PREF_SIZE;
+    -fx-min-height: USE_PREF_SIZE;
+    -fx-background-radius: 5;
+    -fx-background-color: #0b7bf3;
+    -fx-cursor: HAND;
+    -fx-translate-x: -25;
+    -fx-text-fill: white;
+}
+
+.restablecerBtn{
+    -fx-pref-width: 90;
+    -fx-pref-height: 35;
+    -fx-min-width: USE_PREF_SIZE;
+    -fx-min-height: USE_PREF_SIZE;
+    -fx-background-radius: 5;
+    -fx-background-color: transparent;
+    -fx-cursor: HAND;
+    -fx-translate-x: -25;
+    -fx-text-fill: black;
+}
+.masInformacionBtn{
+    -fx-pref-width: 200;
+    -fx-pref-height: 35;
+    -fx-min-width: USE_PREF_SIZE;
+    -fx-min-height: USE_PREF_SIZE;
+    -fx-background-radius: 5;
+    -fx-background-color: transparent;
+    -fx-cursor: HAND;
+    -fx-translate-x: -10;
+    -fx-text-fill: #0b7bf3;
+
+}
+
