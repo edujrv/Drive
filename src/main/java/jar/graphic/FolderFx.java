@@ -18,7 +18,7 @@ public class FolderFx extends HBox implements ISelectable {
 
         private Label label = new Label("");
 
-        public FolderFx(FolderDTO folder) {
+        public FolderFx(FolderDTO folder, HomeController hcontroller) {
 
                 label.setText(folder.getName());
                 label.setMaxWidth(130);
@@ -50,7 +50,7 @@ public class FolderFx extends HBox implements ISelectable {
                                         System.out.println(aux.getName() + " || " + aux.getPath() + " || "
                                                         + aux.getContent().getContentType().getType());
                                 } else {
-                                        HomeController.fileSelected(event);
+                                        hcontroller.changeFileSelection(event);
                                 }
                         }
                 });

@@ -20,7 +20,7 @@ public class FileFx extends VBox implements ISelectable {
     private Label title = new Label();
     private Pane pane = new Pane();
 
-    public FileFx(FileDTO file) {
+    public FileFx(FileDTO file, HomeController hcontroller) {
 
         title.setText(file.getName());
         title.setMaxWidth(230);
@@ -55,7 +55,7 @@ public class FileFx extends VBox implements ISelectable {
                     System.out.println(aux.getName() + " || " + aux.getPath() + " || "
                             + aux.getContent().getContentType().getType());
                 } else {
-                    HomeController.fileSelected(event);
+                    hcontroller.changeFileSelection(event);
                 }
             }
         });
@@ -70,7 +70,6 @@ public class FileFx extends VBox implements ISelectable {
             default:
                 return new Image("jar/images/office.png");
         }
-
     }
 
     @Override

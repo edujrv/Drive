@@ -201,7 +201,7 @@ public class HomeController implements Initializable {
      * When a file or folder is selected this method is called to unselect the
      * previous file/folder and select the new one
      */
-    public static void fileSelected(Event e) {
+    public void changeFileSelection(Event e) {
         ISelectable actualSelect = (ISelectable) e.getSource();
 
         if (prevSelected != null && prevSelected != actualSelect)
@@ -233,13 +233,13 @@ public class HomeController implements Initializable {
                     .fromMyDrive().myOwnershipOnly().notOrdered().build();
 
             for (Object obj : r1.getValue())
-                fileList.getChildren().add(new FileFx((FileDTO) obj));
+                fileList.getChildren().add(new FileFx((FileDTO) obj, this));
 
             Pair<String, List<Object>> r2 = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFolders()
                     .fromMyDrive().myOwnershipOnly().notOrdered().build();
 
             for (Object obj : r2.getValue())
-                folderList.getChildren().add(new FolderFx((FolderDTO) obj));
+                folderList.getChildren().add(new FolderFx((FolderDTO) obj, this));
 
             updateSpace();
         } catch (IOException e) {
