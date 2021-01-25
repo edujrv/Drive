@@ -44,7 +44,7 @@ public class Efectos {
 
     public static DropShadow grayOn(String id) {
         InnerShadow innerShadow = new InnerShadow();
-        if (id.equals("searchBtn") || id.equals("searchExpBtn"))
+        if (id.equals("searchBtn") || id.equals("searchExpBtn") || id.equals("cancelSearchBtn"))
             innerShadow.setColor(Color.rgb(102, 102, 102, 0.2));
         else
             innerShadow.setColor(Color.rgb(210, 222, 221, 1));

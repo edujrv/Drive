@@ -25,6 +25,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
@@ -63,6 +64,7 @@ public class HomeController implements Initializable {
 
     @FXML
     public void searchBarTxtDetection(){
+
         System.out.println(searchBarTxtf.getText());
         if(!searchBarTxtf.getText().equals("")){
             cancelSearchBtn.setVisible(true);
@@ -76,6 +78,13 @@ public class HomeController implements Initializable {
         searchBarTxtf.setText("");
         cancelSearchBtn.setVisible(false);
     }
+
+    @FXML
+    public  void search(){
+        System.out.println("Lo que esta buscando es: "+searchBarTxtf.getText());
+    }
+
+
 
 
     // TODO: Cambiar de Boton a MenuBar el newElementBtn
