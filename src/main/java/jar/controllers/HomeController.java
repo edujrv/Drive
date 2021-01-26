@@ -3,6 +3,7 @@ package jar.controllers;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -14,6 +15,7 @@ import jar.graphic.FolderFx;
 import jar.graphic.ISelectable;
 import jar.graphic.SearchbarFx;
 import jar.graphic.SidebarFx;
+import jar.graphic.SpaceButtonFx;
 import jar.model.dto.FileDTO;
 import jar.model.dto.FolderDTO;
 import javafx.event.Event;
@@ -25,17 +27,29 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
 
 public class HomeController implements Initializable {
 
-    @FXML
-    private Label spaceLbl;
+    private static ISelectable prevSelected = null;
 
     @FXML
-    private Button miUnidadBtn;
-    private static ISelectable prevSelected = null;
+    private SpaceButtonFx miUnidadBtn;
+    @FXML
+    private SpaceButtonFx shareBtn;
+    @FXML
+    private SpaceButtonFx recientBtn;
+    @FXML
+    private SpaceButtonFx starredBtn;
+    @FXML
+    private SpaceButtonFx trashBtn;
+    @FXML
+    private SpaceButtonFx storageBtn;
+
+    @FXML
+    private Label spaceLbl;
     @FXML
     private Image picture;
     @FXML
@@ -50,11 +64,13 @@ public class HomeController implements Initializable {
     private FlowPane folderList;
 
     @FXML
+    private VBox spaceVBox;
+
+    @FXML
     public void goHome() {
-        System.out.println("BOTON DRIVE");
+        System.out.println("DRIVE");
     }
 
-    // TODO: Cambiar de Boton a MenuBar el newElementBtn
     @FXML
     public void blurNewBtn() {
         newElementBtn.setEffect(Efectos.newElementBtnOn());
@@ -63,48 +79,6 @@ public class HomeController implements Initializable {
     @FXML
     public void blurOfNewBtn() {
         newElementBtn.setEffect(Efectos.newElementBtnOf());
-    }
-
-    @FXML
-    public void buttonBlue(Event e) {
-
-        Button btn = (Button) e.getSource();
-        String btnName = btn.getId();
-
-        if (prevButton != null) {
-            prevButton.setEffect(Efectos.grayOf());
-            prevButton.setTextFill(Color.BLACK);
-            picture = new Image("jar/images/" + prevButton.getId() + "Black.png");
-            ImageView icon = new ImageView(picture);
-            icon.setFitHeight(40);
-            icon.setFitWidth(30);
-            icon.setPickOnBounds(true);
-            icon.setPreserveRatio(true);
-            icon.setTranslateX(-35.0);
-            prevButton.setGraphic(icon);
-        } else {
-            prevButton = miUnidadBtn;
-        }
-
-        prevButton = btn;
-        prevButton.setId(btnName);
-        btn.setEffect(Efectos.blueOn());
-        btn.setTextFill(Color.rgb(76, 175, 232));
-        picture = new Image("jar/images/" + btnName + "Blue.png");
-        ImageView ejemplo = new ImageView(picture);
-        ejemplo.setFitHeight(40);
-        ejemplo.setFitWidth(30);
-        ejemplo.setPickOnBounds(true);
-        ejemplo.setPreserveRatio(true);
-        ejemplo.setTranslateX(-35.0);
-        prevButton.setGraphic(ejemplo);
-
-        try {
-            updateSpace();
-        } catch (Exception about) {
-            System.out.println(about);
-        }
-
     }
 
     public void updateSpace() throws IOException {
@@ -134,31 +108,40 @@ public class HomeController implements Initializable {
         }
     }
 
-    @FXML
-    public void buttonGray(Event e) {
+    // @FXML
+    // public void buttonBlue(Event e) {
 
-        Button btn = (Button) e.getSource();
+    // Button btn = (Button) e.getSource();
+    // String btnName = btn.getId();
 
-        if (prevButton == null)
-            prevButton = miUnidadBtn;
+    // if (prevButton != null) {
+    // prevButton.setEffect(Efectos.grayOf());
+    // prevButton.setTextFill(Color.BLACK);
+    // picture = new Image("jar/images/" + prevButton.getId() + "Black.png");
+    // ImageView icon = new ImageView(picture);
+    // icon.setFitHeight(40);
+    // icon.setFitWidth(30);
+    // icon.setPickOnBounds(true);
+    // icon.setPreserveRatio(true);
+    // icon.setTranslateX(-35.0);
+    // prevButton.setGraphic(icon);
+    // } else {
+    // prevButton = miUnidadBtn;
+    // }
 
-        if (prevButton != btn) {
-            btn.setEffect(Efectos.grayOn(btn.getId()));
-        }
-    }
-
-    @FXML
-    public void buttonNormal(Event e) {
-
-        Button btn = (Button) e.getSource();
-
-        if (prevButton == null)
-            prevButton = miUnidadBtn;
-
-        if (prevButton != btn) {
-            btn.setEffect(Efectos.grayOf());
-        }
-    }
+    // prevButton = btn;
+    // prevButton.setId(btnName);
+    // btn.setEffect(Efectos.blueOn());
+    // btn.setTextFill(Color.rgb(76, 175, 232));
+    // picture = new Image("jar/images/" + btnName + "Blue.png");
+    // ImageView ejemplo = new ImageView(picture);
+    // ejemplo.setFitHeight(40);
+    // ejemplo.setFitWidth(30);
+    // ejemplo.setPickOnBounds(true);
+    // ejemplo.setPreserveRatio(true);
+    // ejemplo.setTranslateX(-35.0);
+    // prevButton.setGraphic(ejemplo);
+    // }
 
     @FXML
     public void buy() {
@@ -228,6 +211,18 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        List<SpaceButtonFx> aux = new ArrayList<SpaceButtonFx>();
+        aux.add(new SpaceButtonFx("miUnidadBtn", "Mi Unidad", this));
+        aux.add(new SpaceButtonFx("shareBtn", "Compartido", this));
+        aux.add(new SpaceButtonFx("recientBtn", "Reciente", this));
+        aux.add(new SpaceButtonFx("starredBtn", "Destacados", this));
+        aux.add(new SpaceButtonFx("trashBtn", "Papelera", this));
+        aux.add(new SpaceButtonFx("storageBtn", "Almacenamiento", this));
+
+        // spaceVBox.getChildren().addAll(miUnidadBtn, shareBtn, recientBtn, starredBtn,
+        // trashBtn, storageBtn);
+        spaceVBox.getChildren().addAll(1, aux);
+
         try {
             Pair<String, List<Object>> r1 = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles()
                     .fromMyDrive().myOwnershipOnly().notOrdered().build();
@@ -244,6 +239,74 @@ public class HomeController implements Initializable {
             updateSpace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void buttonBlue(Event e) {
+
+        Button btn = (Button) e.getSource();
+        String btnName = btn.getId();
+
+        if (prevButton != null) {
+            prevButton.setEffect(Efectos.grayOf());
+            prevButton.setTextFill(Color.BLACK);
+            picture = new Image("jar/images/" + prevButton.getId() + "Black.png");
+            ImageView icon = new ImageView(picture);
+            icon.setFitHeight(40);
+            icon.setFitWidth(30);
+            icon.setPickOnBounds(true);
+            icon.setPreserveRatio(true);
+            icon.setTranslateX(-35.0);
+            prevButton.setGraphic(icon);
+        } else {
+            prevButton = miUnidadBtn;
+        }
+
+        prevButton = btn;
+        prevButton.setId(btnName);
+        btn.setEffect(Efectos.blueOn());
+        btn.setTextFill(Color.rgb(76, 175, 232));
+        picture = new Image("jar/images/" + btnName + "Blue.png");
+        ImageView ejemplo = new ImageView(picture);
+        ejemplo.setFitHeight(40);
+        ejemplo.setFitWidth(30);
+        ejemplo.setPickOnBounds(true);
+        ejemplo.setPreserveRatio(true);
+        ejemplo.setTranslateX(-35.0);
+        prevButton.setGraphic(ejemplo);
+
+        try {
+            updateSpace();
+        } catch (Exception about) {
+            System.out.println(about);
+        }
+
+    }
+
+    @FXML
+    public void buttonGray(Event e) {
+
+        Button btn = (Button) e.getSource();
+
+        if (prevButton == null)
+            prevButton = miUnidadBtn;
+
+        if (prevButton != btn) {
+            btn.setEffect(Efectos.grayOn(btn.getId()));
+        }
+    }
+
+    @FXML
+    public void buttonNormal(Event e) {
+
+        Button btn = (Button) e.getSource();
+
+        if (prevButton == null)
+            prevButton = miUnidadBtn;
+
+        if (prevButton != btn) {
+            btn.setEffect(Efectos.grayOf());
         }
     }
 }

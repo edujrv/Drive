@@ -25,14 +25,15 @@
 <?import jar.graphic.SidebarFx ?>
 <?import jar.graphic.Path ?>
 <?import jar.graphic.FolderFx ?>
-<?import jar.graphic.SearchbarFx?>
+<?import jar.graphic.SearchbarFx ?>
+<?import jar.graphic.SpaceButtonFx ?>
 
 
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Pane ?>
 <ScrollPane maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jar.controllers.HomeController">
    <BorderPane prefHeight="1080.0" prefWidth="1920.0">
       <left>
-         <VBox minWidth="-Infinity" prefHeight="958.0" prefWidth="310.0" BorderPane.alignment="CENTER">
+         <VBox fx:id="spaceVBox" minWidth="-Infinity" prefHeight="958.0" prefWidth="310.0" BorderPane.alignment="CENTER">
             <children>
                <Button fx:id="newElementBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#blurNewBtn" onMouseExited="#blurOfNewBtn" prefHeight="82.0" prefWidth="188.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Nuevo">
                   <font>
@@ -58,7 +59,14 @@
                      <DropShadow color="#727272" />
                   </effect>
                </Button>
-               <Button fx:id="miUnidadBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#buttonBlue" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="60.0" prefWidth="335.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Mi unidad" textFill="#4cafe8" translateX="-25.0">
+               <!-- <SpaceButtonFx idBtn="miUnidadBtn" text="Mi Unidad"></SpaceButtonFx>
+               <SpaceButtonFx idBtn="shareBtn" text="Compartido"></SpaceButtonFx>
+               <SpaceButtonFx idBtn="recientBtn" text="Reciente"></SpaceButtonFx>
+               <SpaceButtonFx idBtn="starredBtn" text="Destacados"></SpaceButtonFx>
+               <SpaceButtonFx idBtn="trashBtn" text="Papelera"></SpaceButtonFx>
+               <SpaceButtonFx idBtn="storageBtn" text="Almacenamiento"></SpaceButtonFx> -->
+
+               <!-- <Button fx:id="miUnidadBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#buttonBlue" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="60.0" prefWidth="335.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Mi unidad" textFill="#4cafe8" translateX="-25.0">
                   <font>
                      <Font size="24.0" />
                   </font>
@@ -193,7 +201,7 @@
                   <cursor>
                      <Cursor fx:constant="HAND" />
                   </cursor>
-               </Button>
+               </Button> -->
                <HBox prefHeight="18.0" prefWidth="119.0">
                   <children>
                      <Label fx:id="spaceLbl" text="0 GB usado" translateX="68.0">
@@ -209,7 +217,8 @@
                      <Insets top="10.0" />
                   </VBox.margin>
                </HBox>
-               <Button fx:id="shopBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#buy" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="169.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Comprar espacio" textFill="#2d92eb">
+               <!-- <Button fx:id="shopBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#buy" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="169.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Comprar espacio" textFill="#2d92eb"> -->
+               <Button fx:id="shopBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#buy" prefHeight="45.0" prefWidth="169.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Comprar espacio" textFill="#2d92eb">
                   <font>
                      <Font size="19.0" />
                   </font>
@@ -390,14 +399,13 @@
 
                <Pane prefHeight="0.0" prefWidth="914.0" BorderPane.alignment="CENTER" maxHeight="Infinity">
 
-                  <SearchbarFx fx:id="searchSidebar" prefHeight="0.0" prefWidth="914.0" maxWidth="914.0" translateX="19" translateY="-51" BorderPane.alignment="CENTER"  />
+                  <SearchbarFx fx:id="searchSidebar" prefHeight="0.0" prefWidth="914.0" maxWidth="914.0" translateX="19" translateY="-51" BorderPane.alignment="CENTER" />
 
 
                </Pane>
 
 
-
-               <HBox alignment="CENTER_LEFT" prefHeight="88.0" prefWidth="1614.0" >
+               <HBox alignment="CENTER_LEFT" prefHeight="88.0" prefWidth="1614.0">
                   <children>
                      <FlowPane fx:id="Path" minHeight="-Infinity" minWidth="-Infinity" prefHeight="88.0" prefWidth="1145.0">
 
