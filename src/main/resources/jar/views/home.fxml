@@ -22,13 +22,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <?import jar.graphic.FileFx?>
 <?import jar.graphic.SidebarFx ?>
 <?import jar.graphic.Path ?>
 <?import jar.graphic.FolderFx ?>
 <?import jar.graphic.SearchbarFx?>
-
 
 <ScrollPane maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jar.controllers.HomeController">
    <BorderPane prefHeight="1080.0" prefWidth="1920.0">
@@ -225,7 +223,7 @@
          </VBox>
       </left>
       <top>
-         <HBox alignment="CENTER_LEFT" prefHeight="167.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
+         <HBox alignment="CENTER_LEFT" prefHeight="167.0" prefWidth="1920.0" style="-fx-border-color: #f4f4f4 #f4f4f4 #cecece #f4f4f4;" BorderPane.alignment="CENTER">
             <children>
                <ImageView fitHeight="60.0" fitWidth="158.0" onMouseClicked="#goHome" pickOnBounds="true" preserveRatio="true">
                   <image>
@@ -452,7 +450,7 @@
                </HBox>
                <BorderPane>
                   <center>
-                     <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-focus-color: false; -fx-border-color: #f4f4f4;">
+                     <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-focus-color: false; -fx-border-color: #cecece #f4f4f4 #f4f4f4 #f4f4f4;">
                         <content>
                            <VBox>
                               <children>
@@ -460,7 +458,7 @@
 
                                  <FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0">
                                     <children>
-                                       <Label prefHeight="38.0" prefWidth="110.0" style="-fx-text-fill: #3e3e3e; -fx-font: Normal 18 'Agency FB';" text="Carpetas" translateX="50.0" translateY="22.0">
+                                       <Label onMouseEntered="#borderBlue" onMouseExited="#borderNormal" prefHeight="38.0" prefWidth="110.0" style="-fx-text-fill: #3e3e3e; -fx-font: Normal 18 'Agency FB'; -fx-border-width: 3; -fx-border-color: transparent;" text="Carpetas" translateX="50.0" translateY="22.0">
                                           <font>
                                              <Font size="18.0" />
                                           </font>
@@ -490,7 +488,7 @@
 
                                  <FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0">
                                     <children>
-                                       <Label prefHeight="38.0" prefWidth="110.0" style="-fx-text-fill: #3e3e3e; -fx-font: Normal 18 'Agency FB';" text="Archivos" translateX="50.0" translateY="22.0">
+                                       <Label onMouseEntered="#borderBlue" onMouseExited="#borderNormal" prefHeight="38.0" prefWidth="110.0" style="-fx-text-fill: #3e3e3e; -fx-font: Normal 18 'Agency FB'; -fx-border-width: 3; -fx-border-color: transparent;" text="Archivos" translateX="50.0" translateY="22.0">
                                           <font>
                                              <Font size="18.0" />
                                           </font>

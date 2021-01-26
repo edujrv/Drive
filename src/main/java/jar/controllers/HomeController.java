@@ -33,6 +33,7 @@ import javafx.util.Pair;
 
 public class HomeController implements Initializable {
 
+    private Label prevLabel = null;
     @FXML
     private Label spaceLbl;
     @FXML
@@ -200,6 +201,27 @@ public class HomeController implements Initializable {
             btn.setEffect(Efectos.grayOf());
         }
     }
+
+    @FXML
+    public void borderBlue(Event e){
+        Label lbl = (Label) e.getSource();
+        if(prevLabel != lbl){
+            lbl.setStyle("-fx-border-color: transparent transparent red transparent; " +
+                    "-fx-border-width: 3;" +
+                    "-fx-background-color: transparent;");
+        }
+    }
+
+    @FXML
+    public void borderNormal(Event e){
+        Label lbl = (Label) e.getSource();
+        if(prevLabel != lbl){
+            lbl.setStyle("-fx-border-color: transparent;" +
+                    " -fx-border-width: 3;" +
+                    "-fx-background-color: transparent;");
+        }
+    }
+
 
     @FXML
     public void buy() {
