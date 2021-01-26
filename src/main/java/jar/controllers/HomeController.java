@@ -222,17 +222,15 @@ public class HomeController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         List<SpaceButtonFx> aux = new ArrayList<SpaceButtonFx>();
-        aux.add(new SpaceButtonFx("miUnidadBtn", "Mi Unidad", this));
+        aux.add(new SpaceButtonFx("miUnidadBtn", "Mi Unidad", this, new Insets(40, 0, 0, 0)));
         aux.add(new SpaceButtonFx("shareBtn", "Compartido", this));
         aux.add(new SpaceButtonFx("recientBtn", "Reciente", this));
         aux.add(new SpaceButtonFx("starredBtn", "Destacados", this));
         aux.add(new SpaceButtonFx("trashBtn", "Papelera", this));
-        aux.add(new SpaceButtonFx("storageBtn", "Almacenamiento", this));
+        aux.add(new SpaceButtonFx("storageBtn", "Almacenamiento", this, new Insets(60, 0, 0, 0)));
 
-        // spaceVBox.getChildren().addAll(miUnidadBtn, shareBtn, recientBtn, starredBtn,
-        // trashBtn, storageBtn);
         spaceVBox.getChildren().addAll(1, aux);
-        aux.stream().forEach(btn -> spaceVBox.setMargin(btn, new Insets(4, 0, 0, 0)));
+        aux = null;
 
         try {
             Pair<String, List<Object>> r1 = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles()
