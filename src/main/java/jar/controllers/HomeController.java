@@ -21,6 +21,7 @@ import jar.model.dto.FolderDTO;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
@@ -33,7 +34,8 @@ import javafx.util.Pair;
 
 public class HomeController implements Initializable {
 
-    private static ISelectable prevSelected = null;
+    private ISelectable prevSelectedFile = null;
+    private ISelectable prevSelectedSpaceBtn = null;
 
     @FXML
     private SpaceButtonFx miUnidadBtn;
@@ -52,7 +54,6 @@ public class HomeController implements Initializable {
     private Label spaceLbl;
     @FXML
     private Image picture;
-    @FXML
     private Button prevButton = null;
     @FXML
     private Button newElementBtn;
@@ -187,10 +188,19 @@ public class HomeController implements Initializable {
     public void changeFileSelection(Event e) {
         ISelectable actualSelect = (ISelectable) e.getSource();
 
-        if (prevSelected != null && prevSelected != actualSelect)
-            prevSelected.unselect();
+        if (prevSelectedFile != null && prevSelectedFile != actualSelect)
+            prevSelectedFile.unselect();
 
-        prevSelected = actualSelect;
+        prevSelectedFile = actualSelect;
+    }
+
+    public void changeSpaceButtonSelection(Event e) {
+        ISelectable actualSelect = (ISelectable) e.getSource();
+
+        if (prevSelectedSpaceBtn != null && prevSelectedSpaceBtn != actualSelect)
+            prevSelectedSpaceBtn.unselect();
+
+        prevSelectedSpaceBtn = actualSelect;
     }
 
     @FXML
@@ -222,6 +232,7 @@ public class HomeController implements Initializable {
         // spaceVBox.getChildren().addAll(miUnidadBtn, shareBtn, recientBtn, starredBtn,
         // trashBtn, storageBtn);
         spaceVBox.getChildren().addAll(1, aux);
+        aux.stream().forEach(btn -> spaceVBox.setMargin(btn, new Insets(4, 0, 0, 0)));
 
         try {
             Pair<String, List<Object>> r1 = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles()

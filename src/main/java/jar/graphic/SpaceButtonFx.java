@@ -5,7 +5,9 @@ import jar.controllers.HomeController;
 import javafx.beans.NamedArg;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.InnerShadow;
@@ -13,23 +15,29 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 
 public class SpaceButtonFx extends Button implements ISelectable, IHoverable {
     private ImageView icon = new ImageView();
     private boolean selected = false;
 
-    public SpaceButtonFx(@NamedArg("idBtn") String idBtn) {
+    public SpaceButtonFx(String id, String text, HomeController hController) {
         setMnemonicParsing(false);
-        setId(idBtn);
+        setId(id);
         setPrefHeight(60);
-        setPrefWidth(335);
-        setStyle("-fx-background-radius: 40; -fx-background-color: #F4F4F4;");
-        setTranslateX(-25);
+        setPrefWidth(300);
+        setStyle("-fx-background-radius: 0 40 40 0; -fx-background-color: #F4F4F4; -fx-padding: 0 0 0 50");
+        // setTranslateX(25);
         setTextFill(Color.web("#4cafe8"));
         setFont(Font.font(24));
         setCursor(Cursor.HAND);
-        setPadding(new Insets(0, 20, 0, 0));
+        setAlignment(Pos.CENTER_LEFT);
+        // getChildren().stream().forEach(n -> n.setStyle("-fx-translate-x: 10;"));
+        // setPadding(new Insets(0, 0, 0, 20));
 
         DropShadow ds = new DropShadow(6.25, 0, 6, Color.web("#4cafe8a6"));
         ds.setInput(new InnerShadow(41.8725, 0, 148.49, Color.web("#4cafe8a6")));
@@ -43,10 +51,7 @@ public class SpaceButtonFx extends Button implements ISelectable, IHoverable {
         icon.setPreserveRatio(true);
         icon.setTranslateX(-35.0);
         icon.setCursor(Cursor.HAND);
-    }
 
-    public SpaceButtonFx(String id, String text, HomeController hController) {
-        this(id);
         setText(text);
         setController(hController);
     }
@@ -56,14 +61,13 @@ public class SpaceButtonFx extends Button implements ISelectable, IHoverable {
             @Override
             public void handle(MouseEvent event) {
                 select();
-                // TODO Llamar a un metodo del HomeController
+                hController.changeSpaceButtonSelection(event);
             }
         });
 
         setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                System.out.println("Wesa");
                 hover();
             }
         });
@@ -71,7 +75,6 @@ public class SpaceButtonFx extends Button implements ISelectable, IHoverable {
         setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                System.out.println("Wopa");
                 unhover();
             }
         });
