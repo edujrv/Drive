@@ -16,17 +16,22 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<!--
 <?import jar.graphic.FileFx?>
 <?import jar.graphic.SidebarFx ?>
 <?import jar.graphic.Path ?>
 <?import jar.graphic.FolderFx ?>
 <?import jar.graphic.SearchbarFx?>
+-->
 
 <ScrollPane maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jar.controllers.HomeController">
    <BorderPane prefHeight="1080.0" prefWidth="1920.0">
@@ -223,7 +228,7 @@
          </VBox>
       </left>
       <top>
-         <HBox alignment="CENTER_LEFT" prefHeight="167.0" prefWidth="1920.0" style="-fx-border-color: #f4f4f4 #f4f4f4 #cecece #f4f4f4;" BorderPane.alignment="CENTER">
+         <HBox alignment="CENTER_LEFT" prefHeight="167.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
             <children>
                <ImageView fitHeight="60.0" fitWidth="158.0" onMouseClicked="#goHome" pickOnBounds="true" preserveRatio="true">
                   <image>
@@ -294,7 +299,7 @@
                   <menus>
                      <Menu fx:id="helpMenu" mnemonicParsing="false" style="-fx-background-color: TRANSPARENT;">
                         <items>
-                           <MenuItem fx:id="formacion" mnemonicParsing="false" onAction="#menuval" style="-fx-pref-height: 40; -fx-text-fill: black; -fx-font: normal 15 Arial;" text="Formación" />
+                           <MenuItem fx:id="formacion" mnemonicParsing="false" style="-fx-pref-height: 40; -fx-text-fill: black; -fx-font: normal 15 Arial;" text="Formación" />
                            <MenuItem fx:id="actualizaciones" mnemonicParsing="false" style="-fx-pref-height: 40; -fx-text-fill: black; -fx-font: normal 15 Arial;" text="Actualizaciones" />
                            <MenuItem fx:id="typ" mnemonicParsing="false" style="-fx-pref-height: 40; -fx-text-fill: black; -fx-font: normal 15 Arial;" text="Términos y Política" />
                         </items>
@@ -377,7 +382,6 @@
 
                   <SearchbarFx fx:id="searchSidebar" maxWidth="914.0" prefHeight="0.0" prefWidth="914.0" translateX="19" translateY="-51" BorderPane.alignment="CENTER" />
 
-
                </Pane>
 
 
@@ -390,12 +394,12 @@
                          <Path/>
                         -->
                      </FlowPane>
-                     <Button fx:id="viewBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#changeFileView" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" translateX="285.0">
+                     <Button fx:id="viewBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" translateX="285.0">
                         <font>
                            <Font size="25.0" />
                         </font>
                         <graphic>
-                           <ImageView fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <ImageView fitHeight="40.0" fitWidth="30.0" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" pickOnBounds="true" preserveRatio="true">
                               <image>
                                  <Image url="@../images/Eye.png" />
                               </image>
@@ -450,71 +454,60 @@
                </HBox>
                <BorderPane>
                   <center>
-                     <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-focus-color: false; -fx-border-color: #cecece #f4f4f4 #f4f4f4 #f4f4f4;">
+                     <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-focus-color: false; -fx-border-color: #f4f4f4;">
                         <content>
-                           <VBox>
+                           <GridPane maxWidth="-Infinity" prefHeight="78.0" prefWidth="1420.0" style="-fx-background-color: transparent;" translateX="18.0">
+                             <columnConstraints>
+                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="700.0" minWidth="10.0" prefWidth="700.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="392.0" minWidth="10.0" prefWidth="104.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                             </columnConstraints>
+                             <rowConstraints>
+                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                             </rowConstraints>
                               <children>
-
-
-                                 <FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0">
-                                    <children>
-                                       <Label onMouseEntered="#borderBlue" onMouseExited="#borderNormal" prefHeight="38.0" prefWidth="110.0" style="-fx-text-fill: #3e3e3e; -fx-font: Normal 18 'Agency FB'; -fx-border-width: 3; -fx-border-color: transparent;" text="Carpetas" translateX="50.0" translateY="22.0">
+                                 <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="246.0" text="Propietario" textAlignment="CENTER" GridPane.columnIndex="1">
+                                    <font>
+                                       <Font size="24.0" />
+                                    </font>
+                                 </Label>
+                                 <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="243.0" text="Última modificación" GridPane.columnIndex="2">
+                                    <font>
+                                       <Font size="24.0" />
+                                    </font>
+                                 </Label>
+                                 <Label alignment="CENTER" prefHeight="35.0" prefWidth="243.0" text="Tamaño" GridPane.columnIndex="3">
+                                    <font>
+                                       <Font size="24.0" />
+                                    </font>
+                                 </Label>
+                                 <Button fx:id="ordenArchivosBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="28.0" prefWidth="26.0" style="-fx-background-color: Transparent; -fx-background-radius: 40;" translateX="100.0">
+                                    <font>
+                                       <Font name="System Bold" size="12.0" />
+                                    </font>
+                                    <graphic>
+                                       <ImageView fx:id="arrowUpImg" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                             <Image url="@../images/upArrow.png" />
+                                          </image>
+                                       </ImageView>
+                                    </graphic>
+                                    <tooltip>
+                                       <Tooltip text="Invertir el orden">
                                           <font>
-                                             <Font size="18.0" />
+                                             <Font size="14.0" />
                                           </font>
-                                       </Label>
-                                    </children>
-                                 </FlowPane>
-
-
-                                 <FlowPane fx:id="folderList" prefHeight="500.0">
-                                    <!-- <children>
-                                 <FolderFx id="1" />
-                                 <FolderFx id="2" />
-                                 <FolderFx id="3" />
-                                 <FolderFx id="4" />
-                                 <FolderFx id="5" />
-                                 <FolderFx id="6" />
-                                 <FolderFx id="7" />
-                                 <FolderFx id="8" />
-                                 <FolderFx id="9" />
-                                 <FolderFx id="10" />
-                                 <FolderFx id="1" />
-                                 <FolderFx id="2" />
-                                 <FolderFx id="3" />
-                              </children> -->
-                                 </FlowPane>
-
-
-                                 <FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0">
-                                    <children>
-                                       <Label onMouseEntered="#borderBlue" onMouseExited="#borderNormal" prefHeight="38.0" prefWidth="110.0" style="-fx-text-fill: #3e3e3e; -fx-font: Normal 18 'Agency FB'; -fx-border-width: 3; -fx-border-color: transparent;" text="Archivos" translateX="50.0" translateY="22.0">
-                                          <font>
-                                             <Font size="18.0" />
-                                          </font>
-                                       </Label>
-                                    </children>
-                                 </FlowPane>
-
-
-                                 <FlowPane fx:id="fileList" prefHeight="500.0">
-                                    <!-- <children>
-                                 <FileFx id="1" />
-                                 <FileFx id="2" />
-                                 <FileFx id="3" />
-                                 <FileFx id="4" />
-                                 <FileFx id="5" />
-                                 <FileFx id="6" />
-                                 <FileFx id="7" />
-                                 <FileFx id="8" />
-                                 <FileFx id="9" />
-                                 <FileFx id="10" />
-                              </children> -->
-                                 </FlowPane>
-
-
+                                       </Tooltip>
+                                    </tooltip>
+                                 </Button>
+                                 <Label text="Nombre">
+                                    <font>
+                                       <Font size="24.0" />
+                                    </font>
+                                 </Label>
                               </children>
-                           </VBox>
+                           </GridPane>
                         </content>
 
                      </ScrollPane>

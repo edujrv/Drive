@@ -16,6 +16,7 @@ import jar.graphic.SearchbarFx;
 import jar.graphic.SidebarFx;
 import jar.model.dto.FileDTO;
 import jar.model.dto.FolderDTO;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -57,6 +58,36 @@ public class HomeController implements Initializable {
         System.out.println("BOTON DRIVE");
     }
 
+
+    @FXML
+    public void menuval(ActionEvent event){
+       
+    }
+
+
+    @FXML
+    private Button viewBtn;
+    private boolean normalViewFiles;
+
+
+    @FXML
+    public void changeFileView(){
+        if(!normalViewFiles){
+            picture = new Image("jar/images/Eye2.png");
+            normalViewFiles = true;
+        }else{
+            picture = new Image("jar/images/Eye.png");
+            normalViewFiles = false;
+        }
+
+        ImageView icon = new ImageView(picture);
+        icon.setFitHeight(40);
+        icon.setFitWidth(30);
+        icon.setPickOnBounds(true);
+        icon.setPreserveRatio(true);
+        viewBtn.setGraphic(icon);
+        System.out.println("Cambio de vista");
+    }
 
     @FXML
     private Button cancelSearchBtn;
@@ -159,13 +190,16 @@ public class HomeController implements Initializable {
             double spaceB = (double) space;
 
             spaceB = spaceB / 1048576;
+
             System.out.println(spaceB);
-            if (spaceB > 1024) {
-                spaceB = spaceB / 1024;
-                spaceB = Math.floor(spaceB * 100) / 100;
+
+
+            if (spaceB > 1000) {
+                spaceB = spaceB / 1000;
+                spaceB = Math.round(spaceB * 10) / 10.0;
                 aux = aux + spaceB + "  GB utilizado";
             } else {
-                spaceB = Math.floor(spaceB * 100) / 100;
+                spaceB = Math.round(spaceB * 10) / 10.0;
                 aux = aux + spaceB + "  MB utilizado";
             }
             spaceLbl.setText(aux);
