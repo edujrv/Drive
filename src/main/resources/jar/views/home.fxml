@@ -33,7 +33,7 @@
       <left>
          <VBox minWidth="-Infinity" prefHeight="958.0" prefWidth="310.0" BorderPane.alignment="CENTER">
             <children>
-               <Button fx:id="newElementBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#blurNewBtn" onMouseExited="#blurOfNewBtn" prefHeight="82.0" prefWidth="188.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Nuevo">
+               <Button fx:id="newElementBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#blurNewBtn" onMouseExited="#blurOfNewBtn"  prefHeight="82.0" prefWidth="188.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Nuevo">
                   <font>
                      <Font size="24.0" />
                   </font>
@@ -373,12 +373,7 @@
          <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
             <children>
 
-               <Pane maxHeight="Infinity" prefHeight="0.0" prefWidth="914.0" BorderPane.alignment="CENTER">
-
-                  <SearchbarFx fx:id="searchSidebar" maxWidth="914.0" prefHeight="0.0" prefWidth="914.0" translateX="19" translateY="-51" BorderPane.alignment="CENTER" />
-
-
-               </Pane>
+               <Pane fx:id="popupPane" prefHeight="0.0" prefWidth="914.0" BorderPane.alignment="CENTER" maxHeight="Infinity"/>
 
 
 
@@ -467,9 +462,7 @@
                                  </FlowPane>
 
 
-                                 <FlowPane fx:id="folderList" prefHeight="500.0">
-
-                                 </FlowPane>
+                                 <FlowPane fx:id="folderList" prefHeight="500.0"/>
 
 
                                  <FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0">
@@ -483,9 +476,9 @@
                                  </FlowPane>
 
 
-                                 <FlowPane fx:id="fileList" prefHeight="500.0">
+                                 <FlowPane fx:id="fileList" prefHeight="500.0"/>
 
-                                 </FlowPane>
+
 
 
                               </children>

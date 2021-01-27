@@ -1,0 +1,100 @@
+.privateFolder{
+    -fx-constant: "HAND";
+    -fx-image: url('jar/Styles/person-fill.svg');
+
+}
+
+.xButton{
+    -fx-pref-width: 328;
+    -fx-pref-height: 60;
+    -fx-font-size: 20;
+    /*-fx-min-width: USE_COMPUTED_SIZE;
+    -fx-min-height: USE_COMPUTED_SIZE;*/
+    -fx-background-radius: 40;
+    -fx-background-color: transparent;
+    -fx-opacity: .7;
+    -fx-cursor: HAND;
+    -fx-translate-x: 35;
+    -fx-text-fill: #000000;
+}
+
+.img{
+    -fx-image: url('persona.png');
+    -fx-fit-to-height: 41px;
+    -fx-fit-to-width: 37px;
+    -fx-max-height:41;
+    -fx-max-width:37 ;
+    -fx-translate-x: -40;
+    -fx-cursor: HAND;
+    -fx-scale: 0.5%;
+    -fx-fit-width: 40px;
+    -fx-fit-height: 37px;
+    -fx-setFitWidth: 40px;
+    -fx-setFitHeight: 37px;
+
+}
+
+.menu-item:focused {
+    -fx-background-color:red;
+    -fx-focus-color:white;
+}
+
+.buscarBtn{
+    -fx-pref-width: 90;
+    -fx-pref-height: 35;
+   /* -fx-min-width: USE_COMPUTED_SIZE;
+    -fx-min-height: USE_COMPUTED_SIZE;*/
+    -fx-background-radius: 5;
+    -fx-background-color: #0b7bf3;
+    -fx-cursor: HAND;
+    -fx-translate-x: 50;
+    -fx-text-fill: white;
+}
+
+.restablecerBtn{
+    -fx-pref-width: 150;
+    -fx-pref-height: 35;
+   /* -fx-min-width: USE_COMPUTED_SIZE;
+    -fx-min-height: USE_COMPUTED_SIZE;*/
+    -fx-background-radius: 5;
+    -fx-background-color: transparent;
+    -fx-cursor: HAND;
+    -fx-translate-x: 50;
+    -fx-text-fill: black;
+}
+.masInformacionBtn{
+    -fx-pref-width: 200;
+    -fx-pref-height: 35;
+    /*-fx-min-width: USE_COMPUTED_SIZE;
+    -fx-min-height: USE_COMPUTED_SIZE;*/
+    -fx-background-radius: 5;
+    -fx-background-color: transparent;
+    -fx-cursor: HAND;
+    -fx-translate-x: 50;
+    -fx-text-fill: #0b7bf3;
+}
+
+.fondo{
+    -fx-background-color:  #F4F4F4;
+    -fx-border-width: 0.1;
+    -fx-border-color: black;
+    -fx-translate-x: 329;
+    -fx-translate-y: 138;
+    -fx-padding: 20 0 0 0;
+}
+
+*{
+    -fx-font-size: 18;
+}
+
+.menuBtn{
+    -fx-pref-width: 410;
+    -fx-pref-height: 35;
+}
+
+.txtField{
+    -fx-pref-width: 410;
+    -fx-pref-height: 35;
+    -fx-font-size: 12;
+}
+

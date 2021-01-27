@@ -24,7 +24,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -193,7 +195,6 @@ public class HomeController implements Initializable {
             long space = info.get("storageQuota").get("usageInDrive");
 
             double spaceB = (double) space;
-
             spaceB = spaceB / 1048576;
 
             System.out.println(spaceB);
@@ -326,8 +327,14 @@ public class HomeController implements Initializable {
     }
 
     @FXML
-    public void toggleSearchSidebar() {
-        searchSidebar.openClose();
+    private Pane popupPane;
+    @FXML
+    public void toggleSearchSidebar() throws IOException {
+        SearchbarFx pop = new SearchbarFx();
+        pop.hideOnEscapeProperty().set(true);
+        pop.autoHideProperty().set(true);
+        pop.show(popupPane, 0, 0);
+        pop.openClose();
     }
 
     @Override
