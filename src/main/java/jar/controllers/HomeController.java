@@ -20,16 +20,15 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.util.Pair;
 
 public class HomeController implements Initializable {
@@ -48,10 +47,10 @@ public class HomeController implements Initializable {
     private Button newElementBtn;
 
     @FXML
-    private FlowPane fileList;
+    private FlowPane fileList = new FlowPane();
 
     @FXML
-    private FlowPane folderList;
+    private FlowPane folderList = new FlowPane();
 
     @FXML
     public void goHome() {
@@ -60,8 +59,12 @@ public class HomeController implements Initializable {
 
 
     @FXML
-    public void menuval(ActionEvent event){
-       
+    public void menuval(ActionEvent e){
+        /*
+        if ((e.getModifiers() & 4) !=0){
+            // boton derecho
+        }
+        */
     }
 
 
@@ -75,9 +78,11 @@ public class HomeController implements Initializable {
         if(!normalViewFiles){
             picture = new Image("jar/images/Eye2.png");
             normalViewFiles = true;
+            detailView();
         }else{
             picture = new Image("jar/images/Eye.png");
             normalViewFiles = false;
+            normalView();
         }
 
         ImageView icon = new ImageView(picture);
@@ -185,7 +190,7 @@ public class HomeController implements Initializable {
         Map<String, Map<String, Long>> info = AboutDAO.newQuery().getStorageInfo().build();
 
         try {
-            Long space = info.get("storageQuota").get("usageInDrive");
+            long space = info.get("storageQuota").get("usageInDrive");
 
             double spaceB = (double) space;
 
@@ -242,7 +247,8 @@ public class HomeController implements Initializable {
         if(prevLabel != lbl){
             lbl.setStyle("-fx-border-color: transparent transparent red transparent; " +
                     "-fx-border-width: 3;" +
-                    "-fx-background-color: transparent;");
+                    "-fx-background-color: transparent;" +
+                    "-fx-font: Normal 18 'Agency FB'");
         }
     }
 
@@ -252,7 +258,8 @@ public class HomeController implements Initializable {
         if(prevLabel != lbl){
             lbl.setStyle("-fx-border-color: transparent;" +
                     " -fx-border-width: 3;" +
-                    "-fx-background-color: transparent;");
+                    "-fx-background-color: transparent;" +
+                    "-fx-font: Normal 18 'Agency FB'");
         }
     }
 
@@ -326,11 +333,17 @@ public class HomeController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+
             Pair<String, List<Object>> r1 = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles()
                     .fromMyDrive().myOwnershipOnly().notOrdered().build();
 
-            for (Object obj : r1.getValue())
-                fileList.getChildren().add(new FileFx((FileDTO) obj, this));
+            try{
+                for (Object obj : r1.getValue())
+                    fileList.getChildren().add(new FileFx((FileDTO) obj, this));
+            }catch (Exception e){
+                System.out.println(e);
+            }
+
 
             Pair<String, List<Object>> r2 = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFolders()
                     .fromMyDrive().myOwnershipOnly().notOrdered().build();
@@ -339,9 +352,80 @@ public class HomeController implements Initializable {
                 folderList.getChildren().add(new FolderFx((FolderDTO) obj, this));
 
             updateSpace();
+            loadImageUser();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+
+
     }
+
+    @FXML
+    private Button userBtn;
+
+    @FXML
+    private Tooltip toolUser;
+
+    public void loadImageUser() throws IOException {
+        Map<String, Map<String,String>> info = AboutDAO.newQuery().getUserInfo().build();
+
+        picture  = new Image(info.get("user").get("photoLink"));
+
+
+
+        Circle circ = new Circle(90,60,30);
+        circ.setFill(new ImagePattern(picture));
+
+
+
+        userBtn.setGraphic(circ);
+
+        toolUser.setText("Cuenta de Google Drive\n"+info.get("user").get("displayName")+"\n"+info.get("user").get("emailAddress"));
+
+
+    }
+
+
+    @FXML
+    private VBox contentView = new VBox();
+
+    private VBox contentViewDetails = new VBox();
+
+    private FlowPane folderLbls = new FlowPane();
+
+
+    public void toggleView(){
+
+
+    }
+
+    public void normalView(){
+
+        try{
+            Label carpeta = new Label("Carpetas");
+
+            folderList.setPrefHeight(500);
+
+
+            folderLbls.getChildren().addAll(carpeta);
+
+            contentView.getChildren().addAll(folderLbls,folderList,folderLbls,fileList);
+
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
+
+
+    }
+
+    public void detailView(){
+        contentView.getChildren().removeAll(contentView.getChildren());
+        contentView.getChildren().addAll(new Label("lbl"));
+    }
+
+
+
+
 }

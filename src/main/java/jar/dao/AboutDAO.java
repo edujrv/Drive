@@ -10,16 +10,16 @@ import com.google.api.services.drive.model.About;
 
 import jar.DriveConnection;
 
-public class AboutDAO {
+public class AboutDAO<T> {
     public static Builder newQuery() {
         return new Builder();
     }
 
-    public static class Builder {
+    public static class Builder<T> {
         private List<String> fields = new ArrayList<String>();
 
-        public Map<String, Map<String, Long>> build() throws IOException {
-            Map<String, Map<String, Long>> r = new HashMap<>();
+        public Map<String, Map<String, T>> build() throws IOException {
+            Map<String, Map<String, T>> r = new HashMap<>();
 
             String aux = fields.get(0);
             for (int i = 1; i < fields.size(); i++)
@@ -27,7 +27,7 @@ public class AboutDAO {
 
             About ab = DriveConnection.service.about().get().setFields(aux).execute();
             for (String string : fields)
-                r.put(string, (Map<String, Long>) ab.get(string));
+                r.put(string, (Map<String, T>) ab.get(string));
 
             return r;
         }

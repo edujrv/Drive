@@ -333,9 +333,9 @@
                      <Insets />
                   </opaqueInsets>
                </MenuBar>
-               <Button fx:id="userBtn" mnemonicParsing="false" prefHeight="50.0" prefWidth="136.0" style="-fx-background-radius: 10;" text="Usuario">
+               <Button fx:id="userBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" style="-fx-background-radius: 100; -fx-background-color: Transparent;">
                   <HBox.margin>
-                     <Insets left="150.0" />
+                     <Insets left="180.0" />
                   </HBox.margin>
                   <font>
                      <Font size="24.0" />
@@ -344,7 +344,7 @@
                      <Cursor fx:constant="HAND" />
                   </cursor>
                   <tooltip>
-                     <Tooltip text="Cuenta de Google">
+                     <Tooltip fx:id="toolUser" text="Cuenta de Google">
                         <font>
                            <Font size="12.9" />
                         </font>
@@ -386,9 +386,7 @@
                   <children>
                      <FlowPane fx:id="Path" minHeight="-Infinity" minWidth="-Infinity" prefHeight="88.0" prefWidth="1145.0">
 
-                        <!--
-                         <Path/>
-                        -->
+
                      </FlowPane>
                      <Button fx:id="viewBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#changeFileView" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" translateX="285.0">
                         <font>
@@ -450,9 +448,11 @@
                </HBox>
                <BorderPane>
                   <center>
+
                      <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-focus-color: false; -fx-border-color: #cecece #f4f4f4 #f4f4f4 #f4f4f4;">
                         <content>
-                           <VBox>
+                           <VBox fx:id="contentView">
+
                               <children>
 
 
@@ -468,21 +468,7 @@
 
 
                                  <FlowPane fx:id="folderList" prefHeight="500.0">
-                                    <!-- <children>
-                                 <FolderFx id="1" />
-                                 <FolderFx id="2" />
-                                 <FolderFx id="3" />
-                                 <FolderFx id="4" />
-                                 <FolderFx id="5" />
-                                 <FolderFx id="6" />
-                                 <FolderFx id="7" />
-                                 <FolderFx id="8" />
-                                 <FolderFx id="9" />
-                                 <FolderFx id="10" />
-                                 <FolderFx id="1" />
-                                 <FolderFx id="2" />
-                                 <FolderFx id="3" />
-                              </children> -->
+
                                  </FlowPane>
 
 
@@ -498,22 +484,12 @@
 
 
                                  <FlowPane fx:id="fileList" prefHeight="500.0">
-                                    <!-- <children>
-                                 <FileFx id="1" />
-                                 <FileFx id="2" />
-                                 <FileFx id="3" />
-                                 <FileFx id="4" />
-                                 <FileFx id="5" />
-                                 <FileFx id="6" />
-                                 <FileFx id="7" />
-                                 <FileFx id="8" />
-                                 <FileFx id="9" />
-                                 <FileFx id="10" />
-                              </children> -->
+
                                  </FlowPane>
 
 
                               </children>
+
                            </VBox>
                         </content>
 
