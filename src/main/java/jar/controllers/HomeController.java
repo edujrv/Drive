@@ -38,19 +38,6 @@ public class HomeController implements Initializable {
     private ISelectable prevSelectedSpaceBtn = null;
 
     @FXML
-    private SpaceButtonFx miUnidadBtn;
-    @FXML
-    private SpaceButtonFx shareBtn;
-    @FXML
-    private SpaceButtonFx recientBtn;
-    @FXML
-    private SpaceButtonFx starredBtn;
-    @FXML
-    private SpaceButtonFx trashBtn;
-    @FXML
-    private SpaceButtonFx storageBtn;
-
-    @FXML
     private Label spaceLbl;
     @FXML
     private Image picture;
@@ -203,6 +190,46 @@ public class HomeController implements Initializable {
         prevSelectedSpaceBtn = actualSelect;
     }
 
+    public void changeSpace(SpaceButtonFx triggerBtn) throws IOException {
+        Pair<String, List<Object>> rfi = null;
+        Pair<String, List<Object>> rfo = null;
+        if (triggerBtn.getId().equals("miUnidadBtn")) {
+            rfi = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles().fromMyDrive().myOwnershipOnly()
+                    .notOrdered().build();
+            rfo = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFolders().fromMyDrive().myOwnershipOnly()
+                    .notOrdered().build();
+        } else if (triggerBtn.getId().equals("shareBtn")) {
+            // TODO: Hacer metodo para mostrar archivos compartidos
+            // rfi =
+            // FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles().fromShared().notOrdered()
+            // .build();
+            // rfo =
+            // FileDAO.newQuery().startFromBeginning().defaultPageSize().getFolders().fromShared().notOrdered()
+            // .build();
+        } else if (triggerBtn.getId().equals("recientBtn")) {
+            rfi = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles().fromRecent().anyFiles().build();
+        } else if (triggerBtn.getId().equals("starredBtn")) {
+            rfi = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles().fromStarred().anyOwnership()
+                    .notOrdered().build();
+            rfo = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFolders().fromStarred().anyOwnership()
+                    .notOrdered().build();
+        } else if (triggerBtn.getId().equals("trashBtn")) {
+            rfi = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles().fromTrashed().build();
+            rfo = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFolders().fromTrashed().build();
+        } else {
+            // TODO: Hacer metodo para mostrar todos los archivos
+        }
+        fileList.getChildren().clear();
+        folderList.getChildren().clear();
+        if (rfi != null)
+            for (Object obj : rfi.getValue())
+                fileList.getChildren().add(new FileFx((FileDTO) obj, this));
+
+        if (rfo != null)
+            for (Object obj : rfo.getValue())
+                folderList.getChildren().add(new FolderFx((FolderDTO) obj, this));
+    }
+
     @FXML
     private SidebarFx detailSidebar;
 
@@ -228,6 +255,9 @@ public class HomeController implements Initializable {
         aux.add(new SpaceButtonFx("starredBtn", "Destacados", this));
         aux.add(new SpaceButtonFx("trashBtn", "Papelera", this));
         aux.add(new SpaceButtonFx("storageBtn", "Almacenamiento", this, new Insets(60, 0, 0, 0)));
+
+        aux.get(0).select();
+        prevSelectedSpaceBtn = aux.get(0);
 
         spaceVBox.getChildren().addAll(1, aux);
         aux = null;
@@ -269,7 +299,7 @@ public class HomeController implements Initializable {
             icon.setTranslateX(-35.0);
             prevButton.setGraphic(icon);
         } else {
-            prevButton = miUnidadBtn;
+            // prevButton = miUnidadBtn;
         }
 
         prevButton = btn;
@@ -299,11 +329,11 @@ public class HomeController implements Initializable {
         Button btn = (Button) e.getSource();
 
         if (prevButton == null)
-            prevButton = miUnidadBtn;
+            // prevButton = miUnidadBtn;
 
-        if (prevButton != btn) {
-            btn.setEffect(Efectos.grayOn(btn.getId()));
-        }
+            if (prevButton != btn) {
+                btn.setEffect(Efectos.grayOn(btn.getId()));
+            }
     }
 
     @FXML
@@ -312,10 +342,10 @@ public class HomeController implements Initializable {
         Button btn = (Button) e.getSource();
 
         if (prevButton == null)
-            prevButton = miUnidadBtn;
+            // prevButton = miUnidadBtn;
 
-        if (prevButton != btn) {
-            btn.setEffect(Efectos.grayOf());
-        }
+            if (prevButton != btn) {
+                btn.setEffect(Efectos.grayOf());
+            }
     }
 }

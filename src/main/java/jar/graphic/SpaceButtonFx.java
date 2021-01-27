@@ -1,5 +1,7 @@
 package jar.graphic;
 
+import java.io.IOException;
+
 import jar.controllers.Efectos;
 import jar.controllers.HomeController;
 import javafx.event.EventHandler;
@@ -48,6 +50,11 @@ public class SpaceButtonFx extends Button implements ISelectable, IHoverable {
             @Override
             public void handle(MouseEvent event) {
                 select();
+                try {
+                    hController.changeSpace((SpaceButtonFx) event.getSource());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 hController.changeSpaceButtonSelection(event);
             }
         });
