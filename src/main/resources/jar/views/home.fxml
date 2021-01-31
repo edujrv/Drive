@@ -448,7 +448,7 @@
                         <content>
                            <VBox fx:id="contentView">
 
-                              <children>
+                              <!--<children>
 
 
                                  <FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0">
@@ -481,7 +481,7 @@
 
 
 
-                              </children>
+                              </children>-->
 
                            </VBox>
                         </content>

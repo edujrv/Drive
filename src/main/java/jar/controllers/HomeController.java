@@ -18,6 +18,7 @@ import jar.model.dto.FileDTO;
 import jar.model.dto.FolderDTO;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -253,6 +254,10 @@ public class HomeController implements Initializable {
         }
     }
 
+
+
+
+
     @FXML
     public void borderNormal(Event e){
         Label lbl = (Label) e.getSource();
@@ -360,6 +365,8 @@ public class HomeController implements Initializable {
 
             updateSpace();
             loadImageUser();
+            setLabels();
+            normalView();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -400,24 +407,58 @@ public class HomeController implements Initializable {
     private VBox contentViewDetails = new VBox();
 
     private FlowPane folderLbls = new FlowPane();
+    private FlowPane fileLbls = new FlowPane();
+
+    Label carpeta = new Label("Carpetas");
+    Label archivos = new Label("Archivos");
+    Event e;
+
+    public void setLabels(){
+
+        try {
+
+            //onMouseEntered="#borderBlue" onMouseExited="#borderNormal"
+
+            archivos.setStyle("-fx-text-fill: #3e3e3e; -fx-font: Normal 18 'Agency FB'; -fx-border-width: 3; -fx-border-color: transparent;");
+            fileLbls.setPrefHeight(500);
+            fileLbls.setMaxWidth(archivos.getWidth() + 75);
+            fileLbls.setId("fileLbls");
+            fileLbls.setOnMouseExited(borderNormal(fileLbls.get));
+            fileLbls.setOnMouseEntered(borderRed(fileLbls.getId()));
 
 
-    public void toggleView(){
 
+
+
+
+            fileLbls.getChildren().add(archivos);
+
+
+
+            carpeta.setStyle("-fx-text-fill: #3e3e3e; -fx-font: Normal 18 'Agency FB'; -fx-border-width: 3; -fx-border-color: transparent;");
+            folderLbls.setPrefHeight(500);
+            folderLbls.setMaxWidth(carpeta.getWidth() + 75);
+            folderLbls.setId("folderLbls");
+            folderLbls.setOnMouseExited(borderNormal(folderLbls.getId()));
+            folderLbls.setOnMouseEntered(borderRed(folderLbls.getId()));
+            folderLbls.getChildren().add(carpeta);
+
+        }catch (Exception e){
+            System.out.println(e);
+        }
 
     }
 
     public void normalView(){
 
+
+
+
+
+
         try{
-            Label carpeta = new Label("Carpetas");
-
-            folderList.setPrefHeight(500);
-
-
-            folderLbls.getChildren().addAll(carpeta);
-
-            contentView.getChildren().addAll(folderLbls,folderList,folderLbls,fileList);
+            contentView.getChildren().removeAll(contentView.getChildren());
+            contentView.getChildren().addAll(folderLbls,folderList,fileLbls,fileList);
 
         }catch (Exception e){
             System.out.println(e);
@@ -428,11 +469,61 @@ public class HomeController implements Initializable {
     }
 
     public void detailView(){
-        contentView.getChildren().removeAll(contentView.getChildren());
-        contentView.getChildren().addAll(new Label("lbl"));
+        try {
+            Label det = new Label("DETALLES");
+            det.setStyle("-fx-font-size: 40");
+            contentView.getChildren().removeAll(contentView.getChildren());
+            contentView.getChildren().addAll(det);
+            //contentView.getChildren().addAll(folderList,folderLbls,fileList);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
     }
 
+    /*@FXML
+    public EventHandler<? super MouseEvent> borderRed(String id){
 
+        if (id.equals(fileLbls.getId())){
+
+            fileLbls.setStyle("-fx-border-color: transparent transparent red transparent; " +
+                    "-fx-border-width: 3;" +
+                    "-fx-background-color: transparent;" +
+                    "-fx-font: Normal 18 'Agency FB'");
+                    System.out.println("ARCHIVOS ROJO");
+        }else{
+
+            folderLbls.setStyle("-fx-border-color: transparent transparent red transparent; " +
+                    "-fx-border-width: 3;" +
+                    "-fx-background-color: transparent;" +
+                    "-fx-font: Normal 18 'Agency FB'");
+
+        }
+
+        return null;
+    }
+
+    @FXML
+    public EventHandler<? super MouseEvent> borderNormal(String id){
+
+        if (id.equals(fileLbls.getId())){
+
+            fileLbls.setStyle("-fx-border-color: transparent;" +
+                    " -fx-border-width: 3;" +
+                    "-fx-background-color: transparent;" +
+                    "-fx-font: Normal 18 'Agency FB'");
+            System.out.println("ARCHIVOS NORMAL");
+        }else{
+
+            folderLbls.setStyle("-fx-border-color: transparent;" +
+                    " -fx-border-width: 3;" +
+                    "-fx-background-color: transparent;" +
+                    "-fx-font: Normal 18 'Agency FB'");
+
+        }
+
+        return null;
+    }*/
 
 
 }
