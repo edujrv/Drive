@@ -3,6 +3,7 @@ package jar.controllers;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -14,18 +15,22 @@ import jar.graphic.FolderFx;
 import jar.graphic.ISelectable;
 import jar.graphic.SearchbarFx;
 import jar.graphic.SidebarFx;
+import jar.graphic.SpaceButtonFx;
 import jar.model.dto.FileDTO;
 import jar.model.dto.FolderDTO;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -37,14 +42,13 @@ import javafx.util.Pair;
 public class HomeController implements Initializable {
 
     private Label prevLabel = null;
+    private ISelectable prevSelectedFile = null;
+    private ISelectable prevSelectedSpaceBtn = null;
+
     @FXML
     private Label spaceLbl;
     @FXML
-    private Button miUnidadBtn;
-    private static ISelectable prevSelected = null;
-    @FXML
     private Image picture;
-    @FXML
     private Button prevButton = null;
     @FXML
     private Button newElementBtn;
@@ -56,8 +60,11 @@ public class HomeController implements Initializable {
     private FlowPane folderList = new FlowPane();
 
     @FXML
+    private VBox spaceVBox;
+
+    @FXML
     public void goHome() {
-        System.out.println("BOTON DRIVE");
+        System.out.println("DRIVE");
     }
 
     @FXML
@@ -138,48 +145,6 @@ public class HomeController implements Initializable {
         newElementBtn.setEffect(Efectos.newElementBtnOf());
     }
 
-    @FXML
-    public void buttonBlue(Event e) {
-
-        Button btn = (Button) e.getSource();
-        String btnName = btn.getId();
-
-        if (prevButton != null) {
-            prevButton.setEffect(Efectos.grayOf());
-            prevButton.setTextFill(Color.BLACK);
-            picture = new Image("jar/images/" + prevButton.getId() + "Black.png");
-            ImageView icon = new ImageView(picture);
-            icon.setFitHeight(40);
-            icon.setFitWidth(30);
-            icon.setPickOnBounds(true);
-            icon.setPreserveRatio(true);
-            icon.setTranslateX(-35.0);
-            prevButton.setGraphic(icon);
-        } else {
-            prevButton = miUnidadBtn;
-        }
-
-        prevButton = btn;
-        prevButton.setId(btnName);
-        btn.setEffect(Efectos.blueOn());
-        btn.setTextFill(Color.rgb(76, 175, 232));
-        picture = new Image("jar/images/" + btnName + "Blue.png");
-        ImageView ejemplo = new ImageView(picture);
-        ejemplo.setFitHeight(40);
-        ejemplo.setFitWidth(30);
-        ejemplo.setPickOnBounds(true);
-        ejemplo.setPreserveRatio(true);
-        ejemplo.setTranslateX(-35.0);
-        prevButton.setGraphic(ejemplo);
-
-        try {
-            updateSpace();
-        } catch (Exception about) {
-            System.out.println(about);
-        }
-
-    }
-
     public void updateSpace() throws IOException {
         String aux = "";
         Map<String, Map<String, Long>> info = AboutDAO.newQuery().getStorageInfo().build();
@@ -208,31 +173,40 @@ public class HomeController implements Initializable {
         }
     }
 
-    @FXML
-    public void buttonGray(Event e) {
+    // @FXML
+    // public void buttonBlue(Event e) {
 
-        Button btn = (Button) e.getSource();
+    // Button btn = (Button) e.getSource();
+    // String btnName = btn.getId();
 
-        if (prevButton == null)
-            prevButton = miUnidadBtn;
+    // if (prevButton != null) {
+    // prevButton.setEffect(Efectos.grayOf());
+    // prevButton.setTextFill(Color.BLACK);
+    // picture = new Image("jar/images/" + prevButton.getId() + "Black.png");
+    // ImageView icon = new ImageView(picture);
+    // icon.setFitHeight(40);
+    // icon.setFitWidth(30);
+    // icon.setPickOnBounds(true);
+    // icon.setPreserveRatio(true);
+    // icon.setTranslateX(-35.0);
+    // prevButton.setGraphic(icon);
+    // } else {
+    // prevButton = miUnidadBtn;
+    // }
 
-        if (prevButton != btn) {
-            btn.setEffect(Efectos.grayOn(btn.getId()));
-        }
-    }
-
-    @FXML
-    public void buttonNormal(Event e) {
-
-        Button btn = (Button) e.getSource();
-
-        if (prevButton == null)
-            prevButton = miUnidadBtn;
-
-        if (prevButton != btn) {
-            btn.setEffect(Efectos.grayOf());
-        }
-    }
+    // prevButton = btn;
+    // prevButton.setId(btnName);
+    // btn.setEffect(Efectos.blueOn());
+    // btn.setTextFill(Color.rgb(76, 175, 232));
+    // picture = new Image("jar/images/" + btnName + "Blue.png");
+    // ImageView ejemplo = new ImageView(picture);
+    // ejemplo.setFitHeight(40);
+    // ejemplo.setFitWidth(30);
+    // ejemplo.setPickOnBounds(true);
+    // ejemplo.setPreserveRatio(true);
+    // ejemplo.setTranslateX(-35.0);
+    // prevButton.setGraphic(ejemplo);
+    // }
 
     @FXML
     public void borderBlue(Event e) {
@@ -296,10 +270,59 @@ public class HomeController implements Initializable {
     public void changeFileSelection(Event e) {
         ISelectable actualSelect = (ISelectable) e.getSource();
 
-        if (prevSelected != null && prevSelected != actualSelect)
-            prevSelected.unselect();
+        if (prevSelectedFile != null && prevSelectedFile != actualSelect)
+            prevSelectedFile.unselect();
 
-        prevSelected = actualSelect;
+        prevSelectedFile = actualSelect;
+    }
+
+    public void changeSpaceButtonSelection(Event e) {
+        ISelectable actualSelect = (ISelectable) e.getSource();
+
+        if (prevSelectedSpaceBtn != null && prevSelectedSpaceBtn != actualSelect)
+            prevSelectedSpaceBtn.unselect();
+
+        prevSelectedSpaceBtn = actualSelect;
+    }
+
+    public void changeSpace(SpaceButtonFx triggerBtn) throws IOException {
+        Pair<String, List<Object>> rfi = null;
+        Pair<String, List<Object>> rfo = null;
+        if (triggerBtn.getId().equals("miUnidadBtn")) {
+            rfi = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles().fromMyDrive().myOwnershipOnly()
+                    .notOrdered().build();
+            rfo = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFolders().fromMyDrive().myOwnershipOnly()
+                    .notOrdered().build();
+        } else if (triggerBtn.getId().equals("shareBtn")) {
+            // TODO: Hacer metodo para mostrar archivos compartidos
+            // rfi =
+            // FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles().fromShared().notOrdered()
+            // .build();
+            // rfo =
+            // FileDAO.newQuery().startFromBeginning().defaultPageSize().getFolders().fromShared().notOrdered()
+            // .build();
+        } else if (triggerBtn.getId().equals("recientBtn")) {
+            rfi = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles().fromRecent().anyFiles().build();
+        } else if (triggerBtn.getId().equals("starredBtn")) {
+            rfi = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles().fromStarred().anyOwnership()
+                    .notOrdered().build();
+            rfo = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFolders().fromStarred().anyOwnership()
+                    .notOrdered().build();
+        } else if (triggerBtn.getId().equals("trashBtn")) {
+            rfi = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles().fromTrashed().build();
+            rfo = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFolders().fromTrashed().build();
+        } else {
+            // TODO: Hacer metodo para mostrar todos los archivos
+        }
+        fileList.getChildren().clear();
+        folderList.getChildren().clear();
+        if (rfi != null)
+            for (Object obj : rfi.getValue())
+                fileList.getChildren().add(new FileFx((FileDTO) obj, this));
+
+        if (rfo != null)
+            for (Object obj : rfo.getValue())
+                folderList.getChildren().add(new FolderFx((FolderDTO) obj, this));
     }
 
     @FXML
@@ -327,6 +350,20 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        List<SpaceButtonFx> aux = new ArrayList<SpaceButtonFx>();
+        aux.add(new SpaceButtonFx("miUnidadBtn", "Mi Unidad", this, new Insets(40, 0, 0, 0)));
+        aux.add(new SpaceButtonFx("shareBtn", "Compartido", this));
+        aux.add(new SpaceButtonFx("recientBtn", "Reciente", this));
+        aux.add(new SpaceButtonFx("starredBtn", "Destacados", this));
+        aux.add(new SpaceButtonFx("trashBtn", "Papelera", this));
+        aux.add(new SpaceButtonFx("storageBtn", "Almacenamiento", this, new Insets(60, 0, 0, 0)));
+
+        aux.get(0).select();
+        prevSelectedSpaceBtn = aux.get(0);
+
+        spaceVBox.getChildren().addAll(1, aux);
+        aux = null;
+
         try {
 
             Pair<String, List<Object>> r1 = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles()
@@ -423,6 +460,47 @@ public class HomeController implements Initializable {
 
     }
 
+    public void buttonBlue(Event e) {
+
+        Button btn = (Button) e.getSource();
+        String btnName = btn.getId();
+
+        if (prevButton != null) {
+            prevButton.setEffect(Efectos.grayOf());
+            prevButton.setTextFill(Color.BLACK);
+            picture = new Image("jar/images/" + prevButton.getId() + "Black.png");
+            ImageView icon = new ImageView(picture);
+            icon.setFitHeight(40);
+            icon.setFitWidth(30);
+            icon.setPickOnBounds(true);
+            icon.setPreserveRatio(true);
+            icon.setTranslateX(-35.0);
+            prevButton.setGraphic(icon);
+        } else {
+            // prevButton = miUnidadBtn;
+        }
+
+        prevButton = btn;
+        prevButton.setId(btnName);
+        btn.setEffect(Efectos.blueOn());
+        btn.setTextFill(Color.rgb(76, 175, 232));
+        picture = new Image("jar/images/" + btnName + "Blue.png");
+        ImageView ejemplo = new ImageView(picture);
+        ejemplo.setFitHeight(40);
+        ejemplo.setFitWidth(30);
+        ejemplo.setPickOnBounds(true);
+        ejemplo.setPreserveRatio(true);
+        ejemplo.setTranslateX(-35.0);
+        prevButton.setGraphic(ejemplo);
+
+        try {
+            updateSpace();
+        } catch (Exception about) {
+            System.out.println(about);
+        }
+
+    }
+
     public void normalView() {
 
         try {
@@ -485,4 +563,29 @@ public class HomeController implements Initializable {
      * return null; }
      */
 
+    @FXML
+    public void buttonGray(Event e) {
+
+        Button btn = (Button) e.getSource();
+
+        if (prevButton == null)
+            // prevButton = miUnidadBtn;
+
+            if (prevButton != btn) {
+                btn.setEffect(Efectos.grayOn(btn.getId()));
+            }
+    }
+
+    @FXML
+    public void buttonNormal(Event e) {
+
+        Button btn = (Button) e.getSource();
+
+        if (prevButton == null)
+            // prevButton = miUnidadBtn;
+
+            if (prevButton != btn) {
+                btn.setEffect(Efectos.grayOf());
+            }
+    }
 }

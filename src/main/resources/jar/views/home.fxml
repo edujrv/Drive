@@ -23,17 +23,18 @@
 <?import javafx.scene.text.Font?>
 
 <?import jar.graphic.FileFx?>
-<?import jar.graphic.SidebarFx ?>
-<?import jar.graphic.Path ?>
-<?import jar.graphic.FolderFx ?>
+<?import jar.graphic.SidebarFx?>
+<?import jar.graphic.Path?>
+<?import jar.graphic.FolderFx?>
 <?import jar.graphic.SearchbarFx?>
+<?import jar.graphic.SpaceButtonFx?>
 
 <ScrollPane maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jar.controllers.HomeController">
    <BorderPane prefHeight="1080.0" prefWidth="1920.0">
       <left>
-         <VBox minWidth="-Infinity" prefHeight="958.0" prefWidth="310.0" BorderPane.alignment="CENTER">
+         <VBox fx:id="spaceVBox" minWidth="-Infinity" prefHeight="958.0" prefWidth="310.0" BorderPane.alignment="CENTER">
             <children>
-               <Button fx:id="newElementBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#blurNewBtn" onMouseExited="#blurOfNewBtn"  prefHeight="82.0" prefWidth="188.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Nuevo">
+               <Button fx:id="newElementBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#blurNewBtn" onMouseExited="#blurOfNewBtn" prefHeight="82.0" prefWidth="188.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Nuevo">
                   <font>
                      <Font size="24.0" />
                   </font>
@@ -57,142 +58,6 @@
                      <DropShadow color="#727272" />
                   </effect>
                </Button>
-               <Button fx:id="miUnidadBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#buttonBlue" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="60.0" prefWidth="335.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Mi unidad" textFill="#4cafe8" translateX="-25.0">
-                  <font>
-                     <Font size="24.0" />
-                  </font>
-                  <graphic>
-                     <ImageView fx:id="personaIg1" fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-35.0">
-                        <image>
-                           <Image url="@../images/miUnidadBtnBlue.png" />
-                        </image>
-                        <cursor>
-                           <Cursor fx:constant="HAND" />
-                        </cursor>
-                     </ImageView>
-                  </graphic>
-                  <cursor>
-                     <Cursor fx:constant="HAND" />
-                  </cursor>
-                  <VBox.margin>
-                     <Insets top="40.0" />
-                  </VBox.margin>
-                  <effect>
-                     <DropShadow color="#4cafe8a6" height="6.0" radius="6.25">
-                        <input>
-                           <InnerShadow color="#4cafe8a6" height="148.49" radius="41.8725" />
-                        </input>
-                     </DropShadow>
-                  </effect>
-                  <padding>
-                     <Insets right="20.0" />
-                  </padding>
-               </Button>
-               <Button fx:id="shareBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#buttonBlue" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="60.0" prefWidth="335.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Compartido" translateX="-25.0">
-                  <font>
-                     <Font size="24.0" />
-                  </font>
-                  <graphic>
-                     <ImageView fx:id="personaIg" fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-35.0">
-                        <image>
-                           <Image url="@../images/shareBtnBlack.png" />
-                        </image>
-                        <cursor>
-                           <Cursor fx:constant="HAND" />
-                        </cursor>
-                     </ImageView>
-                  </graphic>
-                  <cursor>
-                     <Cursor fx:constant="HAND" />
-                  </cursor>
-                  <VBox.margin>
-                     <Insets top="4.0" />
-                  </VBox.margin>
-               </Button>
-               <Button fx:id="recientBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#buttonBlue" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="60.0" prefWidth="335.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Reciente" translateX="-25.0">
-                  <font>
-                     <Font size="24.0" />
-                  </font>
-                  <graphic>
-                     <ImageView fx:id="clockIg" fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-35.0">
-                        <image>
-                           <Image url="@../images/recientBtnBlack.png" />
-                        </image>
-                     </ImageView>
-                  </graphic>
-                  <padding>
-                     <Insets right="34.0" />
-                  </padding>
-                  <cursor>
-                     <Cursor fx:constant="HAND" />
-                  </cursor>
-                  <VBox.margin>
-                     <Insets top="4.0" />
-                  </VBox.margin>
-               </Button>
-               <Button fx:id="starredBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#buttonBlue" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="60.0" prefWidth="335.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Destacados" translateX="-25.0">
-                  <font>
-                     <Font size="24.0" />
-                  </font>
-                  <graphic>
-                     <ImageView fx:id="starIg" fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-35.0">
-                        <image>
-                           <Image url="@../images/starredBtnBlack.png" />
-                        </image>
-                     </ImageView>
-                  </graphic>
-                  <padding>
-                     <Insets right="5.0" />
-                  </padding>
-                  <cursor>
-                     <Cursor fx:constant="HAND" />
-                  </cursor>
-                  <VBox.margin>
-                     <Insets top="4.0" />
-                  </VBox.margin>
-               </Button>
-               <Button fx:id="trashBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#buttonBlue" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="60.0" prefWidth="335.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Papelera" translateX="-25.0">
-                  <VBox.margin>
-                     <Insets top="4.0" />
-                  </VBox.margin>
-                  <font>
-                     <Font size="24.0" />
-                  </font>
-                  <graphic>
-                     <ImageView fx:id="trashIg" fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-35.0">
-                        <image>
-                           <Image url="@../images/trashBtnBlack.png" />
-                        </image>
-                     </ImageView>
-                  </graphic>
-                  <padding>
-                     <Insets right="35.0" />
-                  </padding>
-                  <cursor>
-                     <Cursor fx:constant="HAND" />
-                  </cursor>
-               </Button>
-               <Button fx:id="storageBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#buttonBlue" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="60.0" prefWidth="335.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Almacenamiento" translateX="-25.0">
-                  <VBox.margin>
-                     <Insets top="60.0" />
-                  </VBox.margin>
-                  <font>
-                     <Font size="24.0" />
-                  </font>
-                  <graphic>
-                     <ImageView fx:id="storageIg" fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-35.0">
-                        <image>
-                           <Image url="@../images/storageBtnBlack.png" />
-                        </image>
-                     </ImageView>
-                  </graphic>
-                  <padding>
-                     <Insets left="55.0" />
-                  </padding>
-                  <cursor>
-                     <Cursor fx:constant="HAND" />
-                  </cursor>
-               </Button>
                <HBox prefHeight="18.0" prefWidth="119.0">
                   <children>
                      <Label fx:id="spaceLbl" text="0 GB usado" translateX="68.0">
@@ -208,7 +73,8 @@
                      <Insets top="10.0" />
                   </VBox.margin>
                </HBox>
-               <Button fx:id="shopBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#buy" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="169.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Comprar espacio" textFill="#2d92eb">
+               <!-- <Button fx:id="shopBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#buy" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="169.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Comprar espacio" textFill="#2d92eb"> -->
+               <Button fx:id="shopBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#buy" prefHeight="45.0" prefWidth="169.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Comprar espacio" textFill="#2d92eb">
                   <font>
                      <Font size="19.0" />
                   </font>
@@ -373,16 +239,16 @@
          <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
             <children>
 
-               <Pane fx:id="popupPane" prefHeight="0.0" prefWidth="914.0" BorderPane.alignment="CENTER" maxHeight="Infinity"/>
+               <Pane fx:id="popupPane" prefHeight="0.0" prefWidth="914.0" BorderPane.alignment="CENTER" maxHeight="Infinity" />
 
+               <!-- <SearchbarFx fx:id="searchSidebar" prefHeight="0.0" prefWidth="914.0" maxWidth="914.0" translateX="19" translateY="-51" BorderPane.alignment="CENTER" />
+
+               </Pane> -->
 
 
                <HBox alignment="CENTER_LEFT" prefHeight="88.0" prefWidth="1614.0">
                   <children>
-                     <FlowPane fx:id="Path" minHeight="-Infinity" minWidth="-Infinity" prefHeight="88.0" prefWidth="1145.0">
-
-
-                     </FlowPane>
+                     <FlowPane fx:id="Path" minHeight="-Infinity" minWidth="-Infinity" prefHeight="88.0" prefWidth="1145.0"></FlowPane>
                      <Button fx:id="viewBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#changeFileView" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" translateX="285.0">
                         <font>
                            <Font size="25.0" />

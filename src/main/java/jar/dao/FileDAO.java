@@ -230,7 +230,7 @@ public class FileDAO {
 
 		@Override
 		public Build fromTrashed() {
-			this.query = this.query.concat(" and trahsed");
+			this.query = this.query.concat(" and trashed");
 			this.fileList.setQ(this.query);
 			return this;
 		}
