@@ -1,6 +1,8 @@
 package jar.controllers;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -33,6 +35,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -42,6 +45,7 @@ import javafx.util.Pair;
 public class HomeController implements Initializable {
 
     private Label prevLabel = null;
+    private Button prevButton = null;
     private ISelectable prevSelectedFile = null;
     private ISelectable prevSelectedSpaceBtn = null;
 
@@ -49,13 +53,11 @@ public class HomeController implements Initializable {
     private Label spaceLbl;
     @FXML
     private Image picture;
-    private Button prevButton = null;
     @FXML
     private Button newElementBtn;
 
     @FXML
     private FlowPane fileList = new FlowPane();
-
     @FXML
     private FlowPane folderList = new FlowPane();
 
@@ -173,41 +175,6 @@ public class HomeController implements Initializable {
         }
     }
 
-    // @FXML
-    // public void buttonBlue(Event e) {
-
-    // Button btn = (Button) e.getSource();
-    // String btnName = btn.getId();
-
-    // if (prevButton != null) {
-    // prevButton.setEffect(Efectos.grayOf());
-    // prevButton.setTextFill(Color.BLACK);
-    // picture = new Image("jar/images/" + prevButton.getId() + "Black.png");
-    // ImageView icon = new ImageView(picture);
-    // icon.setFitHeight(40);
-    // icon.setFitWidth(30);
-    // icon.setPickOnBounds(true);
-    // icon.setPreserveRatio(true);
-    // icon.setTranslateX(-35.0);
-    // prevButton.setGraphic(icon);
-    // } else {
-    // prevButton = miUnidadBtn;
-    // }
-
-    // prevButton = btn;
-    // prevButton.setId(btnName);
-    // btn.setEffect(Efectos.blueOn());
-    // btn.setTextFill(Color.rgb(76, 175, 232));
-    // picture = new Image("jar/images/" + btnName + "Blue.png");
-    // ImageView ejemplo = new ImageView(picture);
-    // ejemplo.setFitHeight(40);
-    // ejemplo.setFitWidth(30);
-    // ejemplo.setPickOnBounds(true);
-    // ejemplo.setPreserveRatio(true);
-    // ejemplo.setTranslateX(-35.0);
-    // prevButton.setGraphic(ejemplo);
-    // }
-
     @FXML
     public void borderBlue(Event e) {
         Label lbl = (Label) e.getSource();
@@ -247,11 +214,9 @@ public class HomeController implements Initializable {
 
     @FXML
     public void menuGray(Event e) {
-
         MenuBar b = (MenuBar) e.getSource();
         System.out.println(b.getId());
         b.setEffect(Efectos.grayOn(b.getId()));
-
     }
 
     @FXML
@@ -350,6 +315,8 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        // VBox.setVgrow(fileList, Priority.SOMETIMES);
         List<SpaceButtonFx> aux = new ArrayList<SpaceButtonFx>();
         aux.add(new SpaceButtonFx("miUnidadBtn", "Mi Unidad", this, new Insets(40, 0, 0, 0)));
         aux.add(new SpaceButtonFx("shareBtn", "Compartido", this));
@@ -365,20 +332,16 @@ public class HomeController implements Initializable {
         aux = null;
 
         try {
-
             Pair<String, List<Object>> r1 = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles()
                     .fromMyDrive().myOwnershipOnly().notOrdered().build();
-
             try {
                 for (Object obj : r1.getValue())
                     fileList.getChildren().add(new FileFx((FileDTO) obj, this));
             } catch (Exception e) {
                 System.out.println(e);
             }
-
             Pair<String, List<Object>> r2 = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFolders()
                     .fromMyDrive().myOwnershipOnly().notOrdered().build();
-
             for (Object obj : r2.getValue())
                 folderList.getChildren().add(new FolderFx((FolderDTO) obj, this));
 
@@ -430,34 +393,35 @@ public class HomeController implements Initializable {
     Event e;
 
     public void setLabels() {
-
         try {
-
-            // onMouseEntered="#borderBlue" onMouseExited="#borderNormal"
-
             archivos.setStyle(
                     "-fx-text-fill: #3e3e3e; -fx-font: Normal 18 'Agency FB'; -fx-border-width: 3; -fx-border-color: transparent;");
-            fileLbls.setPrefHeight(500);
-            fileLbls.setMaxWidth(archivos.getWidth() + 75);
             fileLbls.setId("fileLbls");
-            // fileLbls.setOnMouseExited(borderNormal(fileLbls.get));
-            // fileLbls.setOnMouseEntered(borderRed(fileLbls.getId()));
-
+            fileLbls.setMaxSize(fileLbls.getMinWidth(), fileLbls.getMinHeight());
             fileLbls.getChildren().add(archivos);
 
             carpeta.setStyle(
                     "-fx-text-fill: #3e3e3e; -fx-font: Normal 18 'Agency FB'; -fx-border-width: 3; -fx-border-color: transparent;");
-            folderLbls.setPrefHeight(500);
-            folderLbls.setMaxWidth(carpeta.getWidth() + 75);
             folderLbls.setId("folderLbls");
-            // folderLbls.setOnMouseExited(borderNormal(folderLbls.getId()));
-            // folderLbls.setOnMouseEntered(borderRed(folderLbls.getId()));
+            folderLbls.setMaxSize(folderLbls.getMinWidth(), folderLbls.getMinHeight());
             folderLbls.getChildren().add(carpeta);
+
+            VBox.setVgrow(fileLbls, Priority.NEVER);
+            VBox.setVgrow(folderLbls, Priority.NEVER);
+            VBox.setVgrow(folderList, Priority.SOMETIMES);
+            VBox.setVgrow(fileList, Priority.ALWAYS);
+
+            // Para hacer debug
+            // fileLbls.setBorder(new Border(new BorderStroke(Paint.valueOf("#AAAAAA"),
+            // BorderStrokeStyle.SOLID,
+            // new CornerRadii(0), BorderStroke.THICK)));
+            // folderLbls.setBorder(new Border(new BorderStroke(Paint.valueOf("#B6B6B7"),
+            // BorderStrokeStyle.SOLID,
+            // new CornerRadii(0), BorderStroke.THICK)));
 
         } catch (Exception e) {
             System.out.println(e);
         }
-
     }
 
     public void buttonBlue(Event e) {
@@ -502,15 +466,12 @@ public class HomeController implements Initializable {
     }
 
     public void normalView() {
-
         try {
             contentView.getChildren().removeAll(contentView.getChildren());
             contentView.getChildren().addAll(folderLbls, folderList, fileLbls, fileList);
-
         } catch (Exception e) {
             System.out.println(e);
         }
-
     }
 
     public void detailView() {
