@@ -60,29 +60,24 @@ public class HomeController implements Initializable {
         System.out.println("BOTON DRIVE");
     }
 
-
     @FXML
-    public void menuval(ActionEvent e){
+    public void menuval(ActionEvent e) {
         /*
-        if ((e.getModifiers() & 4) !=0){
-            // boton derecho
-        }
-        */
+         * if ((e.getModifiers() & 4) !=0){ // boton derecho }
+         */
     }
-
 
     @FXML
     private Button viewBtn;
     private boolean normalViewFiles;
 
-
     @FXML
-    public void changeFileView(){
-        if(!normalViewFiles){
+    public void changeFileView() {
+        if (!normalViewFiles) {
             picture = new Image("jar/images/Eye2.png");
             normalViewFiles = true;
             detailView();
-        }else{
+        } else {
             picture = new Image("jar/images/Eye.png");
             normalViewFiles = false;
             normalView();
@@ -104,36 +99,33 @@ public class HomeController implements Initializable {
     private TextField searchBarTxtf;
 
     @FXML
-    public void searchBarTxtDetection(){
+    public void searchBarTxtDetection() {
 
-            if(!searchBarTxtf.getText().equals("")){
-                cancelSearchBtn.setVisible(true);
-            }else {
-                cancelSearchBtn.setVisible(false);
-            }
-            System.out.println(searchBarTxtf.getText());
+        if (!searchBarTxtf.getText().equals("")) {
+            cancelSearchBtn.setVisible(true);
+        } else {
+            cancelSearchBtn.setVisible(false);
         }
+        System.out.println(searchBarTxtf.getText());
+    }
 
     @FXML
-    public void searchBarEnter(javafx.scene.input.KeyEvent event){
+    public void searchBarEnter(javafx.scene.input.KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             search();
         }
     }
 
     @FXML
-    public  void clearSearchBarTxt(){
+    public void clearSearchBarTxt() {
         searchBarTxtf.setText("");
         cancelSearchBtn.setVisible(false);
     }
 
     @FXML
-    public  void search(){
-        System.out.println("Lo que esta buscando es: "+searchBarTxtf.getCharacters());
+    public void search() {
+        System.out.println("Lo que esta buscando es: " + searchBarTxtf.getCharacters());
     }
-
-
-
 
     // TODO: Cambiar de Boton a MenuBar el newElementBtn
     @FXML
@@ -200,7 +192,6 @@ public class HomeController implements Initializable {
 
             System.out.println(spaceB);
 
-
             if (spaceB > 1000) {
                 spaceB = spaceB / 1000;
                 spaceB = Math.round(spaceB * 10) / 10.0;
@@ -244,31 +235,22 @@ public class HomeController implements Initializable {
     }
 
     @FXML
-    public void borderBlue(Event e){
+    public void borderBlue(Event e) {
         Label lbl = (Label) e.getSource();
-        if(prevLabel != lbl){
-            lbl.setStyle("-fx-border-color: transparent transparent red transparent; " +
-                    "-fx-border-width: 3;" +
-                    "-fx-background-color: transparent;" +
-                    "-fx-font: Normal 18 'Agency FB'");
+        if (prevLabel != lbl) {
+            lbl.setStyle("-fx-border-color: transparent transparent red transparent; " + "-fx-border-width: 3;"
+                    + "-fx-background-color: transparent;" + "-fx-font: Normal 18 'Agency FB'");
         }
     }
-
-
-
-
 
     @FXML
-    public void borderNormal(Event e){
+    public void borderNormal(Event e) {
         Label lbl = (Label) e.getSource();
-        if(prevLabel != lbl){
-            lbl.setStyle("-fx-border-color: transparent;" +
-                    " -fx-border-width: 3;" +
-                    "-fx-background-color: transparent;" +
-                    "-fx-font: Normal 18 'Agency FB'");
+        if (prevLabel != lbl) {
+            lbl.setStyle("-fx-border-color: transparent;" + " -fx-border-width: 3;"
+                    + "-fx-background-color: transparent;" + "-fx-font: Normal 18 'Agency FB'");
         }
     }
-
 
     @FXML
     public void buy() {
@@ -333,6 +315,7 @@ public class HomeController implements Initializable {
 
     @FXML
     private Pane popupPane;
+
     @FXML
     public void toggleSearchSidebar() throws IOException {
         SearchbarFx pop = new SearchbarFx();
@@ -349,13 +332,12 @@ public class HomeController implements Initializable {
             Pair<String, List<Object>> r1 = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles()
                     .fromMyDrive().myOwnershipOnly().notOrdered().build();
 
-            try{
+            try {
                 for (Object obj : r1.getValue())
                     fileList.getChildren().add(new FileFx((FileDTO) obj, this));
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.println(e);
             }
-
 
             Pair<String, List<Object>> r2 = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFolders()
                     .fromMyDrive().myOwnershipOnly().notOrdered().build();
@@ -371,8 +353,6 @@ public class HomeController implements Initializable {
             e.printStackTrace();
         }
 
-
-
     }
 
     @FXML
@@ -382,24 +362,23 @@ public class HomeController implements Initializable {
     private Tooltip toolUser;
 
     public void loadImageUser() throws IOException {
-        Map<String, Map<String,String>> info = AboutDAO.newQuery().getUserInfo().build();
+        Map<String, Map<String, String>> info = AboutDAO.newQuery().getUserInfo().build();
 
-        picture  = new Image(info.get("user").get("photoLink"));
+        Image picture;
+        if (info.get("user").containsKey("photoLink"))
+            picture = new Image(info.get("user").get("photoLink"));
+        else
+            picture = new Image("/jar/images/penguin.jpg");
 
-
-
-        Circle circ = new Circle(90,60,30);
+        Circle circ = new Circle(90, 60, 30);
         circ.setFill(new ImagePattern(picture));
-
-
 
         userBtn.setGraphic(circ);
 
-        toolUser.setText("Cuenta de Google Drive\n"+info.get("user").get("displayName")+"\n"+info.get("user").get("emailAddress"));
-
+        toolUser.setText("Cuenta de Google Drive\n" + info.get("user").get("displayName") + "\n"
+                + info.get("user").get("emailAddress"));
 
     }
-
 
     @FXML
     private VBox contentView = new VBox();
@@ -413,117 +392,97 @@ public class HomeController implements Initializable {
     Label archivos = new Label("Archivos");
     Event e;
 
-    public void setLabels(){
+    public void setLabels() {
 
         try {
 
-            //onMouseEntered="#borderBlue" onMouseExited="#borderNormal"
+            // onMouseEntered="#borderBlue" onMouseExited="#borderNormal"
 
-            archivos.setStyle("-fx-text-fill: #3e3e3e; -fx-font: Normal 18 'Agency FB'; -fx-border-width: 3; -fx-border-color: transparent;");
+            archivos.setStyle(
+                    "-fx-text-fill: #3e3e3e; -fx-font: Normal 18 'Agency FB'; -fx-border-width: 3; -fx-border-color: transparent;");
             fileLbls.setPrefHeight(500);
             fileLbls.setMaxWidth(archivos.getWidth() + 75);
             fileLbls.setId("fileLbls");
-            fileLbls.setOnMouseExited(borderNormal(fileLbls.get));
-            fileLbls.setOnMouseEntered(borderRed(fileLbls.getId()));
-
-
-
-
-
+            // fileLbls.setOnMouseExited(borderNormal(fileLbls.get));
+            // fileLbls.setOnMouseEntered(borderRed(fileLbls.getId()));
 
             fileLbls.getChildren().add(archivos);
 
-
-
-            carpeta.setStyle("-fx-text-fill: #3e3e3e; -fx-font: Normal 18 'Agency FB'; -fx-border-width: 3; -fx-border-color: transparent;");
+            carpeta.setStyle(
+                    "-fx-text-fill: #3e3e3e; -fx-font: Normal 18 'Agency FB'; -fx-border-width: 3; -fx-border-color: transparent;");
             folderLbls.setPrefHeight(500);
             folderLbls.setMaxWidth(carpeta.getWidth() + 75);
             folderLbls.setId("folderLbls");
-            folderLbls.setOnMouseExited(borderNormal(folderLbls.getId()));
-            folderLbls.setOnMouseEntered(borderRed(folderLbls.getId()));
+            // folderLbls.setOnMouseExited(borderNormal(folderLbls.getId()));
+            // folderLbls.setOnMouseEntered(borderRed(folderLbls.getId()));
             folderLbls.getChildren().add(carpeta);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
 
     }
 
-    public void normalView(){
+    public void normalView() {
 
-
-
-
-
-
-        try{
+        try {
             contentView.getChildren().removeAll(contentView.getChildren());
-            contentView.getChildren().addAll(folderLbls,folderList,fileLbls,fileList);
+            contentView.getChildren().addAll(folderLbls, folderList, fileLbls, fileList);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
 
-
-
     }
 
-    public void detailView(){
+    public void detailView() {
         try {
             Label det = new Label("DETALLES");
             det.setStyle("-fx-font-size: 40");
             contentView.getChildren().removeAll(contentView.getChildren());
             contentView.getChildren().addAll(det);
-            //contentView.getChildren().addAll(folderList,folderLbls,fileList);
-        }catch (Exception e){
+            // contentView.getChildren().addAll(folderList,folderLbls,fileList);
+        } catch (Exception e) {
             System.out.println(e);
         }
 
     }
 
-    /*@FXML
-    public EventHandler<? super MouseEvent> borderRed(String id){
-
-        if (id.equals(fileLbls.getId())){
-
-            fileLbls.setStyle("-fx-border-color: transparent transparent red transparent; " +
-                    "-fx-border-width: 3;" +
-                    "-fx-background-color: transparent;" +
-                    "-fx-font: Normal 18 'Agency FB'");
-                    System.out.println("ARCHIVOS ROJO");
-        }else{
-
-            folderLbls.setStyle("-fx-border-color: transparent transparent red transparent; " +
-                    "-fx-border-width: 3;" +
-                    "-fx-background-color: transparent;" +
-                    "-fx-font: Normal 18 'Agency FB'");
-
-        }
-
-        return null;
-    }
-
-    @FXML
-    public EventHandler<? super MouseEvent> borderNormal(String id){
-
-        if (id.equals(fileLbls.getId())){
-
-            fileLbls.setStyle("-fx-border-color: transparent;" +
-                    " -fx-border-width: 3;" +
-                    "-fx-background-color: transparent;" +
-                    "-fx-font: Normal 18 'Agency FB'");
-            System.out.println("ARCHIVOS NORMAL");
-        }else{
-
-            folderLbls.setStyle("-fx-border-color: transparent;" +
-                    " -fx-border-width: 3;" +
-                    "-fx-background-color: transparent;" +
-                    "-fx-font: Normal 18 'Agency FB'");
-
-        }
-
-        return null;
-    }*/
-
+    /*
+     * @FXML public EventHandler<? super MouseEvent> borderRed(String id){
+     * 
+     * if (id.equals(fileLbls.getId())){
+     * 
+     * fileLbls.
+     * setStyle("-fx-border-color: transparent transparent red transparent; " +
+     * "-fx-border-width: 3;" + "-fx-background-color: transparent;" +
+     * "-fx-font: Normal 18 'Agency FB'"); System.out.println("ARCHIVOS ROJO");
+     * }else{
+     * 
+     * folderLbls.
+     * setStyle("-fx-border-color: transparent transparent red transparent; " +
+     * "-fx-border-width: 3;" + "-fx-background-color: transparent;" +
+     * "-fx-font: Normal 18 'Agency FB'");
+     * 
+     * }
+     * 
+     * return null; }
+     * 
+     * @FXML public EventHandler<? super MouseEvent> borderNormal(String id){
+     * 
+     * if (id.equals(fileLbls.getId())){
+     * 
+     * fileLbls.setStyle("-fx-border-color: transparent;" + " -fx-border-width: 3;"
+     * + "-fx-background-color: transparent;" + "-fx-font: Normal 18 'Agency FB'");
+     * System.out.println("ARCHIVOS NORMAL"); }else{
+     * 
+     * folderLbls.setStyle("-fx-border-color: transparent;" +
+     * " -fx-border-width: 3;" + "-fx-background-color: transparent;" +
+     * "-fx-font: Normal 18 'Agency FB'");
+     * 
+     * }
+     * 
+     * return null; }
+     */
 
 }
