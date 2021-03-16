@@ -33,7 +33,7 @@
       <left>
          <VBox minWidth="-Infinity" prefHeight="958.0" prefWidth="310.0" BorderPane.alignment="CENTER">
             <children>
-               <Button fx:id="newElementBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#blurNewBtn" onMouseExited="#blurOfNewBtn"  prefHeight="82.0" prefWidth="188.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Nuevo">
+               <Button fx:id="newElementBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#blurNewBtn" onMouseExited="#blurOfNewBtn"  prefHeight="82.0" prefWidth="188.0" style="-fx-background-radius: 63; -fx-border-radius: 63; -fx-background-color: #F4F4F4; -fx-border-color: #bababa;" text="Nuevo">
                   <font>
                      <Font size="24.0" />
                   </font>
@@ -54,15 +54,15 @@
                      <Insets left="20.0" top="40.0" />
                   </VBox.margin>
                   <effect>
-                     <DropShadow color="#727272" />
+                     <DropShadow color="#eae6e6" />
                   </effect>
                </Button>
-               <Button fx:id="miUnidadBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#buttonBlue" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="60.0" prefWidth="335.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Mi unidad" textFill="#4cafe8" translateX="-25.0">
+               <Button fx:id="miUnidadBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#buttonBlue" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="60.0" prefWidth="335.0" style="-fx-background-color:#c4d5ff; -fx-border-radius: 63; -fx-background-radius: 63; -fx-text-fill: #0b7bf3;" text="Mi unidad"  translateX="-25.0">
                   <font>
                      <Font size="24.0" />
                   </font>
                   <graphic>
-                     <ImageView fx:id="personaIg1" fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-35.0">
+                     <ImageView fx:id="personaIg1" fitHeight="30.0" fitWidth="30.0" translateX="-35.0">
                         <image>
                            <Image url="@../images/miUnidadBtnBlue.png" />
                         </image>
@@ -77,13 +77,13 @@
                   <VBox.margin>
                      <Insets top="40.0" />
                   </VBox.margin>
-                  <effect>
+                 <!-- <effect>
                      <DropShadow color="#4cafe8a6" height="6.0" radius="6.25">
                         <input>
                            <InnerShadow color="#4cafe8a6" height="148.49" radius="41.8725" />
                         </input>
                      </DropShadow>
-                  </effect>
+                  </effect>-->
                   <padding>
                      <Insets right="20.0" />
                   </padding>

@@ -136,15 +136,33 @@ public class HomeController implements Initializable {
 
 
     // TODO: Cambiar de Boton a MenuBar el newElementBtn
+/*    =========================================
+    =========================================
+     BOTON +NUEVO*/
+
     @FXML
     public void blurNewBtn() {
-        newElementBtn.setEffect(Efectos.newElementBtnOn());
+
+//        newElementBtn.setEffect(Efectos.newElementBtnOn());
+        newElementBtn.setStyle("-fx-border-color: #e3e1e1; "+
+                                "-fx-background-color: #eae6e6;"+
+                                "-fx-border-radius: 63;"+
+                                "-fx-background-radius: 63;");
+
     }
 
     @FXML
     public void blurOfNewBtn() {
-        newElementBtn.setEffect(Efectos.newElementBtnOf());
+
+//        newElementBtn.setEffect(Efectos.newElementBtnOf());
+        newElementBtn.setStyle("-fx-border-color: #bababa; "+
+                               "-fx-background-color: #F4F4F4;"+
+                               "-fx-border-radius: 63;"+
+                               "-fx-background-radius: 63;");
     }
+
+//    ===========================================
+//    ===========================================
 
     @FXML
     public void buttonBlue(Event e) {
@@ -153,14 +171,18 @@ public class HomeController implements Initializable {
         String btnName = btn.getId();
 
         if (prevButton != null) {
-            prevButton.setEffect(Efectos.grayOf());
-            prevButton.setTextFill(Color.BLACK);
-            picture = new Image("jar/images/" + prevButton.getId() + "Black.png");
-            ImageView icon = new ImageView(picture);
-            icon.setFitHeight(40);
+
+//          prevButton.setEffect(Efectos.grayOf());
+            prevButton.setStyle("-fx-background-color: transparent;" +
+                                "-fx-border-color: transparent; " +
+                                "-fx-pref-height: 60;" +
+                                "-fx-border-radius: 63;" +
+                                "-fx-background-radius: 63;" +
+                                "-fx-text-fill: #3e3e3e;");
+
+            ImageView icon = new ImageView(new Image("jar/images/" + prevButton.getId() + "Black.png"));
+            icon.setFitHeight(30);
             icon.setFitWidth(30);
-            icon.setPickOnBounds(true);
-            icon.setPreserveRatio(true);
             icon.setTranslateX(-35.0);
             prevButton.setGraphic(icon);
         } else {
@@ -169,22 +191,22 @@ public class HomeController implements Initializable {
 
         prevButton = btn;
         prevButton.setId(btnName);
-        btn.setEffect(Efectos.blueOn());
-        btn.setTextFill(Color.rgb(76, 175, 232));
-        picture = new Image("jar/images/" + btnName + "Blue.png");
-        ImageView ejemplo = new ImageView(picture);
-        ejemplo.setFitHeight(40);
+
+     //  btn.setEffect(Efectos.blueOn());
+        btn.setStyle("-fx-background-color:#c4d5ff ;" +
+                "-fx-border-color: #c4d5ff; " +
+                "-fx-pref-height: 60;" +
+                "-fx-border-radius: 63;" +
+                "-fx-background-radius: 63;" +
+                "-fx-text-fill: #0b7bf3;");
+
+        ImageView ejemplo = new ImageView(new Image("jar/images/" + btnName + "Blue.png"));
+        ejemplo.setFitHeight(30);
         ejemplo.setFitWidth(30);
-        ejemplo.setPickOnBounds(true);
-        ejemplo.setPreserveRatio(true);
         ejemplo.setTranslateX(-35.0);
         prevButton.setGraphic(ejemplo);
 
-        try {
-            updateSpace();
-        } catch (Exception about) {
-            System.out.println(about);
-        }
+
 
     }
 
@@ -194,12 +216,9 @@ public class HomeController implements Initializable {
 
         try {
             long space = info.get("storageQuota").get("usageInDrive");
-
             double spaceB = (double) space;
             spaceB = spaceB / 1048576;
-
             System.out.println(spaceB);
-
 
             if (spaceB > 1000) {
                 spaceB = spaceB / 1000;
@@ -226,7 +245,11 @@ public class HomeController implements Initializable {
             prevButton = miUnidadBtn;
 
         if (prevButton != btn) {
-            btn.setEffect(Efectos.grayOn(btn.getId()));
+          //  btn.setEffect(Efectos.grayOn(btn.getId()));
+            btn.setStyle("-fx-background-color: #e3e1e1;" +
+                    "-fx-border-color: #e3e1e1; "+
+                    "-fx-border-radius: 63;" +
+                    "-fx-background-radius: 63;" );
         }
     }
 
@@ -239,7 +262,13 @@ public class HomeController implements Initializable {
             prevButton = miUnidadBtn;
 
         if (prevButton != btn) {
-            btn.setEffect(Efectos.grayOf());
+          //  btn.setEffect(Efectos.grayOf());
+            btn.setStyle("-fx-background-color: transparent;" +
+                    "-fx-border-color: transparent; " +
+                    "-fx-pref-height: 60;" +
+                    "-fx-border-radius: 63;" +
+                    "-fx-background-radius: 63;" +
+                    "-fx-text-fill: #3e3e3e;");
         }
     }
 
@@ -253,9 +282,6 @@ public class HomeController implements Initializable {
                     "-fx-font: Normal 18 'Agency FB'");
         }
     }
-
-
-
 
 
     @FXML
@@ -294,7 +320,8 @@ public class HomeController implements Initializable {
 
         MenuBar b = (MenuBar) e.getSource();
         System.out.println(b.getId());
-        b.setEffect(Efectos.grayOn(b.getId()));
+//        b.setEffect(Efectos.grayOn(b.getId()));
+        b.setStyle("-fx-background-color: #e3e1e1;" + "-fx-background-radius: 40;");
 
     }
 
@@ -303,8 +330,8 @@ public class HomeController implements Initializable {
 
         MenuBar b = (MenuBar) e.getSource();
         System.out.println(b.getId());
-        b.setEffect(Efectos.grayOf());
-
+//        b.setEffect(Efectos.grayOf());
+        b.setStyle("-fx-background-color: transparent;" + "-fx-background-radius: 40;");
     }
 
     /**
@@ -423,12 +450,8 @@ public class HomeController implements Initializable {
             fileLbls.setPrefHeight(500);
             fileLbls.setMaxWidth(archivos.getWidth() + 75);
             fileLbls.setId("fileLbls");
-            fileLbls.setOnMouseExited(borderNormal(fileLbls.get));
-            fileLbls.setOnMouseEntered(borderRed(fileLbls.getId()));
-
-
-
-
+        //    fileLbls.setOnMouseExited(this::borderNormal);
+         //   fileLbls.setOnMouseEntered(this::borderBlue);
 
 
             fileLbls.getChildren().add(archivos);
@@ -439,8 +462,8 @@ public class HomeController implements Initializable {
             folderLbls.setPrefHeight(500);
             folderLbls.setMaxWidth(carpeta.getWidth() + 75);
             folderLbls.setId("folderLbls");
-            folderLbls.setOnMouseExited(borderNormal(folderLbls.getId()));
-            folderLbls.setOnMouseEntered(borderRed(folderLbls.getId()));
+            folderLbls.setOnMouseExited(this::borderNormal);
+            folderLbls.setOnMouseEntered(this::borderBlue);
             folderLbls.getChildren().add(carpeta);
 
         }catch (Exception e){
