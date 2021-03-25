@@ -136,35 +136,47 @@ public class HomeController implements Initializable {
         System.out.println("Lo que esta buscando es: " + searchBarTxtf.getCharacters());
     }
 
-    // TODO: Cambiar de Boton a MenuBar el newElementBtn
-/*    =========================================
-    =========================================
-     BOTON +NUEVO*/
 
+
+
+
+    // TODO: nuevoGray y nuevoNormal -> mouse sobre boton +NUEVO
     @FXML
-    public void blurNewBtn() {
-
-//        newElementBtn.setEffect(Efectos.newElementBtnOn());
-        newElementBtn.setStyle("-fx-border-color: #e3e1e1; "+
-                                "-fx-background-color: #eae6e6;"+
-                                "-fx-border-radius: 63;"+
-                                "-fx-background-radius: 63;");
-
+    public void nuevoGray() {
+        newElementBtn.setStyle("-fx-border-color: #e3e1e1; " + "-fx-background-color: #eae6e6;" + "-fx-border-radius: 63;" + "-fx-background-radius: 63;");
+    }
+    @FXML
+    public void nuevoNormal() {
+        newElementBtn.setStyle("-fx-border-color: #bababa; " + "-fx-background-color: #F4F4F4;" + "-fx-border-radius: 63;" + "-fx-background-radius: 63;");
     }
 
+    // TODO: buttonGray y buttonNormal -> mouse sobre los botones
     @FXML
-    public void blurOfNewBtn() {
+    public void buttonGray(Event e) {
+        Button button = (Button) e.getSource();
+        System.out.println(button.getId());
+        button.setStyle("-fx-background-color:#e3e1e1;" + "-fx-background-radius: 40");
+    }
+    @FXML
+    public void buttonNormal(Event e) {
+        Button button = (Button) e.getSource();
+        button.setStyle("-fx-background-color: transparent; "+ "-fx-background-radius: 40");
+    }
 
-//        newElementBtn.setEffect(Efectos.newElementBtnOf());
-        newElementBtn.setStyle("-fx-border-color: #bababa; "+
-                               "-fx-background-color: #F4F4F4;"+
-                               "-fx-border-radius: 63;"+
-                               "-fx-background-radius: 63;");
+    //TODO: menuGray y menuNormal -> mouse sobre helpBar
+    @FXML
+    public void menuGray(Event e) {
+        MenuBar b = (MenuBar) e.getSource();
+        System.out.println(b.getId());
+        b.setStyle("-fx-background-color: #e3e1e1;" + "-fx-background-radius: 40;");
+    }
+    @FXML
+    public void menuNormal(Event e) {
+        MenuBar b = (MenuBar) e.getSource();
+        b.setStyle("-fx-background-color: transparent;" + "-fx-background-radius: 40;");
     }
 
 
-//    ===========================================
-//    ===========================================
 
 
     public void updateSpace() throws IOException {
@@ -195,26 +207,6 @@ public class HomeController implements Initializable {
 
 
     @FXML
-    public void borderBlue(Event e){
-
-        Label lbl = (Label) e.getSource();
-        if (prevLabel != lbl) {
-            lbl.setStyle("-fx-border-color: transparent transparent red transparent; " + "-fx-border-width: 3;"
-                    + "-fx-background-color: transparent;" + "-fx-font: Normal 18 'Agency FB'");
-        }
-    }
-
-
-    @FXML
-    public void borderNormal(Event e) {
-        Label lbl = (Label) e.getSource();
-        if (prevLabel != lbl) {
-            lbl.setStyle("-fx-border-color: transparent;" + " -fx-border-width: 3;"
-                    + "-fx-background-color: transparent;" + "-fx-font: Normal 18 'Agency FB'");
-        }
-    }
-
-    @FXML
     public void buy() {
 
         if (java.awt.Desktop.isDesktopSupported()) {
@@ -233,25 +225,7 @@ public class HomeController implements Initializable {
 
     }
 
-    @FXML
-    public void menuGray(Event e) {
-        MenuBar b = (MenuBar) e.getSource();
-        System.out.println(b.getId());
 
-//        b.setEffect(Efectos.grayOn(b.getId()));
-        b.setStyle("-fx-background-color: #e3e1e1;" + "-fx-background-radius: 40;");
-
-
-    }
-
-    @FXML
-    public void menuNormal(Event e) {
-
-        MenuBar b = (MenuBar) e.getSource();
-        System.out.println(b.getId());
-//        b.setEffect(Efectos.grayOf());
-        b.setStyle("-fx-background-color: transparent;" + "-fx-background-radius: 40;");
-    }
 
     /**
      * When a file or folder is selected this method is called to unselect the
@@ -454,7 +428,6 @@ public class HomeController implements Initializable {
     }
 
 
-
     public void normalView() {
         try {
             contentView.getChildren().removeAll(contentView.getChildren());
@@ -514,15 +487,6 @@ public class HomeController implements Initializable {
      * return null; }
      */
 
-    @FXML
-    public void buttonGray() {
-            // TODO: HACER PLANTILLA CSS PARA ESTE METODO
-    }
-
-    @FXML
-    public void buttonNormal() {
-        // TODO: HACER PLANTILLA CSS PARA ESTE METODO
-    }
 
 
 }

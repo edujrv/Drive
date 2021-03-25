@@ -31,7 +31,6 @@ public class SpaceButtonFx extends Button implements ISelectable, IHoverable {
         setAlignment(Pos.CENTER_LEFT);
 
         setStyle("-fx-background-radius: 0 40 40 0; -fx-background-color: #F4F4F4; -fx-padding: 0 0 0 50");
-      //  setEffect(Efectos.grayOf());
         setTextFill(Color.BLACK);
 
         // Icon

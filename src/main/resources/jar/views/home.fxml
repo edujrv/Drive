@@ -12,13 +12,12 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -29,13 +28,14 @@
 <?import jar.graphic.SearchbarFx?>
 <?import jar.graphic.SpaceButtonFx?>
 
+
 <ScrollPane maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jar.controllers.HomeController">
    <BorderPane prefHeight="1080.0" prefWidth="1920.0">
       <left>
          <VBox fx:id="spaceVBox" minWidth="-Infinity" prefHeight="958.0" prefWidth="310.0" BorderPane.alignment="CENTER">
             <children>
 
-               <Button fx:id="newElementBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#blurNewBtn" onMouseExited="#blurOfNewBtn"  prefHeight="82.0" prefWidth="188.0" style="-fx-background-radius: 63; -fx-border-radius: 63; -fx-background-color: #F4F4F4; -fx-border-color: #bababa;" text="Nuevo">
+               <Button fx:id="newElementBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#nuevoGray" onMouseExited="#nuevoNormal" prefHeight="82.0" prefWidth="188.0" style="-fx-background-radius: 63; -fx-border-radius: 63; -fx-background-color: #F4F4F4; -fx-border-color: #bababa;" text="Nuevo">
 
                   <font>
                      <Font size="24.0" />
@@ -93,7 +93,7 @@
          </VBox>
       </left>
       <top>
-         <HBox alignment="CENTER_LEFT" prefHeight="167.0" prefWidth="1920.0" style="-fx-border-color: #f4f4f4 #f4f4f4 #cecece #f4f4f4;" BorderPane.alignment="CENTER">
+         <HBox alignment="CENTER_LEFT" prefHeight="167.0" prefWidth="1920.0" style="-fx-border-color: #f4f4f4 #f4f4f4 #cecece #f4f4f4;" stylesheets="@../Styles/folders.css" BorderPane.alignment="CENTER">
             <children>
                <ImageView fitHeight="60.0" fitWidth="158.0" onMouseClicked="#goHome" pickOnBounds="true" preserveRatio="true">
                   <image>
@@ -106,7 +106,7 @@
                      <Insets left="20.0" />
                   </HBox.margin>
                </ImageView>
-               <TextField fx:id="searchBarTxtf" onKeyPressed="#searchBarEnter" onKeyTyped="#searchBarTxtDetection" prefHeight="60.0" prefWidth="914.0" promptText="Buscar en Drive" style="-fx-background-color: #e0e0e0;" translateX="150.0">
+               <TextField fx:id="searchBarTxtf" onKeyPressed="#searchBarEnter" onKeyTyped="#searchBarTxtDetection" prefHeight="60.0" prefWidth="914.0" promptText="Buscar en Drive" style="-fx-background-color: #f1efef;" stylesheets="@../Styles/folders.css" translateX="150.0">
                   <HBox.margin>
                      <Insets />
                   </HBox.margin>
@@ -117,7 +117,7 @@
                      <Insets left="80.0" />
                   </padding>
                </TextField>
-               <Button fx:id="searchBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#search" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #e0e0e0;" translateX="-890.0">
+               <Button fx:id="searchBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#search" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #f1efef;" translateX="-890.0">
                   <HBox.margin>
                      <Insets left="150.0" />
                   </HBox.margin>
@@ -125,7 +125,7 @@
                      <Font size="25.0" />
                   </font>
                   <graphic>
-                     <ImageView fitHeight="40.0" fitWidth="30.0" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" pickOnBounds="true" preserveRatio="true">
+                     <ImageView fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                         <image>
                            <Image url="@../images/lupa.png" />
                         </image>
@@ -145,7 +145,7 @@
                      </Tooltip>
                   </tooltip>
                </Button>
-               <Button fx:id="searchExpBtn" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#toggleSearchSidebar" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #e0e0e0;" text="▼" textAlignment="CENTER" translateX="-100.0">
+               <Button fx:id="searchExpBtn" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#toggleSearchSidebar" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #f1efef;" text="▼" textAlignment="CENTER" translateX="-100.0">
                   <font>
                      <Font size="17.0" />
                   </font>
@@ -169,7 +169,7 @@
                            <MenuItem fx:id="typ" mnemonicParsing="false" style="-fx-pref-height: 40; -fx-text-fill: black; -fx-font: normal 15 Arial;" text="Términos y Política" />
                         </items>
                         <graphic>
-                           <ImageView fitHeight="40.0" fitWidth="30.0" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" pickOnBounds="true" preserveRatio="true" styleClass="menu-item" translateX="-13.0" translateY="-6.0">
+                           <ImageView fitHeight="40.0" fitWidth="30.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true" styleClass="menu-item" translateX="-14.5" translateY="-6.0">
                               <image>
                                  <Image url="@../images/Help.png" />
                               </image>
@@ -250,15 +250,15 @@
                </Pane> -->
 
 
-               <HBox alignment="CENTER_LEFT" prefHeight="88.0" prefWidth="1614.0">
+               <HBox alignment="CENTER_LEFT" prefHeight="88.0" prefWidth="1614.0" stylesheets="@../Styles/folders.css">
                   <children>
-                     <FlowPane fx:id="Path" minHeight="-Infinity" minWidth="-Infinity" prefHeight="88.0" prefWidth="1145.0"></FlowPane>
+                     <FlowPane fx:id="Path" minHeight="-Infinity" minWidth="-Infinity" prefHeight="88.0" prefWidth="1145.0" />
                      <Button fx:id="viewBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#changeFileView" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" translateX="285.0">
                         <font>
                            <Font size="25.0" />
                         </font>
                         <graphic>
-                           <ImageView fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <ImageView fitHeight="40.0" fitWidth="30.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
                               <image>
                                  <Image url="@../images/Eye.png" />
                               </image>

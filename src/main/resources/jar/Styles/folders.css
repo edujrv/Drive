@@ -33,7 +33,6 @@
 
 .menu-item:focused {
     -fx-background-color:red;
-    -fx-focus-color:white;
 }
 
 .buscarBtn{
@@ -71,4 +70,6 @@
     -fx-text-fill: #0b7bf3;
 
 }
+
+
 
