@@ -7,15 +7,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 
-import javax.swing.*;
-
 public class SearchController {
 
     @FXML
     private Button closeBtn;
 
     @FXML
-    private void close(Event e){
+    private void close(Event e) {
 
         closeBtn = (Button) e.getSource();
         System.out.println(closeBtn.getParent().getParent());
@@ -28,7 +26,6 @@ public class SearchController {
                 j.close();
             }
         });
-
 
     }
 

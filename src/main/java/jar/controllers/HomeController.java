@@ -33,23 +33,18 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class HomeController implements Initializable {
-
-
-
-    // *** INICIO DECLARACION DE VARIABLES  ***
-    // *** TIPO @FXML ***
     @FXML
     private Label spaceLbl;
     @FXML
     private Image picture;
     @FXML
-    private  FlowPane fileList = new FlowPane();
+    private FlowPane fileList = new FlowPane();
     @FXML
-    private  FlowPane folderList = new FlowPane();
+    private FlowPane folderList = new FlowPane();
     @FXML
     private VBox spaceVBox;
     @FXML
-    private  VBox contentView = new VBox();
+    private VBox contentView = new VBox();
     @FXML
     private Button viewBtn;
     @FXML
@@ -65,29 +60,15 @@ public class HomeController implements Initializable {
     @FXML
     private TextField searchBarTxtf;
 
-
-
-
-    //  *** FIN TIPO @FXML ***
-
-    //  *** SIN @ ***
-    private  FlowPane folderLbls = new FlowPane();
-    private  FlowPane fileLbls = new FlowPane();
+    private FlowPane folderLbls = new FlowPane();
+    private FlowPane fileLbls = new FlowPane();
     private boolean normalViewFiles;
     Label carpeta = new Label("Carpetas");
     Label archivos = new Label("Archivos");
-    private  Label prevLabel = null;
-    private  Button prevButton = null;
+    private Label prevLabel = null;
+    private Button prevButton = null;
     private ISelectable prevSelectedFile = null;
     private ISelectable prevSelectedSpaceBtn = null;
-
-
-
-    //  *** FIN SIN @ ***
-    // *** FIN DECLARACION DE VARIABLES  ***
-
-    // *** INICIO DECLARACION DE METOIDOS ***
-
 
     @FXML
     public void goHome() {
@@ -96,7 +77,7 @@ public class HomeController implements Initializable {
 
     @FXML
     public void menuval(javafx.scene.input.MouseEvent e) {
-            System.out.println( e.getClass().getModifiers() );
+        System.out.println(e.getClass().getModifiers());
     }
 
     @FXML
@@ -151,7 +132,7 @@ public class HomeController implements Initializable {
 
     @FXML
     public void search() {
-       System.out.println("Lo que esta buscando es: " + searchBarTxtf.getCharacters());
+        System.out.println("Lo que esta buscando es: " + searchBarTxtf.getCharacters());
     }
 
     public void updateSpace() throws IOException {
@@ -222,7 +203,7 @@ public class HomeController implements Initializable {
     public void changeSpaceButtonSelection(Event e) {
         ISelectable actualSelect = (ISelectable) e.getSource();
 
-        if (prevSelectedSpaceBtn != null && prevSelectedSpaceBtn != actualSelect){
+        if (prevSelectedSpaceBtn != null && prevSelectedSpaceBtn != actualSelect) {
             prevSelectedSpaceBtn.unselect();
         }
         prevSelectedSpaceBtn = actualSelect;
@@ -259,14 +240,14 @@ public class HomeController implements Initializable {
         }
         fileList.getChildren().clear();
         folderList.getChildren().clear();
-        if (rfi != null){
-            for (Object obj : rfi.getValue()){
+        if (rfi != null) {
+            for (Object obj : rfi.getValue()) {
                 fileList.getChildren().add(new FileFx((FileDTO) obj, this));
             }
         }
 
-        if (rfo != null){
-            for (Object obj : rfo.getValue()){
+        if (rfo != null) {
+            for (Object obj : rfo.getValue()) {
                 folderList.getChildren().add(new FolderFx((FolderDTO) obj, this));
             }
         }
@@ -330,6 +311,7 @@ public class HomeController implements Initializable {
         toolUser.setText("Cuenta de Google Drive\n" + info.get("user").get("displayName") + "\n"
                 + info.get("user").get("emailAddress"));
     }
+
     public void setLabels() {
         try {
             archivos.setStyle(

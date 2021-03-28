@@ -17,38 +17,6 @@
   -fx-text-fill: #000000;
 }
 
-.assistance-button-list__item {
-  -fx-pref-height: 40;
-  -fx-text-fill: black;
-  -fx-font: normal 15 Arial;
-}
-
-.assistance-button-list__item:focused {
-  -fx-background-color: red;
-}
-
-
-.generic-button {
-  -fx-background-radius: 40;
-  -fx-background-color: #f1efef;
-}
-.generic-button:hover {
-  -fx-background-color: #e3e1e1;
-}
-
-.left-pane__new-file {
- -fx-border-color: #bababa;
- -fx-background-color: #f4f4f4;
-  -fx-border-radius: 63;
-  -fx-background-radius: 63;
-}
-.left-pane__new-file:hover {
-  -fx-border-color: #e3e1e1;
-  -fx-background-color: #eae6e6;
-}
-
-
-
 .file-search-modal__submit-button {
   -fx-pref-width: 90;
   -fx-pref-height: 35;
@@ -119,11 +87,76 @@
   -fx-font-size: 12;
 }
 
+.assistance-button-list__item {
+  -fx-pref-height: 40;
+  -fx-text-fill: black;
+  -fx-font: normal 15 Arial;
+}
+
+.assistance-button-list__item:focused {
+  -fx-background-color: red;
+}
+
+.generic-button {
+  -fx-background-radius: 40;
+  -fx-background-color: #f1efef;
+}
+.generic-button:hover {
+  -fx-background-color: #e3e1e1;
+}
+
+.left-pane__new-file {
+  -fx-border-color: #bababa;
+  -fx-background-color: #f4f4f4;
+  -fx-border-radius: 63;
+  -fx-background-radius: 63;
+}
+
+.left-pane__new-file:hover {
+  -fx-border-color: #e3e1e1;
+  -fx-background-color: #eae6e6;
+}
+
+.left-pane__space-button--selected {
+  -fx-pref-width: 300;
+  -fx-pref-height: 60;
+  -fx-background-color: #c4d5ff;
+  -fx-border-color: #c4d5ff;
+  -fx-border-radius: 0 63 63 0;
+  -fx-background-radius: 0 63 63 0;
+  -fx-text-fill: #0b7bf3;
+  -fx-padding: 0 0 0 50;
+}
+
+.left-pane__space-button--unselected {
+  -fx-pref-width: 300;
+  -fx-pref-height: 60;
+  -fx-font-size: 24;
+  -fx-text-fill: #3e3e3e;
+  -fx-cursor: HAND;
+  -fx-alignment: center-left;
+  -fx-background-color: transparent;
+  -fx-border-color: transparent;
+  -fx-border-radius: 0 63 63 0;
+  -fx-background-radius: 0 63 63 0;
+  -fx-padding: 0 0 0 50;
+}
+
+.left-pane__space-button--unselected:hover {
+  -fx-background-color: #e3e1e1;
+  -fx-border-color: #e3e1e1;
+}
+
+.space-button__icon {
+  -fx-translate-x: -35;
+  -fx-cursor: HAND;
+}
+
 /* --------------------------------------------------------------- */
 /* TODO: De aca para abajo nada se usa, ver si lo vamos a usar y en donde, o si no lo borramos */
 /* Path */
 .pathBtn {
-  -fx-text-fill: Black;
+  -fx-text-fill: black;
   -fx-text-alignment: center;
   -fx-background-color: TRANSPARENT;
   -fx-background-radius: 40;
