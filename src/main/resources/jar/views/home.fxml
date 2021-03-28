@@ -35,7 +35,7 @@
          <VBox fx:id="spaceVBox" minWidth="-Infinity" prefHeight="958.0" prefWidth="310.0" BorderPane.alignment="CENTER">
             <children>
 
-               <Button fx:id="newElementBtn" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#nuevoGray" onMouseExited="#nuevoNormal" prefHeight="82.0" prefWidth="188.0" style="-fx-background-radius: 63; -fx-border-radius: 63; -fx-background-color: #F4F4F4; -fx-border-color: #bababa;" text="Nuevo">
+               <Button fx:id="newElementBtn" styleClass="left-pane__new-file" minWidth="-Infinity" mnemonicParsing="false" prefHeight="82.0" prefWidth="188.0" text="Nuevo">
 
                   <font>
                      <Font size="24.0" />
@@ -117,7 +117,7 @@
                      <Insets left="80.0" />
                   </padding>
                </TextField>
-               <Button fx:id="searchBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#search" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #f1efef;" translateX="-890.0">
+               <Button fx:id="searchBtn" styleClass="generic-button" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#search" prefHeight="45.0" prefWidth="45.0" translateX="-890.0">
                   <HBox.margin>
                      <Insets left="150.0" />
                   </HBox.margin>
@@ -145,7 +145,7 @@
                      </Tooltip>
                   </tooltip>
                </Button>
-               <Button fx:id="searchExpBtn" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#toggleSearchSidebar" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #f1efef;" text="▼" textAlignment="CENTER" translateX="-100.0">
+               <Button fx:id="searchExpBtn" styleClass="generic-button" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#toggleSearchSidebar" prefHeight="45.0" prefWidth="45.0" text="▼" textAlignment="CENTER" translateX="-100.0">
                   <font>
                      <Font size="17.0" />
                   </font>
@@ -160,16 +160,16 @@
                      </Tooltip>
                   </tooltip>
                </Button>
-               <MenuBar fx:id="helpBar" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#menuGray" onMouseExited="#menuNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" translateX="50.0">
+               <MenuBar fx:id="helpBar" styleClass="generic-button" onMouseEntered="#menuval" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="45.0" translateX="50.0">
                   <menus>
                      <Menu fx:id="helpMenu" mnemonicParsing="false" style="-fx-background-color: TRANSPARENT;">
                         <items>
-                           <MenuItem fx:id="formacion" styleClass="assistance-button-list__item" mnemonicParsing="false" text="Formación" />
+                           <MenuItem fx:id="formacion" styleClass="assistance-button-list__item"  mnemonicParsing="false"  text="Formación" />
                            <MenuItem fx:id="actualizaciones" styleClass="assistance-button-list__item" mnemonicParsing="false" text="Actualizaciones" />
-                           <MenuItem fx:id="typ" styleClass="assistance-button-list__item" mnemonicParsing="false" text="Términos y Política" />
+                           <MenuItem fx:id="typ" styleClass="assistance-button-list__item"  mnemonicParsing="false" text="Términos y Política" />
                         </items>
                         <graphic>
-                           <ImageView fitHeight="40.0" fitWidth="30.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true" translateX="-14.5" translateY="-6.0">
+                           <ImageView fitHeight="40.0" fitWidth="30.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true" translateX="-17.5" translateY="-8.0">
                               <image>
                                  <Image url="@../images/Help.png" />
                               </image>
@@ -221,7 +221,7 @@
                      </Tooltip>
                   </tooltip>
                </Button>
-               <Button fx:id="cancelSearchBtn" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#clearSearchBarTxt" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #e0e0e0;" text="X" textAlignment="CENTER" translateX="-750.0" visible="false">
+               <Button fx:id="cancelSearchBtn" styleClass="generic-button" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#clearSearchBarTxt" prefHeight="45.0" prefWidth="45.0" text="X" textAlignment="CENTER" translateX="-750.0" visible="false">
                   <font>
                      <Font size="20.0" />
                   </font>
@@ -253,7 +253,7 @@
                <HBox alignment="CENTER_LEFT" prefHeight="88.0" prefWidth="1614.0">
                   <children>
                      <FlowPane fx:id="Path" minHeight="-Infinity" minWidth="-Infinity" prefHeight="88.0" prefWidth="1145.0" />
-                     <Button fx:id="viewBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#changeFileView" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" translateX="285.0">
+                     <Button fx:id="viewBtn" styleClass="generic-button" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#changeFileView" prefHeight="45.0" prefWidth="45.0" translateX="285.0">
                         <font>
                            <Font size="25.0" />
                         </font>
@@ -281,12 +281,12 @@
                            </Tooltip>
                         </tooltip>
                      </Button>
-                     <Button fx:id="infoBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#toggleDetailSidebar" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="45.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" translateX="305.0">
+                     <Button fx:id="infoBtn" styleClass="generic-button" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#toggleDetailSidebar" prefHeight="45.0" prefWidth="45.0" translateX="305.0">
                         <font>
                            <Font size="25.0" />
                         </font>
                         <graphic>
-                           <ImageView fitHeight="40.0" fitWidth="30.0" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" pickOnBounds="true" preserveRatio="true">
+                           <ImageView fitHeight="40.0" fitWidth="30.0"  pickOnBounds="true" preserveRatio="true">
                               <image>
                                  <Image url="@../images/Info.png" />
                               </image>

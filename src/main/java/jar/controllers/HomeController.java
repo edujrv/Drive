@@ -1,5 +1,6 @@
 package jar.controllers;
 
+import java.awt.event.MouseEvent;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -70,10 +71,16 @@ public class HomeController implements Initializable {
     }
 
     @FXML
-    public void menuval(ActionEvent e) {
-        /*
+    public void menuval(javafx.scene.input.MouseEvent e) {
+        /* ActionEvent e
          * if ((e.getModifiers() & 4) !=0){ // boton derecho }
          */
+          //  Button button = (Button) e.getSource();
+
+            System.out.println( e.getClass().getModifiers() );
+
+
+
     }
 
     @FXML
@@ -133,47 +140,7 @@ public class HomeController implements Initializable {
 
     @FXML
     public void search() {
-        System.out.println("Lo que esta buscando es: " + searchBarTxtf.getCharacters());
-    }
-
-
-
-
-
-    // TODO: nuevoGray y nuevoNormal -> mouse sobre boton +NUEVO
-    @FXML
-    public void nuevoGray() {
-        newElementBtn.setStyle("-fx-border-color: #e3e1e1; " + "-fx-background-color: #eae6e6;" + "-fx-border-radius: 63;" + "-fx-background-radius: 63;");
-    }
-    @FXML
-    public void nuevoNormal() {
-        newElementBtn.setStyle("-fx-border-color: #bababa; " + "-fx-background-color: #F4F4F4;" + "-fx-border-radius: 63;" + "-fx-background-radius: 63;");
-    }
-
-    // TODO: buttonGray y buttonNormal -> mouse sobre los botones
-    @FXML
-    public void buttonGray(Event e) {
-        Button button = (Button) e.getSource();
-        System.out.println(button.getId());
-        button.setStyle("-fx-background-color:#e3e1e1;" + "-fx-background-radius: 40");
-    }
-    @FXML
-    public void buttonNormal(Event e) {
-        Button button = (Button) e.getSource();
-        button.setStyle("-fx-background-color: transparent; "+ "-fx-background-radius: 40");
-    }
-
-    //TODO: menuGray y menuNormal -> mouse sobre helpBar
-    @FXML
-    public void menuGray(Event e) {
-        MenuBar b = (MenuBar) e.getSource();
-        System.out.println(b.getId());
-        b.setStyle("-fx-background-color: #e3e1e1;" + "-fx-background-radius: 40;");
-    }
-    @FXML
-    public void menuNormal(Event e) {
-        MenuBar b = (MenuBar) e.getSource();
-        b.setStyle("-fx-background-color: transparent;" + "-fx-background-radius: 40;");
+       System.out.println("Lo que esta buscando es: " + searchBarTxtf.getCharacters());
     }
 
 

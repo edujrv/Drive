@@ -27,6 +27,28 @@
   -fx-background-color: red;
 }
 
+
+.generic-button {
+  -fx-background-radius: 40;
+  -fx-background-color: #f1efef;
+}
+.generic-button:hover {
+  -fx-background-color: #e3e1e1;
+}
+
+.left-pane__new-file {
+ -fx-border-color: #bababa;
+ -fx-background-color: #f4f4f4;
+  -fx-border-radius: 63;
+  -fx-background-radius: 63;
+}
+.left-pane__new-file:hover {
+  -fx-border-color: #e3e1e1;
+  -fx-background-color: #eae6e6;
+}
+
+
+
 .file-search-modal__submit-button {
   -fx-pref-width: 90;
   -fx-pref-height: 35;
