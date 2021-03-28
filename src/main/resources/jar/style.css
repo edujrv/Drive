@@ -193,6 +193,44 @@
   -fx-text-fill: #0b7bf3;
 }
 
+.center-pane__folder-button {
+  -fx-alignment: center-left;
+  -fx-pref-width: 300;
+  -fx-pref-height: 75;
+
+  -fx-border-color: #bababa;
+  -fx-border-width: 1;
+  -fx-border-radius: 10;
+  -fx-padding: 0 0 0 25;
+  -fx-border-insets: 15 0 0 20;
+}
+
+.center-pane__folder-button--selected {
+  -fx-background-color: #c4d5ff;
+
+  -fx-background-insets: 15 0 0 20;
+  -fx-background-radius: 10;
+}
+
+.center-pane__folder-button--unselected {
+  -fx-background-color: transparent;
+}
+
+.folder-button__label {
+  -fx-max-width: 130;
+  -fx-font-size: 18;
+  -fx-font: Normal 18 "Agency FB";
+  -fx-padding: 0 0 0 25;
+}
+
+.folder-button__label--unselected {
+  -fx-text-fill: #3e3e3e;
+}
+
+.folder-button__label--selected {
+  -fx-text-fill: #0b7bf3;
+}
+
 /* --------------------------------------------------------------- */
 /* TODO: De aca para abajo nada se usa, ver si lo vamos a usar y en donde, o si no lo borramos */
 /* Path */
