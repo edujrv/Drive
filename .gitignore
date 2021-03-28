@@ -9,3 +9,4 @@ drive.iml
 tokens/*
 target/*
 *.log
+fxrun.sh

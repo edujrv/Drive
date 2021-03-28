@@ -13,23 +13,23 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="914.0" minHeight="-Infinity" minWidth="914.0" prefHeight="411.0" prefWidth="914.0" styleClass="fondo" stylesheets="@../Styles/searchPopup.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jar.controllers.SearchController">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="279.20001220703125" minWidth="10.0" prefWidth="157.59998779296876" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="470.40003662109376" minWidth="10.0" prefWidth="419.8000366210937" />
+<GridPane alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="914.0" minHeight="-Infinity" minWidth="914.0" prefHeight="411.0" prefWidth="914.0" styleClass="file-search-modal__background" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jar.controllers.SearchController" stylesheets="@../style.css">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="279.20001220703125" minWidth="10.0" prefWidth="157.59998779296876" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="470.40003662109376" minWidth="10.0" prefWidth="419.8000366210937" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.00003662109373" minWidth="10.0" prefWidth="105.5999633789063" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+   </columnConstraints>
+   <rowConstraints>
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-  </rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+   </rowConstraints>
    <children>
-      <Label styleClass="formLabel" stylesheets="@../Styles/searchPopup.css" text="Tipo">
+      <Label styleClass="formLabel" text="Tipo">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>
@@ -37,31 +37,31 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label styleClass="formLabel" stylesheets="@../Styles/searchPopup.css" text="Ubicación" GridPane.rowIndex="2">
+      <Label styleClass="formLabel" text="Ubicación" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>
       </Label>
-      <Label styleClass="formLabel" stylesheets="@../Styles/searchPopup.css" text="Fecha de modificación" GridPane.rowIndex="3">
+      <Label styleClass="formLabel" text="Fecha de modificación" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>
       </Label>
-      <Label styleClass="formLabel" stylesheets="@../Styles/searchPopup.css" text="Nombre del elemento" GridPane.rowIndex="4">
+      <Label styleClass="formLabel" text="Nombre del elemento" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>
       </Label>
-      <Label styleClass="formLabel" stylesheets="@../Styles/searchPopup.css" text="Contiene las palabras" GridPane.rowIndex="5">
+      <Label styleClass="formLabel" text="Contiene las palabras" GridPane.rowIndex="5">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>
       </Label>
       <MenuButton mnemonicParsing="false" prefHeight="35.0" prefWidth="410.0" text="Cualquier tipo" GridPane.columnIndex="1">
-        <items>
-          <MenuItem mnemonicParsing="false" text="Action 1" />
-          <MenuItem mnemonicParsing="false" text="Action 2" />
-        </items>
+         <items>
+            <MenuItem mnemonicParsing="false" text="Action 1" />
+            <MenuItem mnemonicParsing="false" text="Action 2" />
+         </items>
          <GridPane.margin>
             <Insets left="40.0" />
          </GridPane.margin>
@@ -69,21 +69,21 @@
             <Font size="18.0" />
          </font>
       </MenuButton>
-      <Button fx:id="closeBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#close" styleClass="xButton" stylesheets="@../Styles/searchPopup.css" text="X" GridPane.columnIndex="2">
+      <Button fx:id="closeBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#close" styleClass="file-search-modal__close-button" text="X" GridPane.columnIndex="2">
          <GridPane.margin>
             <Insets left="55.0" />
          </GridPane.margin>
       </Button>
-      <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="218.0" styleClass="menuBtn" stylesheets="@../Styles/searchPopup.css" text="Cualquier momento" GridPane.columnIndex="1" GridPane.rowIndex="3">
-        <items>
-          <MenuItem mnemonicParsing="false" text="Action 1" />
-          <MenuItem mnemonicParsing="false" text="Action 2" />
-        </items>
+      <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="218.0" styleClass="file-search-modal__menu-button" text="Cualquier momento" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <items>
+            <MenuItem mnemonicParsing="false" text="Action 1" />
+            <MenuItem mnemonicParsing="false" text="Action 2" />
+         </items>
          <GridPane.margin>
             <Insets left="40.0" />
          </GridPane.margin>
       </MenuButton>
-      <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="350.0" promptText="Introduce un término que coincida con parte del nombre del archivo" styleClass="txtField" stylesheets="@../Styles/searchPopup.css" GridPane.columnIndex="1" GridPane.rowIndex="4">
+      <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="350.0" promptText="Introduce un término que coincida con parte del nombre del archivo" styleClass="file-search-modal__text-field" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets left="40.0" />
          </GridPane.margin>
@@ -91,7 +91,7 @@
             <Font size="18.0" />
          </font>
       </TextField>
-      <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="350.0" promptText="Escribe las palabras encontradas en el archivo" styleClass="txtField" stylesheets="@../Styles/searchPopup.css" GridPane.columnIndex="1" GridPane.rowIndex="5">
+      <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="350.0" promptText="Escribe las palabras encontradas en el archivo" styleClass="file-search-modal__text-field" GridPane.columnIndex="1" GridPane.rowIndex="5">
          <font>
             <Font size="11.0" />
          </font>
@@ -112,7 +112,7 @@
             <Insets left="200.0" />
          </GridPane.margin>
       </CheckBox>
-      <Button fx:id="restablecerBtn" mnemonicParsing="false" styleClass="restablecerBtn" stylesheets="@../Styles/searchPopup.css" text="RESTABLECER" GridPane.columnIndex="1" GridPane.rowIndex="6">
+      <Button fx:id="restablecerBtn" mnemonicParsing="false" styleClass="file-search-modal__reset-button" text="RESTABLECER" GridPane.columnIndex="1" GridPane.rowIndex="6">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -127,20 +127,21 @@
             </Tooltip>
          </tooltip>
       </Button>
-      <Button fx:id="BuscarPuBtn" mnemonicParsing="false" styleClass="buscarBtn" stylesheets="@../Styles/searchPopup.css" text="BUSCAR" GridPane.columnIndex="2" GridPane.rowIndex="6">
+      <Button fx:id="BuscarPuBtn" mnemonicParsing="false" styleClass="file-search-modal__submit-button" text="BUSCAR" GridPane.columnIndex="2" GridPane.rowIndex="6">
          <tooltip>
             <Tooltip text="Buscar en Google Drive">
                <font>
                   <Font size="12.9" />
                </font>
             </Tooltip>
-         </tooltip></Button>
-      <Label styleClass="formLabel" stylesheets="@../Styles/searchPopup.css" text="Propietario" GridPane.rowIndex="1">
+         </tooltip>
+      </Button>
+      <Label styleClass="formLabel" text="Propietario" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>
       </Label>
-      <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="218.0" styleClass="menuBtn" stylesheets="@../Styles/searchPopup.css" text="Cualquier tipo" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="218.0" styleClass="file-search-modal__menu-button" text="Cualquier tipo" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <items>
             <MenuItem mnemonicParsing="false" text="Action 1" />
             <MenuItem mnemonicParsing="false" text="Action 2" />

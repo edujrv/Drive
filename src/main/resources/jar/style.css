@@ -1,0 +1,134 @@
+* {
+  -fx-font-size: 18;
+}
+
+/* Sreach Popup */
+.file-search-modal__close-button {
+  -fx-pref-width: 328;
+  -fx-pref-height: 60;
+  -fx-font-size: 20;
+  /*-fx-min-width: USE_COMPUTED_SIZE;
+    -fx-min-height: USE_COMPUTED_SIZE;*/
+  -fx-background-radius: 40;
+  -fx-background-color: transparent;
+  -fx-opacity: 0.7;
+  -fx-cursor: HAND;
+  -fx-translate-x: 35;
+  -fx-text-fill: #000000;
+}
+
+.assistance-button-list__item {
+  -fx-pref-height: 40;
+  -fx-text-fill: black;
+  -fx-font: normal 15 Arial;
+}
+
+.assistance-button-list__item:focused {
+  -fx-background-color: red;
+}
+
+.file-search-modal__submit-button {
+  -fx-pref-width: 90;
+  -fx-pref-height: 35;
+  -fx-min-width: USE_COMPUTED_SIZE;
+  -fx-min-height: USE_COMPUTED_SIZE;
+  -fx-background-radius: 5;
+  -fx-background-color: #0b7bf3;
+  -fx-cursor: HAND;
+  /* -fx-translate-x: 50; TODO: Que pingos hacemos con esto*/
+  -fx-translate-x: -25;
+  -fx-text-fill: white;
+}
+
+.file-search-modal__reset-button {
+  -fx-pref-width: 90;
+  -fx-pref-height: 35;
+  /* -fx-min-width: USE_PREF_SIZE;
+  -fx-min-height: USE_PREF_SIZE; */
+  -fx-background-radius: 5;
+  -fx-background-color: transparent;
+  -fx-cursor: HAND;
+  -fx-translate-x: -25;
+  -fx-text-fill: black;
+
+  /* TODO: esto estaba en otro clase con el mismo nombre, ver cual esta bien o mal o wtf */
+  /* -fx-pref-width: 150;
+  -fx-pref-height: 35; */
+  /* -fx-min-width: USE_COMPUTED_SIZE;
+    -fx-min-height: USE_COMPUTED_SIZE;*/
+  /* -fx-background-radius: 5;
+  -fx-background-color: transparent;
+  -fx-cursor: HAND;
+  -fx-translate-x: 50;
+  -fx-text-fill: black; */
+}
+
+/* TODO: Ver si lo vamos a usar, sino se borra */
+.file-search-modal__more-info-button {
+  -fx-pref-width: 200;
+  -fx-pref-height: 35;
+  /*-fx-min-width: USE_COMPUTED_SIZE;
+    -fx-min-height: USE_COMPUTED_SIZE;*/
+  -fx-background-radius: 5;
+  -fx-background-color: transparent;
+  -fx-cursor: HAND;
+  /* -fx-translate-x: 50; TODO: es este o el otro translate-x */
+  -fx-translate-x: -10;
+  -fx-text-fill: #0b7bf3;
+}
+
+.file-search-modal__background {
+  -fx-background-color: #f4f4f4;
+  -fx-border-width: 0.1;
+  -fx-border-color: black;
+  -fx-translate-x: 329;
+  -fx-translate-y: 138;
+  -fx-padding: 20 0 0 0;
+}
+
+.file-search-modal__menu-button {
+  -fx-pref-width: 410;
+  -fx-pref-height: 35;
+}
+
+.file-search-modal__text-field {
+  -fx-pref-width: 410;
+  -fx-pref-height: 35;
+  -fx-font-size: 12;
+}
+
+/* --------------------------------------------------------------- */
+/* TODO: De aca para abajo nada se usa, ver si lo vamos a usar y en donde, o si no lo borramos */
+/* Path */
+.pathBtn {
+  -fx-text-fill: Black;
+  -fx-text-alignment: center;
+  -fx-background-color: TRANSPARENT;
+  -fx-background-radius: 40;
+  -fx-font-size: 24;
+  -fx-pref-height: 40;
+  -fx-max-width: 250;
+  -fx-cursor: HAND;
+}
+
+.pathPacman {
+  -fx-text-fill: rgb(156, 156, 156);
+  -fx-text-alignment: center;
+  -fx-background-color: TRANSPARENT;
+  -fx-background-radius: 40;
+  -fx-font-size: 40;
+  -fx-pref-height: 40;
+  -fx-max-width: 40;
+}
+
+/* Folders */
+.leftButton {
+  -fx-pref-width: 328;
+  -fx-pref-height: 60;
+  -fx-min-width: USE_PREF_SIZE;
+  -fx-min-height: USE_PREF_SIZE;
+  -fx-background-radius: 40;
+  -fx-background-color: TRANSPARTENT;
+  -fx-cursor: HAND;
+  -fx-translate-x: -25;
+}
