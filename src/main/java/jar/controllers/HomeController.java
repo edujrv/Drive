@@ -1,34 +1,16 @@
 package jar.controllers;
 
-import java.awt.event.MouseEvent;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
-
 import jar.dao.AboutDAO;
 import jar.dao.FileDAO;
-import jar.graphic.FileFx;
-import jar.graphic.FolderFx;
-import jar.graphic.ISelectable;
-import jar.graphic.SearchbarFx;
-import jar.graphic.SidebarFx;
-import jar.graphic.SpaceButtonFx;
+import jar.graphic.*;
 import jar.model.dto.FileDTO;
 import jar.model.dto.FolderDTO;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
@@ -38,32 +20,74 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.util.Pair;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
+
 public class HomeController implements Initializable {
 
-    private Label prevLabel = null;
-    private Button prevButton = null;
-    private ISelectable prevSelectedFile = null;
-    private ISelectable prevSelectedSpaceBtn = null;
 
+
+    // *** INICIO DECLARACION DE VARIABLES  ***
+    // *** TIPO @FXML ***
     @FXML
     private Label spaceLbl;
     @FXML
     private Image picture;
     @FXML
-    private Button newElementBtn;
-
+    private  FlowPane fileList = new FlowPane();
     @FXML
-    private FlowPane fileList = new FlowPane();
-    @FXML
-    private FlowPane folderList = new FlowPane();
-
+    private  FlowPane folderList = new FlowPane();
     @FXML
     private VBox spaceVBox;
+    @FXML
+    private  VBox contentView = new VBox();
+    @FXML
+    private Button viewBtn;
+    @FXML
+    private Button userBtn;
+    @FXML
+    private Tooltip toolUser;
+    @FXML
+    private Pane popupPane;
+    @FXML
+    private SidebarFx detailSidebar;
+    @FXML
+    private Button cancelSearchBtn;
+    @FXML
+    private TextField searchBarTxtf;
+
+
+
+
+    //  *** FIN TIPO @FXML ***
+
+    //  *** SIN @ ***
+    private  FlowPane folderLbls = new FlowPane();
+    private  FlowPane fileLbls = new FlowPane();
+    private boolean normalViewFiles;
+    Label carpeta = new Label("Carpetas");
+    Label archivos = new Label("Archivos");
+    private  Label prevLabel = null;
+    private  Button prevButton = null;
+    private ISelectable prevSelectedFile = null;
+    private ISelectable prevSelectedSpaceBtn = null;
+
+
+
+    //  *** FIN SIN @ ***
+    // *** FIN DECLARACION DE VARIABLES  ***
+
+    // *** INICIO DECLARACION DE METOIDOS ***
+
 
     @FXML
     public void goHome() {
@@ -72,20 +96,13 @@ public class HomeController implements Initializable {
 
     @FXML
     public void menuval(javafx.scene.input.MouseEvent e) {
-        /* ActionEvent e
-         * if ((e.getModifiers() & 4) !=0){ // boton derecho }
-         */
-          //  Button button = (Button) e.getSource();
-
             System.out.println( e.getClass().getModifiers() );
-
-
-
     }
 
     @FXML
-    private Button viewBtn;
-    private boolean normalViewFiles;
+    public void toggleDetailSidebar() {
+        detailSidebar.openClose();
+    }
 
     @FXML
     public void changeFileView() {
@@ -107,12 +124,6 @@ public class HomeController implements Initializable {
         viewBtn.setGraphic(icon);
         System.out.println("Cambio de vista");
     }
-
-    @FXML
-    private Button cancelSearchBtn;
-
-    @FXML
-    private TextField searchBarTxtf;
 
     @FXML
     public void searchBarTxtDetection() {
@@ -143,9 +154,6 @@ public class HomeController implements Initializable {
        System.out.println("Lo que esta buscando es: " + searchBarTxtf.getCharacters());
     }
 
-
-
-
     public void updateSpace() throws IOException {
         String aux = "";
         Map<String, Map<String, Long>> info = AboutDAO.newQuery().getStorageInfo().build();
@@ -172,7 +180,6 @@ public class HomeController implements Initializable {
         }
     }
 
-
     @FXML
     public void buy() {
 
@@ -187,12 +194,17 @@ public class HomeController implements Initializable {
                     System.out.println("Explorador no encontrado");
                 }
             }
-
         }
-
     }
 
-
+    @FXML
+    public void toggleSearchSidebar() throws IOException {
+        SearchbarFx pop = new SearchbarFx();
+        pop.hideOnEscapeProperty().set(true);
+        pop.autoHideProperty().set(true);
+        pop.show(popupPane, 0, 0);
+        pop.openClose();
+    }
 
     /**
      * When a file or folder is selected this method is called to unselect the
@@ -201,18 +213,18 @@ public class HomeController implements Initializable {
     public void changeFileSelection(Event e) {
         ISelectable actualSelect = (ISelectable) e.getSource();
 
-        if (prevSelectedFile != null && prevSelectedFile != actualSelect)
+        if (prevSelectedFile != null && prevSelectedFile != actualSelect) {
             prevSelectedFile.unselect();
-
+        }
         prevSelectedFile = actualSelect;
     }
 
     public void changeSpaceButtonSelection(Event e) {
         ISelectable actualSelect = (ISelectable) e.getSource();
 
-        if (prevSelectedSpaceBtn != null && prevSelectedSpaceBtn != actualSelect)
+        if (prevSelectedSpaceBtn != null && prevSelectedSpaceBtn != actualSelect){
             prevSelectedSpaceBtn.unselect();
-
+        }
         prevSelectedSpaceBtn = actualSelect;
     }
 
@@ -247,36 +259,17 @@ public class HomeController implements Initializable {
         }
         fileList.getChildren().clear();
         folderList.getChildren().clear();
-        if (rfi != null)
-            for (Object obj : rfi.getValue())
+        if (rfi != null){
+            for (Object obj : rfi.getValue()){
                 fileList.getChildren().add(new FileFx((FileDTO) obj, this));
+            }
+        }
 
-        if (rfo != null)
-            for (Object obj : rfo.getValue())
+        if (rfo != null){
+            for (Object obj : rfo.getValue()){
                 folderList.getChildren().add(new FolderFx((FolderDTO) obj, this));
-    }
-
-    @FXML
-    private SidebarFx detailSidebar;
-
-    @FXML
-    private SearchbarFx searchSidebar;
-
-    @FXML
-    public void toggleDetailSidebar() {
-        detailSidebar.openClose();
-    }
-
-    @FXML
-    private Pane popupPane;
-
-    @FXML
-    public void toggleSearchSidebar() throws IOException {
-        SearchbarFx pop = new SearchbarFx();
-        pop.hideOnEscapeProperty().set(true);
-        pop.autoHideProperty().set(true);
-        pop.show(popupPane, 0, 0);
-        pop.openClose();
+            }
+        }
     }
 
     @Override
@@ -318,14 +311,7 @@ public class HomeController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
-    @FXML
-    private Button userBtn;
-
-    @FXML
-    private Tooltip toolUser;
 
     public void loadImageUser() throws IOException {
         Map<String, Map<String, String>> info = AboutDAO.newQuery().getUserInfo().build();
@@ -343,21 +329,7 @@ public class HomeController implements Initializable {
 
         toolUser.setText("Cuenta de Google Drive\n" + info.get("user").get("displayName") + "\n"
                 + info.get("user").get("emailAddress"));
-
     }
-
-    @FXML
-    private VBox contentView = new VBox();
-
-    private VBox contentViewDetails = new VBox();
-
-    private FlowPane folderLbls = new FlowPane();
-    private FlowPane fileLbls = new FlowPane();
-
-    Label carpeta = new Label("Carpetas");
-    Label archivos = new Label("Archivos");
-    Event e;
-
     public void setLabels() {
         try {
             archivos.setStyle(
@@ -394,7 +366,6 @@ public class HomeController implements Initializable {
         }
     }
 
-
     public void normalView() {
         try {
             contentView.getChildren().removeAll(contentView.getChildren());
@@ -414,46 +385,5 @@ public class HomeController implements Initializable {
         } catch (Exception e) {
             System.out.println(e);
         }
-
     }
-
-    /*
-     * @FXML public EventHandler<? super MouseEvent> borderRed(String id){
-     * 
-     * if (id.equals(fileLbls.getId())){
-     * 
-     * fileLbls.
-     * setStyle("-fx-border-color: transparent transparent red transparent; " +
-     * "-fx-border-width: 3;" + "-fx-background-color: transparent;" +
-     * "-fx-font: Normal 18 'Agency FB'"); System.out.println("ARCHIVOS ROJO");
-     * }else{
-     * 
-     * folderLbls.
-     * setStyle("-fx-border-color: transparent transparent red transparent; " +
-     * "-fx-border-width: 3;" + "-fx-background-color: transparent;" +
-     * "-fx-font: Normal 18 'Agency FB'");
-     * 
-     * }
-     * 
-     * return null; }
-     * 
-     * @FXML public EventHandler<? super MouseEvent> borderNormal(String id){
-     * 
-     * if (id.equals(fileLbls.getId())){
-     * 
-     * fileLbls.setStyle("-fx-border-color: transparent;" + " -fx-border-width: 3;"
-     * + "-fx-background-color: transparent;" + "-fx-font: Normal 18 'Agency FB'");
-     * System.out.println("ARCHIVOS NORMAL"); }else{
-     * 
-     * folderLbls.setStyle("-fx-border-color: transparent;" +
-     * " -fx-border-width: 3;" + "-fx-background-color: transparent;" +
-     * "-fx-font: Normal 18 'Agency FB'");
-     * 
-     * }
-     * 
-     * return null; }
-     */
-
-
-
 }
