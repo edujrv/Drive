@@ -17,10 +17,10 @@ public class SpaceButtonFx extends Button implements ISelectable {
     private void create(String id, String text, HomeController hController) {
         setId(id);
         setMnemonicParsing(false);
+
         unselect();
 
-        icon.getStyleClass().clear();
-        icon.getStyleClass().add("space-button__icon");
+        icon.getStyleClass().setAll("space-button__icon");
 
         icon.setFitHeight(30);
         icon.setFitWidth(30);
@@ -53,8 +53,7 @@ public class SpaceButtonFx extends Button implements ISelectable {
 
     @Override
     public void select() {
-        getStyleClass().clear();
-        getStyleClass().add("left-pane__space-button--selected");
+        getStyleClass().setAll("left-pane__space-button--selected");
 
         icon.setImage(new Image("jar/images/" + getId() + "Blue.png"));
         setGraphic(icon);
@@ -62,8 +61,7 @@ public class SpaceButtonFx extends Button implements ISelectable {
 
     @Override
     public void unselect() {
-        getStyleClass().clear();
-        getStyleClass().add("left-pane__space-button--unselected");
+        getStyleClass().setAll("left-pane__space-button--unselected");
 
         icon.setImage(new Image("jar/images/" + getId() + "Black.png"));
         setGraphic(icon);

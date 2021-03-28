@@ -152,6 +152,47 @@
   -fx-cursor: HAND;
 }
 
+.center-pane__file-button {
+  -fx-pref-width: 300;
+  -fx-pref-height: 300;
+
+  -fx-border-color: #bababa;
+  -fx-border-width: 1;
+  -fx-border-radius: 10;
+  -fx-padding: 0;
+  -fx-border-insets: 15 0 0 20;
+
+  -fx-alignment: bottom-center;
+}
+
+.file-button__pane {
+  -fx-pref-width: 300;
+  -fx-pref-height: 55;
+}
+
+.file-button__pane--unselected {
+  -fx-background-color: transparent;
+}
+
+.file-button__pane--selected {
+  -fx-background-color: #c4d5ff;
+}
+
+.file-button__title {
+  -fx-max-width: 230;
+  -fx-font-size: 18;
+  -fx-font: Normal 18 "Agency FB";
+  -fx-padding: 20 0 0 30;
+}
+
+.file-button__title--unselected {
+  -fx-text-fill: black;
+}
+
+.file-button__title--selected {
+  -fx-text-fill: #0b7bf3;
+}
+
 /* --------------------------------------------------------------- */
 /* TODO: De aca para abajo nada se usa, ver si lo vamos a usar y en donde, o si no lo borramos */
 /* Path */
