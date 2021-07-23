@@ -1,5 +1,6 @@
 package jar.dao;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -284,6 +285,27 @@ public class FileDAO {
 			return this;
 		}
 
+	}
+
+	public static void downloadFile( FileDTO file){
+		try {
+			jar.model.File aux = FileDAO.getFile(file);
+			String fileId = aux.getIdElement();
+
+			FileOutputStream outputStream = new FileOutputStream(aux.getName());
+
+
+			DriveConnection.service.files().get(fileId)
+					.executeMediaAndDownloadTo(outputStream);
+
+
+			outputStream.close();
+
+			System.out.println("Se descargo "+aux.getName()+"!!");
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

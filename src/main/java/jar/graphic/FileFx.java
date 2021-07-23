@@ -37,14 +37,9 @@ public class FileFx extends VBox implements ISelectable {
             public void handle(MouseEvent event) {
                 select();
                 if (event.getClickCount() > 1) {
-                    File aux = null;
-                    try {
-                        aux = FileDAO.getFile(file);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    System.out.println(aux.getName() + " || " + aux.getPath() + " || "
-                            + aux.getContent().getContentType().getType());
+                    FileDAO.downloadFile(file);
+                   // System.out.println(aux.getName() + "  " + aux.getPath() + "  "
+                //            + aux.getContent().getContentType().getType());
                 } else {
                     hcontroller.changeFileSelection(event);
                 }
