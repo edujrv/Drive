@@ -1,5 +1,6 @@
 package jar.dao;
 
+//Imports
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +11,7 @@ import com.google.api.services.drive.model.About;
 
 import jar.DriveConnection;
 
+// Builder (storageInfo and UserInfo)
 public class AboutDAO<T> {
     public static Builder newQuery() {
         return new Builder();

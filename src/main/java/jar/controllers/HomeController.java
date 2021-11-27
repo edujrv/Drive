@@ -218,13 +218,10 @@ public class HomeController implements Initializable {
             rfo = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFolders().fromMyDrive().myOwnershipOnly()
                     .notOrdered().build();
         } else if (triggerBtn.getId().equals("shareBtn")) {
-            // TODO: Hacer metodo para mostrar archivos compartidos
-            // rfi =
-            // FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles().fromShared().notOrdered()
-            // .build();
-            // rfo =
-            // FileDAO.newQuery().startFromBeginning().defaultPageSize().getFolders().fromShared().notOrdered()
-            // .build();
+            rfi = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles().fromShared().notOrdered()
+                    .build();
+            rfo = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFolders().fromShared().notOrdered()
+                    .build();
         } else if (triggerBtn.getId().equals("recientBtn")) {
             rfi = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles().fromRecent().anyFiles().build();
         } else if (triggerBtn.getId().equals("starredBtn")) {
@@ -236,7 +233,8 @@ public class HomeController implements Initializable {
             rfi = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles().fromTrashed().build();
             rfo = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFolders().fromTrashed().build();
         } else {
-            // TODO: Hacer metodo para mostrar todos los archivos
+            rfi = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles().fromAnywhere().myOwnershipOnly()
+                    .orderBySize().build();
         }
         fileList.getChildren().clear();
         folderList.getChildren().clear();

@@ -1,5 +1,6 @@
 package jar.dao;
 
+//Imports
 import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -16,6 +17,7 @@ import jar.model.ContentType;
 import jar.model.Folder;
 
 public class CommonUtils {
+
     static List<Folder> getPath(List<String> arr) {
         List<Folder> path = new ArrayList<Folder>();
         try {
@@ -49,6 +51,7 @@ public class CommonUtils {
         return LocalDateTime.ofInstant(Instant.ofEpochMilli(dt.getValue()), TimeZone.getDefault().toZoneId());
     }
 
+    // File type (Alternatives)
     static ContentType getType(String mimeType) {
         String left = mimeType.substring(0, mimeType.indexOf('/'));
         switch (left) {

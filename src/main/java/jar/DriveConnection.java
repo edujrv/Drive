@@ -1,10 +1,12 @@
 package jar;
 
+//Imports
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.security.GeneralSecurityException;
+
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
 
@@ -38,7 +40,7 @@ public class DriveConnection {
      * scopes, delete your previously saved tokens/ folder.
      */
     private static final List<String> SCOPES = Collections.singletonList(DriveScopes.DRIVE);
-    private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
+    private static final String CREDENTIALS_FILE_PATH = "/credentials.json"; // Loading creadentials
 
     /**
      * Creates an authorized Credential object.

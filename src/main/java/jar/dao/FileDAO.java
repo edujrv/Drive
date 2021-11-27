@@ -1,10 +1,14 @@
 package jar.dao;
 
+import java.io.FileInputStream;
+//Imports
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import com.google.api.client.http.FileContent;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
@@ -85,9 +89,13 @@ public class FileDAO {
 
 		SharedStep fromMyDrive();
 
+		SharedStep fromAnywhere();
+
 		SharedStep fromStarred();
 
 		Build fromTrashed();
+
+		OrderStep fromShared();
 	}
 
 	/**
@@ -122,6 +130,8 @@ public class FileDAO {
 	 */
 	public interface OrderStep {
 		Build notOrdered();
+
+		Build orderBySize();
 
 		Build setOrder(String orderBy);
 	}
@@ -230,6 +240,11 @@ public class FileDAO {
 		}
 
 		@Override
+		public SharedStep fromAnywhere() {
+			return this;
+		}
+
+		@Override
 		public Build fromTrashed() {
 			this.query = this.query.concat(" and trashed");
 			this.fileList.setQ(this.query);
@@ -254,6 +269,13 @@ public class FileDAO {
 
 		@Override
 		public OrderStep anyOwnership() {
+			this.fileList.setQ(this.query);
+			return this;
+		}
+
+		@Override
+		public OrderStep fromShared() {
+			this.query = this.query.concat(" and sharedWithMe");
 			this.fileList.setQ(this.query);
 			return this;
 		}
@@ -285,23 +307,67 @@ public class FileDAO {
 			return this;
 		}
 
+		@Override
+		public Build orderBySize() {
+			this.fileList.set("orderBy", "quotaBytesUsed");
+			return this;
+		}
+
 	}
 
-	public static void downloadFile( FileDTO file){
+	// TODO: Fix the download path and the type of files that you can download
+	// TODO: Check the right position of this function
+	public static void downloadFile(FileDTO file) {
 		try {
 			jar.model.File aux = FileDAO.getFile(file);
 			String fileId = aux.getIdElement();
 
-			FileOutputStream outputStream = new FileOutputStream(aux.getName());
-
+			FileOutputStream outputStream = new FileOutputStream("downloads/" + aux.getName());
 
 			DriveConnection.service.files().get(fileId)
 					.executeMediaAndDownloadTo(outputStream);
 
-
 			outputStream.close();
 
-			System.out.println("Se descargo "+aux.getName()+"!!");
+			System.out.println("Se descargo " + aux.getName() + "!!");
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// TODO: Create an unploadFile function
+	public static void createFolder(String name) {
+		try {
+			File fileMetadata = new File();
+			fileMetadata.setName(name);
+			fileMetadata.setMimeType("application/vnd.google-apps.folder");
+
+			File file = DriveConnection.service.files().create(fileMetadata)
+					.setFields("id")
+					.execute();
+			System.out.println("Folder ID: " + file.getId());
+
+			createFile("archivoPtueba", file.getName(), file.getId());
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// TODO: Create an unploadFile function
+	public static void createFile(String name, String path, String folderID) {
+		try {
+			String folderId = "0BwwA4oUTeiV1TGRPeTVjaWRDY1E";
+			File fileMetadata = new File();
+			fileMetadata.setName(name);
+			fileMetadata.setParents(Collections.singletonList(folderId));
+			java.io.File filePath = new java.io.File(path + "/" + name);
+			FileContent mediaContent = new FileContent("image/jpeg", filePath);
+			File file = DriveConnection.service.files().create(fileMetadata, mediaContent)
+					.setFields("id, parents")
+					.execute();
+			System.out.println("File ID: " + file.getId());
 
 		} catch (IOException e) {
 			e.printStackTrace();

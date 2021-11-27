@@ -38,8 +38,8 @@ public class FileFx extends VBox implements ISelectable {
                 select();
                 if (event.getClickCount() > 1) {
                     FileDAO.downloadFile(file);
-                   // System.out.println(aux.getName() + "  " + aux.getPath() + "  "
-                //            + aux.getContent().getContentType().getType());
+                    // System.out.println(aux.getName() + " " + aux.getPath() + " "
+                    // + aux.getContent().getContentType().getType());
                 } else {
                     hcontroller.changeFileSelection(event);
                 }
@@ -49,12 +49,12 @@ public class FileFx extends VBox implements ISelectable {
 
     private Image chooseImage(ContentType.TYPE type) {
         switch (type) {
-        case OFFICE:
-            return new Image("jar/images/office.png");
+            case OFFICE:
+                return new Image("jar/images/office.png");
 
-        // TODO: Poner imagen para UNKNOWN
-        default:
-            return new Image("jar/images/office.png");
+            // TODO: Poner imagen para UNKNOWN
+            default:
+                return new Image("jar/images/office.png");
         }
     }
 
