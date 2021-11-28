@@ -330,6 +330,7 @@ public class FileDAO {
 			outputStream.close();
 
 			System.out.println("Se descargo " + aux.getName() + "!!");
+			createFolder("prueba");
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -348,7 +349,7 @@ public class FileDAO {
 					.execute();
 			System.out.println("Folder ID: " + file.getId());
 
-			createFile("archivoPtueba", file.getName(), file.getId());
+			createFile("archivoPrueba", file.getName(), file.getId());
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -358,13 +359,25 @@ public class FileDAO {
 	// TODO: Create an unploadFile function
 	public static void createFile(String name, String path, String folderID) {
 		try {
-			String folderId = "0BwwA4oUTeiV1TGRPeTVjaWRDY1E";
+			String folderId = folderID;
 			File fileMetadata = new File();
 			fileMetadata.setName(name);
+			fileMetadata.setMimeType("application/vnd.google-apps.spreadsheet");
+			// path -> "application/vnd.google-apps."
+			// excel -> "spreadsheet"
+			// doc -> "document"
+			// pdf -> "pdf"
+			// jam -> "jam"
+			// powergoogle -> "presentation"
+			// jpeg | jpg -> "image/jpeg"
+			// mp4 -> "video/mp4"
+			// txt -> "text/plain"
+
 			fileMetadata.setParents(Collections.singletonList(folderId));
-			java.io.File filePath = new java.io.File(path + "/" + name);
-			FileContent mediaContent = new FileContent("image/jpeg", filePath);
-			File file = DriveConnection.service.files().create(fileMetadata, mediaContent)
+			// java.io.File filePath = new java.io.File("downloads/Adidas.drawio (1).png");
+			// //Upload an especific file
+			// FileContent mediaContent = new FileContent("image/jpeg", filePath);
+			File file = DriveConnection.service.files().create(fileMetadata/* , mediaContent */)
 					.setFields("id, parents")
 					.execute();
 			System.out.println("File ID: " + file.getId());
