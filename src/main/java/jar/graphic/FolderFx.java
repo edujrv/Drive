@@ -42,6 +42,12 @@ public class FolderFx extends HBox implements ISelectable {
                                         }
                                         System.out.println(aux.getName() + " || " + aux.getPath() + " || "
                                                         + aux.getContent().getContentType().getType());
+
+                                        try {
+                                                hcontroller.changeFolder(aux.getIdElement(), aux.getName());
+                                        } catch (IOException e) {
+                                                System.out.println("No se pudo cambiar de carpeta");
+                                        }
                                 } else {
                                         hcontroller.changeFileSelection(event);
                                 }

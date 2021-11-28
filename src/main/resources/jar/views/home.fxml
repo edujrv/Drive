@@ -35,7 +35,7 @@
          <VBox fx:id="spaceVBox" minWidth="-Infinity" prefHeight="958.0" prefWidth="310.0" BorderPane.alignment="CENTER">
             <children>
 
-               <Button fx:id="newElementBtn" styleClass="left-pane__new-file" minWidth="-Infinity" mnemonicParsing="false" prefHeight="82.0" prefWidth="188.0" text="Nuevo">
+               <Button fx:id="newElementBtn" styleClass="left-pane__new-file" minWidth="-Infinity" mnemonicParsing="false" prefHeight="82.0" prefWidth="188.0" text="Nuevo" onMouseClicked="#newFolder">
 
                   <font>
                      <Font size="24.0" />
@@ -252,7 +252,9 @@
 
                <HBox alignment="CENTER_LEFT" prefHeight="88.0" prefWidth="1614.0">
                   <children>
-                     <FlowPane fx:id="Path" minHeight="-Infinity" minWidth="-Infinity" prefHeight="88.0" prefWidth="1145.0" />
+                     <FlowPane alignment="CENTER_LEFT" fx:id="PathPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="88.0" prefWidth="1145.0">
+                        <Path alignment="CENTER_LEFT" fx:id="path"/>
+                     </FlowPane>
                      <Button fx:id="viewBtn" styleClass="generic-button" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#changeFileView" prefHeight="45.0" prefWidth="45.0" translateX="285.0">
                         <font>
                            <Font size="25.0" />

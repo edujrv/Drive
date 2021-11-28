@@ -330,33 +330,32 @@ public class FileDAO {
 			outputStream.close();
 
 			System.out.println("Se descargo " + aux.getName() + "!!");
-			createFolder("prueba");
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	// TODO: Create an unploadFile function
-	public static void createFolder(String name) {
+	public static void createFolder(String name, String folderId) {
 		try {
 			File fileMetadata = new File();
 			fileMetadata.setName(name);
 			fileMetadata.setMimeType("application/vnd.google-apps.folder");
+			fileMetadata.setParents(Collections.singletonList(folderId));
 
 			File file = DriveConnection.service.files().create(fileMetadata)
 					.setFields("id")
 					.execute();
 			System.out.println("Folder ID: " + file.getId());
 
-			createFile("archivoPrueba", file.getName(), file.getId());
+			// createFile("archivoPrueba", file.getName(), file.getId());
+			// uploadFile("pruebaa", file.getId());
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	// TODO: Create an unploadFile function
 	public static void createFile(String name, String path, String folderID) {
 		try {
 			String folderId = folderID;
@@ -374,10 +373,28 @@ public class FileDAO {
 			// txt -> "text/plain"
 
 			fileMetadata.setParents(Collections.singletonList(folderId));
-			// java.io.File filePath = new java.io.File("downloads/Adidas.drawio (1).png");
-			// //Upload an especific file
-			// FileContent mediaContent = new FileContent("image/jpeg", filePath);
-			File file = DriveConnection.service.files().create(fileMetadata/* , mediaContent */)
+
+			File file = DriveConnection.service.files().create(fileMetadata)
+					.setFields("id, parents")
+					.execute();
+			System.out.println("File ID: " + file.getId());
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void uploadFile(String name, String folderID) {
+		try {
+			String folderId = folderID;
+			File fileMetadata = new File();
+			fileMetadata.setName(name);
+
+			fileMetadata.setParents(Collections.singletonList(folderId));
+			java.io.File filePath = new java.io.File("upload/prueba.txt");
+			// ## Upload an especific file
+			FileContent mediaContent = new FileContent("image/jpeg", filePath);
+			File file = DriveConnection.service.files().create(fileMetadata, mediaContent)
 					.setFields("id, parents")
 					.execute();
 			System.out.println("File ID: " + file.getId());

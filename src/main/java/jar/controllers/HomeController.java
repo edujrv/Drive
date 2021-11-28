@@ -1,5 +1,6 @@
 package jar.controllers;
 
+import jar.DriveConnection;
 import jar.dao.AboutDAO;
 import jar.dao.FileDAO;
 import jar.graphic.*;
@@ -59,14 +60,14 @@ public class HomeController implements Initializable {
     private Button cancelSearchBtn;
     @FXML
     private TextField searchBarTxtf;
+    @FXML
+    private Path path;
 
     private FlowPane folderLbls = new FlowPane();
     private FlowPane fileLbls = new FlowPane();
     private boolean normalViewFiles;
     Label carpeta = new Label("Carpetas");
     Label archivos = new Label("Archivos");
-    private Label prevLabel = null;
-    private Button prevButton = null;
     private ISelectable prevSelectedFile = null;
     private ISelectable prevSelectedSpaceBtn = null;
 
@@ -132,6 +133,9 @@ public class HomeController implements Initializable {
 
     @FXML
     public void search() {
+        // TODO: Que te muestre el archivo o carpeta con ese nombre
+        // A partir de la fun q te trae el contenido, modificar para que compare el
+        // nombre hasta encontrarlo.
         System.out.println("Lo que esta buscando es: " + searchBarTxtf.getCharacters());
     }
 
@@ -191,6 +195,38 @@ public class HomeController implements Initializable {
      * When a file or folder is selected this method is called to unselect the
      * previous file/folder and select the new one
      */
+    public void changeFolder(String idFolder, String name) throws IOException {
+        Pair<String, List<Object>> rfi = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles()
+                .fromFolder(idFolder).anyOwnership().notOrdered().build();
+        Pair<String, List<Object>> rfo = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFolders()
+                .fromFolder(idFolder).anyOwnership().notOrdered().build();
+
+        loadNewElements(rfi, rfo);
+        updatePath(idFolder, name);
+    }
+
+    private void updatePath(String idFolder, String name) {
+        // TODO: HACER LOGICA
+        path.addPath(name, idFolder, this);
+
+        // List<Folder> path = new ArrayList<Folder>();
+        // try {
+        // do {
+        // File f = DriveConnection.service.files().get(arr.get(0)).setFields(
+        // "id, name, parents, mimeType, starred, trashed, createdTime, modifiedTime,
+        // viewedByMe, viewedByMeTime, owners, shared, sharingUser")
+        // .execute();
+        // arr = f.getParents();
+        // path.add(0, FileUtils.parseFolder(f));
+        // } while (arr != null);
+        // } catch (IOException e) {
+        // e.printStackTrace();
+        // } catch (NullPointerException e) {
+        // return path;
+        // }
+
+    }
+
     public void changeFileSelection(Event e) {
         ISelectable actualSelect = (ISelectable) e.getSource();
 
@@ -207,6 +243,23 @@ public class HomeController implements Initializable {
             prevSelectedSpaceBtn.unselect();
         }
         prevSelectedSpaceBtn = actualSelect;
+    }
+
+    private void loadNewElements(Pair<String, List<Object>> rfi, Pair<String, List<Object>> rfo) {
+        fileList.getChildren().clear();
+        folderList.getChildren().clear();
+        if (rfi != null) {
+            for (Object obj : rfi.getValue()) {
+                fileList.getChildren().add(new FileFx((FileDTO) obj, this));
+            }
+        }
+
+        if (rfo != null) {
+            for (Object obj : rfo.getValue()) {
+                folderList.getChildren().add(new FolderFx((FolderDTO) obj, this));
+            }
+        }
+
     }
 
     public void changeSpace(SpaceButtonFx triggerBtn) throws IOException {
@@ -236,19 +289,7 @@ public class HomeController implements Initializable {
             rfi = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles().fromAnywhere().myOwnershipOnly()
                     .orderBySize().build();
         }
-        fileList.getChildren().clear();
-        folderList.getChildren().clear();
-        if (rfi != null) {
-            for (Object obj : rfi.getValue()) {
-                fileList.getChildren().add(new FileFx((FileDTO) obj, this));
-            }
-        }
-
-        if (rfo != null) {
-            for (Object obj : rfo.getValue()) {
-                folderList.getChildren().add(new FolderFx((FolderDTO) obj, this));
-            }
-        }
+        loadNewElements(rfi, rfo);
     }
 
     @Override
@@ -366,4 +407,12 @@ public class HomeController implements Initializable {
             System.out.println(e);
         }
     }
+
+    public void newFolder() throws IOException {
+        // TODO: Get the present folder or path
+        String actualFolderId = path.getActualFolderID();
+        FileDAO.createFolder("KLAN Nueva carpeta", actualFolderId);
+        changeFolder(actualFolderId, path.getActualFolderName());
+    }
+
 }

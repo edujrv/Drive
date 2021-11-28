@@ -11,6 +11,4 @@ target/*
 *.log
 fxrun.sh
 downloads/
-uploads/
 download/
-upload/
