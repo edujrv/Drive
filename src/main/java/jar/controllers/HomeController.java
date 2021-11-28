@@ -366,4 +366,18 @@ public class HomeController implements Initializable {
             System.out.println(e);
         }
     }
+
+    public void newFolder() {
+        //TODO: Get the present folder
+        FileDAO.createFolder("Nueva carpeta");
+    }
+
+    @FXML
+    public void toggleNewFolderPopUp() throws IOException {
+        NewFolderFx pop = new NewFolderFx();
+        pop.hideOnEscapeProperty().set(true);
+        pop.autoHideProperty().set(true);
+        pop.show(popupPane, 500, 350);
+        pop.openClose();
+    }
 }

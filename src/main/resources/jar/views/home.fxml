@@ -35,7 +35,7 @@
          <VBox fx:id="spaceVBox" minWidth="-Infinity" prefHeight="958.0" prefWidth="310.0" BorderPane.alignment="CENTER">
             <children>
 
-               <Button fx:id="newElementBtn" styleClass="left-pane__new-file" minWidth="-Infinity" mnemonicParsing="false" prefHeight="82.0" prefWidth="188.0" text="Nuevo">
+               <Button fx:id="newElementBtn" styleClass="left-pane__new-file" minWidth="-Infinity" mnemonicParsing="false" prefHeight="82.0" prefWidth="188.0" text="Nuevo" onMouseClicked="#toggleNewFolderPopUp">
 
                   <font>
                      <Font size="24.0" />
