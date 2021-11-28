@@ -415,4 +415,12 @@ public class HomeController implements Initializable {
         changeFolder(actualFolderId, path.getActualFolderName());
     }
 
+    @FXML
+    public void toggleNewFolderPopUp() throws IOException {
+        NewFolderFx pop = new NewFolderFx();
+        pop.hideOnEscapeProperty().set(true);
+        pop.autoHideProperty().set(true);
+        pop.show(popupPane, 500, 350);
+        pop.openClose();
+    }
 }
