@@ -21,16 +21,8 @@ public class Path extends HBox {
     Button root;
 
     public Path() {
-    }
-
-    public Path(List<Folder> path) {
-        // for (Folder item : path) {
-        // if (path.listIterator().hasNext()) {
-        // addPath(parseFolder(item.getName(), item.getIdElement()), pacman());
-        // } else {
-        // addPath(parseFolder(item.getName(), item.getIdElement()), flechaPabajo());
-        // }
-        // }
+        // this.getChildren().addAll(root, flechaPabajo());
+        setRoot("Mi unidad");
     }
 
     public void setRoot(String name) {
@@ -43,59 +35,44 @@ public class Path extends HBox {
         this.getChildren().addAll(root, flechaPabajo());
     }
 
-    // public void CompletedPath() {
-    // addPath(parseFolder("Hola que tal", "534"), pacman());
-    // addPath(parseFolder("Bien, gracias", "sgdf"), pacman());
-    // addPath(parseFolder("SII, genial. Seremos amigos por siempre!!!!", "gsgfgg"),
-    // flechaPabajo());
-    // }
+    public void updatePath(PathButton pBtn, HomeController hController) {
+        this.getChildren().clear();
+        this.getChildren().addAll(root, pacman());
+        Stack<Button> buttons = new Stack<Button>();
 
-    public void addPath(String name, String idFolder, HomeController hcontroller) {
+        List<String> actualFolder = List.of(pBtn.getId());
+
+        // Recorre todas las carpetas padres
+        try {
+            do {
+                File f = DriveConnection.service.files().get(actualFolder.get(0))
+                        .setFields("id, name, parents")
+                        .execute();
+                actualFolder = f.getParents();
+                buttons.add(flechaPabajo());
+                buttons.add(new PathButton(f.getName(), f.getId(), hController, this));
+            } while (actualFolder != null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // buttons.add(next);
+        // buttons.add(folder);
+
+        while (!buttons.isEmpty())
+            this.getChildren().add(buttons.pop());
+
+    }
+
+    public void addPath(String name, String idFolder, HomeController hController) {
         // reemplaza la flecha abajo con el pacman del ultimo elemento
         if (this.getChildren().size() >= 2) {
             this.getChildren().remove(this.getChildren().size() - 1);
             this.getChildren().add(pacman());
         }
-        ObservableList<Node> children = this.getChildren();
 
         Button next = flechaPabajo();
-        Button folder = parseFolder(name, idFolder);
-        folder.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    hcontroller.changeFolder(idFolder, name);
+        PathButton folder = new PathButton(name, idFolder, hController, this);
 
-                    children.clear();
-                    children.addAll(root, pacman());
-                    Stack<Button> buttons = new Stack<Button>();
-
-                    List<String> actualFolder = List.of(idFolder);
-
-                    // Recorre todas las carpetas padres
-                    try {
-                        do {
-                            File f = DriveConnection.service.files().get(actualFolder.get(0))
-                                    .setFields("id, name, parents")
-                                    .execute();
-                            actualFolder = f.getParents();
-                            buttons.add(flechaPabajo());
-                            buttons.add(parseFolder(f.getName(), f.getId()));
-                        } while (actualFolder != null);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    // buttons.add(next);
-                    // buttons.add(folder);
-
-                    while (!buttons.isEmpty())
-                        children.add(buttons.pop());
-                    // this.getChildren().setAll((Node[]) children.toArray());
-                } catch (IOException e) {
-                    System.out.println("No se pudo volver a la carpeta " + name);
-                }
-            }
-        });
         addPathButton(folder, next);
     }
 

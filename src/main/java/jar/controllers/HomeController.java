@@ -195,14 +195,15 @@ public class HomeController implements Initializable {
      * When a file or folder is selected this method is called to unselect the
      * previous file/folder and select the new one
      */
-    public void changeFolder(String idFolder, String name) throws IOException {
+    public void changeFolder(String idFolder, String name, boolean isUpdatePath) throws IOException {
         Pair<String, List<Object>> rfi = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles()
                 .fromFolder(idFolder).anyOwnership().notOrdered().build();
         Pair<String, List<Object>> rfo = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFolders()
                 .fromFolder(idFolder).anyOwnership().notOrdered().build();
 
         loadNewElements(rfi, rfo);
-        updatePath(idFolder, name);
+        if (isUpdatePath)
+            updatePath(idFolder, name);
     }
 
     private void updatePath(String idFolder, String name) {
@@ -412,7 +413,7 @@ public class HomeController implements Initializable {
         // TODO: Get the present folder or path
         String actualFolderId = path.getActualFolderID();
         FileDAO.createFolder("KLAN Nueva carpeta", actualFolderId);
-        changeFolder(actualFolderId, path.getActualFolderName());
+        changeFolder(actualFolderId, path.getActualFolderName(), true);
     }
 
     @FXML
