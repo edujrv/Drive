@@ -36,7 +36,7 @@
             <children>
 
                <!-- <Button fx:id="newElementBtn" styleClass="left-pane__new-file" minWidth="-Infinity" mnemonicParsing="false" prefHeight="82.0" prefWidth="188.0" text="Nuevo" onMouseClicked="#newFolder"> -->
-               <Button fx:id="newElementBtn" styleClass="left-pane__new-file" minWidth="-Infinity" mnemonicParsing="false" prefHeight="82.0" prefWidth="188.0" text="Nuevo" onMouseClicked="#toggleNewFolderPopUp">
+               <Button fx:id="newElementBtn" styleClass="left-pane__new-file" minWidth="-Infinity" mnemonicParsing="false" prefHeight="82.0" prefWidth="188.0" text="Nuevo" onMouseClicked="#toggleNewMenuPopUp">
 
                   <font>
                      <Font size="24.0" />

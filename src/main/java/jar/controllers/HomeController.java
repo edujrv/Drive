@@ -416,11 +416,23 @@ public class HomeController implements Initializable {
     }
 
     @FXML
-    public void toggleNewFolderPopUp() throws IOException {
-        NewFolderFx pop = new NewFolderFx();
+    public void toggleNewMenuPopUp() throws IOException {
+        NewMenuFx pop = new NewMenuFx(popupPane);
         pop.hideOnEscapeProperty().set(true);
         pop.autoHideProperty().set(true);
         pop.show(popupPane, 500, 350);
         pop.openClose();
     }
+
+    /*
+     * @FXML
+     * public void toggleNewFolderPopUp() throws IOException {
+     * NewFolderFx pop = new NewFolderFx();
+     * pop.hideOnEscapeProperty().set(true);
+     * pop.autoHideProperty().set(true);
+     * pop.show(popupPane, 500, 350);
+     * pop.openClose();
+     * }
+     */
+
 }
