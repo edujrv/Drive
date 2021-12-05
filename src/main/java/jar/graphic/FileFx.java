@@ -1,11 +1,8 @@
 package jar.graphic;
 
-import java.io.IOException;
-
 import jar.controllers.HomeController;
 import jar.dao.FileDAO;
 import jar.model.ContentType;
-import jar.model.File;
 import jar.model.dto.FileDTO;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;

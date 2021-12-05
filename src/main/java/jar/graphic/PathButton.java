@@ -21,18 +21,23 @@ public class PathButton extends Button {
 
         this.setText(name);
         this.setId(id);
+        setAction(hController, path);
+    }
+
+    protected void setAction(HomeController hController, Path path) {
         PathButton pBtn = this;
         this.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 try {
-                    hController.changeFolder(id, name, false);
+                    hController.changeFolder(pBtn.getId(), pBtn.getText(), false);
                     path.updatePath(pBtn, hController);
                 } catch (IOException e) {
                     System.out.println("No se pudo cambiar la carpeta [PathButton]");
                 }
             }
         });
+
     }
 
 }

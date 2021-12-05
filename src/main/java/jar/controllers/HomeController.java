@@ -1,6 +1,5 @@
 package jar.controllers;
 
-import jar.DriveConnection;
 import jar.dao.AboutDAO;
 import jar.dao.FileDAO;
 import jar.graphic.*;
@@ -203,29 +202,7 @@ public class HomeController implements Initializable {
 
         loadNewElements(rfi, rfo);
         if (isUpdatePath)
-            updatePath(idFolder, name);
-    }
-
-    private void updatePath(String idFolder, String name) {
-        // TODO: HACER LOGICA
-        path.addPath(name, idFolder, this);
-
-        // List<Folder> path = new ArrayList<Folder>();
-        // try {
-        // do {
-        // File f = DriveConnection.service.files().get(arr.get(0)).setFields(
-        // "id, name, parents, mimeType, starred, trashed, createdTime, modifiedTime,
-        // viewedByMe, viewedByMeTime, owners, shared, sharingUser")
-        // .execute();
-        // arr = f.getParents();
-        // path.add(0, FileUtils.parseFolder(f));
-        // } while (arr != null);
-        // } catch (IOException e) {
-        // e.printStackTrace();
-        // } catch (NullPointerException e) {
-        // return path;
-        // }
-
+            path.addPath(name, idFolder, this);
     }
 
     public void changeFileSelection(Event e) {
@@ -246,7 +223,7 @@ public class HomeController implements Initializable {
         prevSelectedSpaceBtn = actualSelect;
     }
 
-    private void loadNewElements(Pair<String, List<Object>> rfi, Pair<String, List<Object>> rfo) {
+    public void loadNewElements(Pair<String, List<Object>> rfi, Pair<String, List<Object>> rfo) {
         fileList.getChildren().clear();
         folderList.getChildren().clear();
         if (rfi != null) {
@@ -263,34 +240,49 @@ public class HomeController implements Initializable {
 
     }
 
-    public void changeSpace(SpaceButtonFx triggerBtn) throws IOException {
-        Pair<String, List<Object>> rfi = null;
+    public Pair<String, List<Object>> reloadFolders(String space) throws IOException {
         Pair<String, List<Object>> rfo = null;
-        if (triggerBtn.getId().equals("miUnidadBtn")) {
-            rfi = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles().fromMyDrive().myOwnershipOnly()
-                    .notOrdered().build();
+        if (space.equals("miUnidadBtn"))
             rfo = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFolders().fromMyDrive().myOwnershipOnly()
                     .notOrdered().build();
-        } else if (triggerBtn.getId().equals("shareBtn")) {
-            rfi = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles().fromShared().notOrdered()
-                    .build();
+        else if (space.equals("shareBtn"))
             rfo = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFolders().fromShared().notOrdered()
                     .build();
-        } else if (triggerBtn.getId().equals("recientBtn")) {
-            rfi = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles().fromRecent().anyFiles().build();
-        } else if (triggerBtn.getId().equals("starredBtn")) {
-            rfi = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles().fromStarred().anyOwnership()
-                    .notOrdered().build();
+        else if (space.equals("starredBtn"))
             rfo = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFolders().fromStarred().anyOwnership()
                     .notOrdered().build();
-        } else if (triggerBtn.getId().equals("trashBtn")) {
-            rfi = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles().fromTrashed().build();
+        else if (space.equals("trashBtn"))
             rfo = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFolders().fromTrashed().build();
-        } else {
+        return rfo;
+    }
+
+    public Pair<String, List<Object>> reloadFiles(String space) throws IOException {
+        Pair<String, List<Object>> rfi = null;
+        if (space.equals("miUnidadBtn"))
+            rfi = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles().fromMyDrive().myOwnershipOnly()
+                    .notOrdered().build();
+        else if (space.equals("shareBtn"))
+            rfi = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles().fromShared().notOrdered()
+                    .build();
+        else if (space.equals("recientBtn"))
+            rfi = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles().fromRecent().anyFiles().build();
+        else if (space.equals("starredBtn"))
+            rfi = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles().fromStarred().anyOwnership()
+                    .notOrdered().build();
+        else if (space.equals("trashBtn"))
+            rfi = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles().fromTrashed().build();
+        else if (space.equals("storageBtn"))
             rfi = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles().fromAnywhere().myOwnershipOnly()
                     .orderBySize().build();
-        }
+        return rfi;
+    }
+
+    public void changeSpace(SpaceButtonFx triggerBtn) throws IOException {
+        Pair<String, List<Object>> rfi = reloadFiles(triggerBtn.getId());
+        Pair<String, List<Object>> rfo = reloadFolders(triggerBtn.getId());
+
         loadNewElements(rfi, rfo);
+        path.setRoot(triggerBtn.getText(), triggerBtn.getId(), this);
     }
 
     @Override
@@ -304,6 +296,7 @@ public class HomeController implements Initializable {
         aux.add(new SpaceButtonFx("starredBtn", "Destacados", this));
         aux.add(new SpaceButtonFx("trashBtn", "Papelera", this));
         aux.add(new SpaceButtonFx("storageBtn", "Almacenamiento", this, new Insets(60, 0, 0, 0)));
+        path.setRoot(aux.get(0).getText(), aux.get(0).getId(), this);
 
         aux.get(0).select();
         prevSelectedSpaceBtn = aux.get(0);

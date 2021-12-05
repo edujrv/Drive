@@ -1,43 +1,34 @@
 package jar.graphic;
 
-import jar.DriveConnection;
-import jar.controllers.HomeController;
-import jar.model.Folder;
-import javafx.scene.layout.*;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Stack;
-import java.util.function.Function;
 
 import com.google.api.services.drive.model.File;
 
-public class Path extends HBox {
-    Button root;
+import jar.DriveConnection;
+import jar.controllers.HomeController;
+import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 
-    public Path() {
-        // this.getChildren().addAll(root, flechaPabajo());
-        setRoot("Mi unidad");
+public class Path extends HBox {
+    PathRootButton rootBtn;
+
+    public void setRoot(PathRootButton rootBtn, HomeController hController) {
+        this.rootBtn = rootBtn;
+        this.getChildren().clear();
+        this.getChildren().addAll(rootBtn, flechaPabajo());
     }
 
-    public void setRoot(String name) {
-        // Un boton recibe:
-        // 1. Nombre
-        // 2. Accion en caso de hacerse click
-        // TODO
-        root = new Button(name);
+    public void setRoot(String name, String unitName, HomeController hController) {
+        rootBtn = new PathRootButton(name, unitName, hController, this);
         this.getChildren().clear();
-        this.getChildren().addAll(root, flechaPabajo());
+        this.getChildren().addAll(rootBtn, flechaPabajo());
     }
 
     public void updatePath(PathButton pBtn, HomeController hController) {
         this.getChildren().clear();
-        this.getChildren().addAll(root, pacman());
+        this.getChildren().addAll(rootBtn, pacman());
         Stack<Button> buttons = new Stack<Button>();
 
         List<String> actualFolder = List.of(pBtn.getId());
@@ -49,14 +40,15 @@ public class Path extends HBox {
                         .setFields("id, name, parents")
                         .execute();
                 actualFolder = f.getParents();
-                buttons.add(flechaPabajo());
-                buttons.add(new PathButton(f.getName(), f.getId(), hController, this));
+                if (!(f.getName().equals("Mi unidad") && actualFolder == null)) {
+                    buttons.add(pacman());
+                    buttons.add(new PathButton(f.getName(), f.getId(), hController, this));
+                }
             } while (actualFolder != null);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        // buttons.add(next);
-        // buttons.add(folder);
+        buttons.set(0, flechaPabajo());
 
         while (!buttons.isEmpty())
             this.getChildren().add(buttons.pop());
@@ -73,7 +65,7 @@ public class Path extends HBox {
         Button next = flechaPabajo();
         PathButton folder = new PathButton(name, idFolder, hController, this);
 
-        addPathButton(folder, next);
+        this.getChildren().addAll(folder, next);
     }
 
     public String getActualFolderID() {
@@ -84,30 +76,7 @@ public class Path extends HBox {
         return ((Button) this.getChildren().get(this.getChildren().size() - 2)).getText();
     }
 
-    private void addPathButton(Button folder, Button next) {
-        this.getChildren().addAll(folder, next);
-    }
-
-    public static Button parseFolder(String name, String folderId) {
-
-        Button folder = new Button();
-        folder.setText(name);
-        folder.setId(folderId);
-
-        folder.setStyle("-fx-text-fill: #3e3e3e;" +
-                "    -fx-text-alignment: center;" +
-                "    -fx-background-color: TRANSPARENT;" +
-                "    -fx-background-radius: 40;" +
-                "    -fx-font: Normal 24 'Agency FB';" +
-                "    -fx-pref-height: 40;" +
-                "    -fx-max-width: 200;" +
-                "    -fx-cursor: HAND;" +
-                "    -fx-padding: 0 5 0 5  ");
-
-        return folder;
-    }
-
-    public Button flechaPabajo() {
+    private Button flechaPabajo() {
         Button flecha = new Button();
 
         flecha.setText("▼");
@@ -124,7 +93,7 @@ public class Path extends HBox {
         return flecha;
     }
 
-    public Button pacman() {
+    private Button pacman() {
         Button pacman = new Button();
 
         pacman.setText(" > ");
