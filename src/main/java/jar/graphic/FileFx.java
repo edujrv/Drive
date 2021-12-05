@@ -1,11 +1,8 @@
 package jar.graphic;
 
-import java.io.IOException;
-
 import jar.controllers.HomeController;
 import jar.dao.FileDAO;
 import jar.model.ContentType;
-import jar.model.File;
 import jar.model.dto.FileDTO;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
@@ -50,11 +47,21 @@ public class FileFx extends VBox implements ISelectable {
     private Image chooseImage(ContentType.TYPE type) {
         switch (type) {
             case OFFICE:
-                return new Image("jar/images/office.png");
+                return new Image("jar/images/by-content-type/office.png");
+            case IMAGE:
+                return new Image("jar/images/by-content-type/image.png");
+            case PDF:
+                return new Image("jar/images/by-content-type/pdf.png");
+            case VIDEO:
+                return new Image("jar/images/by-content-type/video.png");
+            case AUDIO:
+                return new Image("jar/images/by-content-type/audio.png");
+            case TEXT:
+                return new Image("jar/images/by-content-type/text.png");
 
             // TODO: Poner imagen para UNKNOWN
             default:
-                return new Image("jar/images/office.png");
+                return new Image("jar/images/by-content-type/unknown.png");
         }
     }
 

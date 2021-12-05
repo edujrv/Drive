@@ -2,19 +2,17 @@ package jar.graphic;
 
 import java.io.IOException;
 
-import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Popup;
-import javafx.util.Duration;
 
 public class NewFolderFx extends Popup {
 
     // GridPane gridpane = new GridPane();
-    // TranslateTransition openNav = new TranslateTransition(new Duration(50), gridpane);
-    // TranslateTransition closeNav = new TranslateTransition(new Duration(50), gridpane);
+    // TranslateTransition openNav = new TranslateTransition(new Duration(50),
+    // gridpane);
+    // TranslateTransition closeNav = new TranslateTransition(new Duration(50),
+    // gridpane);
     // Timeline openResize = new Timeline();
     // Timeline closeResize = new Timeline();
     // private double height = 914.0;

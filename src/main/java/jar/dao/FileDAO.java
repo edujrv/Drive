@@ -1,6 +1,5 @@
 package jar.dao;
 
-import java.io.FileInputStream;
 //Imports
 import java.io.FileOutputStream;
 import java.io.IOException;

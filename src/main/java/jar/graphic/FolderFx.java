@@ -7,7 +7,6 @@ import jar.dao.FileDAO;
 import jar.model.Folder;
 import jar.model.dto.FolderDTO;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -44,7 +43,7 @@ public class FolderFx extends HBox implements ISelectable {
                                                         + aux.getContent().getContentType().getType());
 
                                         try {
-                                                hcontroller.changeFolder(aux.getIdElement(), aux.getName());
+                                                hcontroller.changeFolder(aux.getIdElement(), aux.getName(), true);
                                         } catch (IOException e) {
                                                 System.out.println("No se pudo cambiar de carpeta");
                                         }
