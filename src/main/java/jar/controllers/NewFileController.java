@@ -22,11 +22,16 @@ public class NewFileController {
 
     @FXML
     private void close(Event e) {
+        closeBtn = (Button) e.getSource();
+        System.out.println(closeBtn.getParent().getParent());
+        closeBtn.getParent().getParent().setVisible(false);
+        HomeController.closeMenu();
     }
 
     @FXML
     private void create(Event e) {
         FileDAO.createFile(folderName.getText(), actualFolderId);
+        close(e);
     }
 
 }

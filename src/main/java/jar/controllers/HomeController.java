@@ -78,7 +78,7 @@ public class HomeController implements Initializable {
     Label archivos = new Label("Archivos");
     private ISelectable prevSelectedFile = null;
     private ISelectable prevSelectedSpaceBtn = null;
-    NewMenuFx nuevoMenu = new NewMenuFx();
+    static NewMenuFx nuevoMenu = new NewMenuFx();
 
     @FXML
     public void goHome() {
@@ -416,9 +416,10 @@ public class HomeController implements Initializable {
     public void toggleNewMenuPopUp() throws IOException {
         String fId = path.getActualFolderID().equals("miUnidadBtn") ? null : path.getActualFolderID();
         nuevoMenu = new NewMenuFx(newElementBtn, fId);
+        
     }
 
-    public void closeMenu() {
+    public static void closeMenu() {
         nuevoMenu.close();
     }
 

@@ -16,7 +16,7 @@ import javafx.scene.input.MouseEvent;
 public class NewMenuController {
 
     @FXML
-    private Button closeBtn;
+    private static Button closeBtn;
     @FXML
     private Button newFolder;
 
@@ -27,7 +27,7 @@ public class NewMenuController {
     }
 
     @FXML
-    public void toggleNewFolderPopUp() throws IOException {
+    public void toggleNewFolderPopUp(Event e) throws IOException {
         new NewFolderFx(newFolder, actualFolderId);
     }
 
@@ -37,12 +37,13 @@ public class NewMenuController {
     }
 
     @FXML
-    public void uploadFile() throws IOException {
+    public void uploadFile(Event e) throws IOException {
         FileDAO.uploadFile(actualFolderId);
+        close(e);
     }
 
     @FXML
-    private void close(Event e) {
+    static void close(Event e) {
 
         closeBtn = (Button) e.getSource();
         System.out.println(closeBtn.getParent().getParent());
