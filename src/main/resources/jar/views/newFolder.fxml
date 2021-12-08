@@ -14,7 +14,7 @@
       <VBox prefHeight="158.0" prefWidth="599.0" style="-fx-background-color: #F4F4F4; -fx-border-color: #4d4d4d #4d4d4d #4d4d4d #4d4d4d; -fx-border-width: 1;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Pane prefHeight="30.0" prefWidth="675.0" />
-            <TextField prefHeight="40.0" prefWidth="673.0" promptText="Ingrese el nombre de la carpeta" text="Ingrese el nombre de la carpeta">
+            <TextField fx:id="folderName" prefHeight="40.0" prefWidth="673.0" promptText="Ingrese el nombre de la carpeta">
                <font>
                   <Font size="19.0" />
                </font>
@@ -28,11 +28,11 @@
             <Pane prefHeight="28.0" prefWidth="675.0" />
             <HBox prefHeight="40.0" prefWidth="673.0">
                <children>
-                  <Button mnemonicParsing="false" onMouseClicked="#close" prefHeight="43.0" prefWidth="174.0" style="-fx-background-color: #ff6666;" styleClass="generic-button" stylesheets="@../style.css" text="Cancelar">
+                  <Button fx:id="closeBtn" mnemonicParsing="false" onMouseClicked="#close" prefHeight="43.0" prefWidth="174.0" style="-fx-background-color: #ff6666;" styleClass="generic-button" stylesheets="@../style.css" text="Cancelar">
                      <HBox.margin>
                         <Insets bottom="3.0" left="2.0" />
                      </HBox.margin></Button>
-                  <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="174.0" style="-fx-background-color: #2eb82e;" styleClass="generic-button" stylesheets="@../style.css" text="Aceptar">
+                  <Button mnemonicParsing="false" onMouseClicked="#create" prefHeight="43.0" prefWidth="174.0" style="-fx-background-color: #2eb82e;" styleClass="generic-button" stylesheets="@../style.css" text="Aceptar">
                      <HBox.margin>
                         <Insets bottom="3.0" left="330.0" right="2.0" />
                      </HBox.margin>

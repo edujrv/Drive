@@ -2,7 +2,7 @@ package jar.controllers;
 
 import java.io.IOException;
 
-import jar.graphic.NewMenuFx;
+import jar.graphic.NewFolderFx;
 import jar.graphic.SearchbarFx;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -14,10 +14,18 @@ public class NewMenuController {
 
     @FXML
     private Button closeBtn;
+    @FXML
+    private Button newFolder;
+
+    private String actualFolderId;
+
+    public void setActualFolderId(String actualFolderId) {
+        this.actualFolderId = actualFolderId;
+    }
 
     @FXML
     public void toggleNewFolderPopUp() throws IOException {
-
+        new NewFolderFx(newFolder, actualFolderId);
     }
 
     @FXML

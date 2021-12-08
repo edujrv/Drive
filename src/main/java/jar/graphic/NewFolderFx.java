@@ -2,8 +2,11 @@ package jar.graphic;
 
 import java.io.IOException;
 
+import jar.controllers.NewFolderController;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Bounds;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.stage.Popup;
 
 public class NewFolderFx extends Popup {
@@ -17,12 +20,19 @@ public class NewFolderFx extends Popup {
     // Timeline closeResize = new Timeline();
     // private double height = 914.0;
 
-    public NewFolderFx() {
+    public NewFolderFx(Button btn, String actualFolderId) {
+        Bounds pos = btn.localToScreen(btn.getBoundsInLocal());
+
+        this.hideOnEscapeProperty().set(true);
+        this.autoHideProperty().set(true);
+        this.show(btn, pos.getMaxX(), pos.getCenterY());
+        this.openClose();
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/newFolder.fxml"));
-
             this.getContent().add((Parent) loader.load());
+            NewFolderController controller = loader.getController();
+            controller.setActualFolderId(actualFolderId);
         } catch (Exception e) {
             System.out.println(e);
         }

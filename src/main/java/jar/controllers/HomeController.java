@@ -1,8 +1,23 @@
 package jar.controllers;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
+
 import jar.dao.AboutDAO;
 import jar.dao.FileDAO;
-import jar.graphic.*;
+import jar.graphic.FileFx;
+import jar.graphic.FolderFx;
+import jar.graphic.ISelectable;
+import jar.graphic.NewMenuFx;
+import jar.graphic.Path;
+import jar.graphic.SearchbarFx;
+import jar.graphic.SidebarFx;
+import jar.graphic.SpaceButtonFx;
 import jar.model.dto.FileDTO;
 import jar.model.dto.FolderDTO;
 import javafx.event.Event;
@@ -23,14 +38,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.util.Pair;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
 
 public class HomeController implements Initializable {
     @FXML
@@ -61,6 +68,8 @@ public class HomeController implements Initializable {
     private TextField searchBarTxtf;
     @FXML
     private Path path;
+    @FXML
+    private Button newElementBtn;
 
     private FlowPane folderLbls = new FlowPane();
     private FlowPane fileLbls = new FlowPane();
@@ -411,11 +420,8 @@ public class HomeController implements Initializable {
 
     @FXML
     public void toggleNewMenuPopUp() throws IOException {
-        NewMenuFx pop = new NewMenuFx(popupPane);
-        pop.hideOnEscapeProperty().set(true);
-        pop.autoHideProperty().set(true);
-        pop.show(popupPane, 500, 350);
-        pop.openClose();
+        String fId = path.getActualFolderID().equals("miUnidadBtn") ? null : path.getActualFolderID();
+        new NewMenuFx(newElementBtn, fId);
     }
 
     /*

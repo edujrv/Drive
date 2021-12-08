@@ -340,7 +340,8 @@ public class FileDAO {
 			File fileMetadata = new File();
 			fileMetadata.setName(name);
 			fileMetadata.setMimeType("application/vnd.google-apps.folder");
-			fileMetadata.setParents(Collections.singletonList(folderId));
+			if (folderId != null)
+				fileMetadata.setParents(Collections.singletonList(folderId));
 
 			File file = DriveConnection.service.files().create(fileMetadata)
 					.setFields("id")

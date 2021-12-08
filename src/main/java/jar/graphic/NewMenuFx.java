@@ -2,14 +2,12 @@ package jar.graphic;
 
 import java.io.IOException;
 
-import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
+import jar.controllers.NewMenuController;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Bounds;
 import javafx.scene.Parent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.Button;
 import javafx.stage.Popup;
-import javafx.util.Duration;
 
 public class NewMenuFx extends Popup {
 
@@ -21,18 +19,24 @@ public class NewMenuFx extends Popup {
     // Timeline openResize = new Timeline();
     // Timeline closeResize = new Timeline();
     // private double height = 914.0;
-    public Pane popupPane;
+    public Button newElementBtn;
 
-    public NewMenuFx(Pane popupPane) {
+    public NewMenuFx(Button newElementBtn, String folderId) {
+        Bounds pos = newElementBtn.localToScreen(newElementBtn.getBoundsInLocal());
 
-        this.popupPane = popupPane;
+        this.hideOnEscapeProperty().set(true);
+        this.autoHideProperty().set(true);
+        this.show(newElementBtn, pos.getWidth(), pos.getCenterY());
+        this.openClose();
+        this.newElementBtn = newElementBtn;
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/newMenu.fxml"));
-
             this.getContent().add((Parent) loader.load());
+            NewMenuController controller = loader.getController();
+            controller.setActualFolderId(folderId);
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
 
     }
@@ -51,12 +55,12 @@ public class NewMenuFx extends Popup {
         this.hide();
     }
 
-    public void createNewFolder() {
-        NewFolderFx pop = new NewFolderFx();
-        pop.hideOnEscapeProperty().set(true);
-        pop.autoHideProperty().set(true);
-        pop.show(popupPane, 500, 350);
-        pop.openClose();
-    }
+    // public void createNewFolder() {
+    // NewFolderFx pop = new NewFolderFx();
+    // pop.hideOnEscapeProperty().set(true);
+    // pop.autoHideProperty().set(true);
+    // pop.show(newElementBtn, 500, 350);
+    // pop.openClose();
+    // }
 
 }

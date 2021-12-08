@@ -12,9 +12,9 @@
             <Pane prefHeight="30.0" prefWidth="675.0" />
             <Pane prefHeight="261.0" prefWidth="673.0">
                <children>
-                  <Button layoutX="71.0" layoutY="27.0" mnemonicParsing="false" onMouseClicked="#toggleNewFolderPopUp" prefHeight="43.0" prefWidth="174.0" style="-fx-background-color: #40c5af;" styleClass="generic-button" stylesheets="@../style.css" text="Crear carpeta" />
-                  <Button layoutX="71.0" layoutY="94.0" mnemonicParsing="false" onMouseClicked="#close" prefHeight="43.0" prefWidth="174.0" style="-fx-background-color: #40c5af;" styleClass="generic-button" stylesheets="@../style.css" text="Crear archivo" />
-                  <Button layoutX="71.0" layoutY="162.0" mnemonicParsing="false" onMouseClicked="#close" prefHeight="43.0" prefWidth="174.0" style="-fx-background-color: #40c5af;" styleClass="generic-button" stylesheets="@../style.css" text="Subir archivo" />
+                  <Button fx:id="newFolder" layoutX="71.0" layoutY="27.0" mnemonicParsing="false" onMouseClicked="#toggleNewFolderPopUp" prefHeight="43.0" prefWidth="174.0" style="-fx-background-color: #40c5af;" styleClass="generic-button" stylesheets="@../style.css" text="Crear carpeta" />
+                  <Button fx:id="newFile" layoutX="71.0" layoutY="94.0" mnemonicParsing="false" onMouseClicked="#close" prefHeight="43.0" prefWidth="174.0" style="-fx-background-color: #40c5af;" styleClass="generic-button" stylesheets="@../style.css" text="Crear archivo" />
+                  <Button fx:id="uploadFile" layoutX="71.0" layoutY="162.0" mnemonicParsing="false" onMouseClicked="#close" prefHeight="43.0" prefWidth="174.0" style="-fx-background-color: #40c5af;" styleClass="generic-button" stylesheets="@../style.css" text="Subir archivo" />
                </children>
             </Pane>
          </children>
