@@ -78,6 +78,7 @@ public class HomeController implements Initializable {
     Label archivos = new Label("Archivos");
     private ISelectable prevSelectedFile = null;
     private ISelectable prevSelectedSpaceBtn = null;
+    NewMenuFx nuevoMenu = new NewMenuFx();
 
     @FXML
     public void goHome() {
@@ -411,28 +412,14 @@ public class HomeController implements Initializable {
         }
     }
 
-    public void newFolder() throws IOException {
-        // TODO: Get the present folder or path
-        String actualFolderId = path.getActualFolderID();
-        FileDAO.createFolder("KLAN Nueva carpeta", actualFolderId);
-        changeFolder(actualFolderId, path.getActualFolderName(), true);
-    }
-
     @FXML
     public void toggleNewMenuPopUp() throws IOException {
         String fId = path.getActualFolderID().equals("miUnidadBtn") ? null : path.getActualFolderID();
-        new NewMenuFx(newElementBtn, fId);
+        nuevoMenu = new NewMenuFx(newElementBtn, fId);
     }
 
-    /*
-     * @FXML
-     * public void toggleNewFolderPopUp() throws IOException {
-     * NewFolderFx pop = new NewFolderFx();
-     * pop.hideOnEscapeProperty().set(true);
-     * pop.autoHideProperty().set(true);
-     * pop.show(popupPane, 500, 350);
-     * pop.openClose();
-     * }
-     */
+    public void closeMenu() {
+        nuevoMenu.close();
+    }
 
 }

@@ -2,7 +2,10 @@ package jar.controllers;
 
 import java.io.IOException;
 
+import jar.dao.FileDAO;
+import jar.graphic.NewFileFx;
 import jar.graphic.NewFolderFx;
+import jar.graphic.NewMenuFx;
 import jar.graphic.SearchbarFx;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -26,6 +29,16 @@ public class NewMenuController {
     @FXML
     public void toggleNewFolderPopUp() throws IOException {
         new NewFolderFx(newFolder, actualFolderId);
+    }
+
+    @FXML
+    public void toggleNewFilePopUp() throws IOException {
+        new NewFileFx(newFolder, actualFolderId);
+    }
+
+    @FXML
+    public void uploadFile() throws IOException {
+        FileDAO.uploadFile(actualFolderId);
     }
 
     @FXML

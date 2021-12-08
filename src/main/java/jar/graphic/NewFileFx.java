@@ -2,14 +2,15 @@ package jar.graphic;
 
 import java.io.IOException;
 
-import jar.controllers.NewMenuController;
+import jar.controllers.NewFileController;
+import jar.controllers.NewFolderController;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.stage.Popup;
 
-public class NewMenuFx extends Popup {
+public class NewFileFx extends Popup {
 
     // GridPane gridpane = new GridPane();
     // TranslateTransition openNav = new TranslateTransition(new Duration(50),
@@ -19,27 +20,22 @@ public class NewMenuFx extends Popup {
     // Timeline openResize = new Timeline();
     // Timeline closeResize = new Timeline();
     // private double height = 914.0;
-    public Button newElementBtn;
 
-    public NewMenuFx() {
-    }
-
-    public NewMenuFx(Button newElementBtn, String folderId) {
-        Bounds pos = newElementBtn.localToScreen(newElementBtn.getBoundsInLocal());
+    public NewFileFx(Button btn, String actualFolderId) {
+        Bounds pos = btn.localToScreen(btn.getBoundsInLocal());
 
         this.hideOnEscapeProperty().set(true);
         this.autoHideProperty().set(true);
-        this.show(newElementBtn, pos.getWidth(), pos.getCenterY());
+        this.show(btn, pos.getMaxX(), pos.getCenterY());
         this.openClose();
-        this.newElementBtn = newElementBtn;
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/newMenu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/newFile.fxml"));
             this.getContent().add((Parent) loader.load());
-            NewMenuController controller = loader.getController();
-            controller.setActualFolderId(folderId);
+            NewFileController controller = loader.getController();
+            controller.setActualFolderId(actualFolderId);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
 
     }
@@ -57,13 +53,4 @@ public class NewMenuFx extends Popup {
     public void close() {
         this.hide();
     }
-
-    // public void createNewFolder() {
-    // NewFolderFx pop = new NewFolderFx();
-    // pop.hideOnEscapeProperty().set(true);
-    // pop.autoHideProperty().set(true);
-    // pop.show(newElementBtn, 500, 350);
-    // pop.openClose();
-    // }
-
 }

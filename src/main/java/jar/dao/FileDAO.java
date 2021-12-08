@@ -356,12 +356,12 @@ public class FileDAO {
 		}
 	}
 
-	public static void createFile(String name, String path, String folderID) {
+	public static void createFile(String name, String folderID) {
 		try {
 			String folderId = folderID;
 			File fileMetadata = new File();
 			fileMetadata.setName(name);
-			fileMetadata.setMimeType("application/vnd.google-apps.spreadsheet");
+			fileMetadata.setMimeType("application/vnd.google-apps.document");
 			// path -> "application/vnd.google-apps."
 			// excel -> "spreadsheet"
 			// doc -> "document"
@@ -384,16 +384,16 @@ public class FileDAO {
 		}
 	}
 
-	public static void uploadFile(String name, String folderID) {
+	public static void uploadFile(String folderID) {
 		try {
 			String folderId = folderID;
 			File fileMetadata = new File();
-			fileMetadata.setName(name);
+			fileMetadata.setName("prueba.txt");
 
 			fileMetadata.setParents(Collections.singletonList(folderId));
 			java.io.File filePath = new java.io.File("upload/prueba.txt");
 			// ## Upload an especific file
-			FileContent mediaContent = new FileContent("image/jpeg", filePath);
+			FileContent mediaContent = new FileContent("text/txt", filePath);
 			File file = DriveConnection.service.files().create(fileMetadata, mediaContent)
 					.setFields("id, parents")
 					.execute();
