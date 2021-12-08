@@ -1,13 +1,10 @@
 package jar.controllers;
 
 import jar.dao.FileDAO;
-import jar.graphic.SearchbarFx;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 
 public class NewFolderController {
 
@@ -36,7 +33,6 @@ public class NewFolderController {
     private void create(Event e) {
         FileDAO.createFolder(folderName.getText(), actualFolderId);
         close(e);
-       // HomeController.closeMenu();
     }
 
 }

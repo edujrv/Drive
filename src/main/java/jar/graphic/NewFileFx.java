@@ -3,7 +3,6 @@ package jar.graphic;
 import java.io.IOException;
 
 import jar.controllers.NewFileController;
-import jar.controllers.NewFolderController;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.scene.Parent;

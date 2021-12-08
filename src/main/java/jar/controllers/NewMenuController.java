@@ -5,7 +5,6 @@ import java.io.IOException;
 import jar.dao.FileDAO;
 import jar.graphic.NewFileFx;
 import jar.graphic.NewFolderFx;
-import jar.graphic.NewMenuFx;
 import jar.graphic.SearchbarFx;
 import javafx.event.Event;
 import javafx.event.EventHandler;
