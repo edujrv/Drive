@@ -21,8 +21,6 @@ public class PathRootButton extends PathButton {
             @Override
             public void handle(MouseEvent event) {
                 try {
-                    // hController.reloadFiles(pBtn.getId());
-                    // hController.reloadFolders(pBtn.getId());
                     Pair<String, List<Object>> rfi = hController.reloadFiles(pBtn.getId());
                     Pair<String, List<Object>> rfo = hController.reloadFolders(pBtn.getId());
                     hController.loadNewElements(rfi, rfo);

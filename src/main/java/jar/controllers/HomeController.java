@@ -297,8 +297,6 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        // VBox.setVgrow(fileList, Priority.SOMETIMES);
         List<SpaceButtonFx> aux = new ArrayList<SpaceButtonFx>();
         aux.add(new SpaceButtonFx("miUnidadBtn", "Mi Unidad", this, new Insets(40, 0, 0, 0)));
         aux.add(new SpaceButtonFx("shareBtn", "Compartido", this));
@@ -312,28 +310,19 @@ public class HomeController implements Initializable {
         prevSelectedSpaceBtn = aux.get(0);
 
         spaceVBox.getChildren().addAll(1, aux);
-        aux = null;
 
         try {
-            Pair<String, List<Object>> r1 = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFiles()
-                    .fromMyDrive().myOwnershipOnly().notOrdered().build();
-            try {
-                for (Object obj : r1.getValue())
-                    fileList.getChildren().add(new FileFx((FileDTO) obj, this));
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-            Pair<String, List<Object>> r2 = FileDAO.newQuery().startFromBeginning().defaultPageSize().getFolders()
-                    .fromMyDrive().myOwnershipOnly().notOrdered().build();
-            for (Object obj : r2.getValue())
-                folderList.getChildren().add(new FolderFx((FolderDTO) obj, this));
+            Pair<String, List<Object>> rfi = reloadFiles(aux.get(0).getId());
+            Pair<String, List<Object>> rfo = reloadFolders(aux.get(0).getId());
+
+            loadNewElements(rfi, rfo);
 
             updateSpace();
             loadImageUser();
             setLabels();
             normalView();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException e1) {
+            e1.printStackTrace();
         }
     }
 
@@ -378,14 +367,6 @@ public class HomeController implements Initializable {
             VBox.setVgrow(folderList, Priority.SOMETIMES);
             VBox.setVgrow(fileList, Priority.ALWAYS);
 
-            // Para hacer debug
-            // fileLbls.setBorder(new Border(new BorderStroke(Paint.valueOf("#AAAAAA"),
-            // BorderStrokeStyle.SOLID,
-            // new CornerRadii(0), BorderStroke.THICK)));
-            // folderLbls.setBorder(new Border(new BorderStroke(Paint.valueOf("#B6B6B7"),
-            // BorderStrokeStyle.SOLID,
-            // new CornerRadii(0), BorderStroke.THICK)));
-
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -422,5 +403,4 @@ public class HomeController implements Initializable {
     public static void closeMenu() {
         nuevoMenu.close();
     }
-
 }

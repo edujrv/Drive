@@ -17,7 +17,6 @@ public class SearchbarFx extends Popup {
     TranslateTransition closeNav = new TranslateTransition(new Duration(50), gridpane);
     Timeline openResize = new Timeline();
     Timeline closeResize = new Timeline();
-    private double height = 914.0;
 
     public SearchbarFx() {
 
@@ -28,7 +27,6 @@ public class SearchbarFx extends Popup {
         } catch (Exception e) {
             System.out.println(e);
         }
-
     }
 
     public void openClose() {

@@ -22,7 +22,7 @@ public class ContentType {
 	/*
 	 * Getters.
 	 */
-
+	
 	public TYPE getType() {
 		return type;
 	}

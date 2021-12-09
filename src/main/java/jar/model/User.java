@@ -1,7 +1,5 @@
 package jar.model;
 
-//import com.sun.prism.Texture;
-
 public class User implements Comparable<User> {
 
     private String name;
@@ -58,5 +56,4 @@ public class User implements Comparable<User> {
     public int compareTo(User arg0) {
         return getName().compareTo(arg0.getName());
     }
-
 }

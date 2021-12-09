@@ -34,8 +34,6 @@
       <left>
          <VBox fx:id="spaceVBox" minWidth="-Infinity" prefHeight="958.0" prefWidth="310.0" BorderPane.alignment="CENTER">
             <children>
-
-               <!-- <Button fx:id="newElementBtn" styleClass="left-pane__new-file" minWidth="-Infinity" mnemonicParsing="false" prefHeight="82.0" prefWidth="188.0" text="Nuevo" onMouseClicked="#newFolder"> -->
                <Button fx:id="newElementBtn" styleClass="left-pane__new-file" minWidth="-Infinity" mnemonicParsing="false" prefHeight="82.0" prefWidth="188.0" text="Nuevo" onMouseClicked="#toggleNewMenuPopUp">
 
                   <font>
@@ -78,7 +76,6 @@
                      <Insets top="10.0" />
                   </VBox.margin>
                </HBox>
-               <!-- <Button fx:id="shopBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#buy" onMouseEntered="#buttonGray" onMouseExited="#buttonNormal" prefHeight="45.0" prefWidth="169.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Comprar espacio" textFill="#2d92eb"> -->
                <Button fx:id="shopBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#buy" prefHeight="45.0" prefWidth="169.0" style="-fx-background-radius: 40; -fx-background-color: #F4F4F4;" text="Comprar espacio" textFill="#2d92eb">
                   <font>
                      <Font size="19.0" />
@@ -246,11 +243,6 @@
 
                <Pane fx:id="popupPane" prefHeight="0.0" prefWidth="914.0" BorderPane.alignment="CENTER" maxHeight="Infinity" />
 
-               <!-- <SearchbarFx fx:id="searchSidebar" prefHeight="0.0" prefWidth="914.0" maxWidth="914.0" translateX="19" translateY="-51" BorderPane.alignment="CENTER" />
-
-               </Pane> -->
-
-
                <HBox alignment="CENTER_LEFT" prefHeight="88.0" prefWidth="1614.0">
                   <children>
                      <FlowPane alignment="CENTER_LEFT" fx:id="PathPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="88.0" prefWidth="1145.0">
@@ -320,42 +312,6 @@
                      <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-focus-color: false; -fx-border-color: #cecece #f4f4f4 #f4f4f4 #f4f4f4;">
                         <content>
                            <VBox fx:id="contentView">
-
-                              <!--<children>
-
-
-                                 <FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0">
-                                    <children>
-                                       <Label onMouseEntered="#borderBlue" onMouseExited="#borderNormal" prefHeight="38.0" prefWidth="110.0" style="-fx-text-fill: #3e3e3e; -fx-font: Normal 18 'Agency FB'; -fx-border-width: 3; -fx-border-color: transparent;" text="Carpetas" translateX="50.0" translateY="22.0">
-                                          <font>
-                                             <Font size="18.0" />
-                                          </font>
-                                       </Label>
-                                    </children>
-                                 </FlowPane>
-
-
-                                 <FlowPane fx:id="folderList" prefHeight="500.0"/>
-
-
-                                 <FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0">
-                                    <children>
-                                       <Label onMouseEntered="#borderBlue" onMouseExited="#borderNormal" prefHeight="38.0" prefWidth="110.0" style="-fx-text-fill: #3e3e3e; -fx-font: Normal 18 'Agency FB'; -fx-border-width: 3; -fx-border-color: transparent;" text="Archivos" translateX="50.0" translateY="22.0">
-                                          <font>
-                                             <Font size="18.0" />
-                                          </font>
-                                       </Label>
-                                    </children>
-                                 </FlowPane>
-
-
-                                 <FlowPane fx:id="fileList" prefHeight="500.0"/>
-
-
-
-
-                              </children>-->
-
                            </VBox>
                         </content>
 

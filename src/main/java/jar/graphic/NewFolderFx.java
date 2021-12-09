@@ -11,15 +11,6 @@ import javafx.stage.Popup;
 
 public class NewFolderFx extends Popup {
 
-    // GridPane gridpane = new GridPane();
-    // TranslateTransition openNav = new TranslateTransition(new Duration(50),
-    // gridpane);
-    // TranslateTransition closeNav = new TranslateTransition(new Duration(50),
-    // gridpane);
-    // Timeline openResize = new Timeline();
-    // Timeline closeResize = new Timeline();
-    // private double height = 914.0;
-
     public NewFolderFx(Button btn, String actualFolderId) {
         Bounds pos = btn.localToScreen(btn.getBoundsInLocal());
 

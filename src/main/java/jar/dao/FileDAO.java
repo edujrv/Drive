@@ -348,9 +348,6 @@ public class FileDAO {
 					.execute();
 			System.out.println("Folder ID: " + file.getId());
 
-			// createFile("archivoPrueba", file.getName(), file.getId());
-			// uploadFile("pruebaa", file.getId());
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
